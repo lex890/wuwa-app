@@ -4,16 +4,31 @@ import { getCharacter, getCharactersId } from "../api/encore.js";
 import { Link } from "react-router-dom";
 
 async function getFullRoster() {
-  const idList = await getCharactersId();
-  const rosterList = [];
+  const cached = localStorage.getItem("roster");
 
-  for (const id of idList) {
-    const data = await getCharacter(id);
-    rosterList.push(data);
+  if (cached) {
+    console.log("Using cached roster");
+    return JSON.parse(cached);
   }
-  console.log(rosterList)
+
+  console.log("Fetching roster");
+
+  const idList = await getCharactersId();
+
+  const rosterList = await Promise.all(
+    idList.map(id => getCharacter(id))
+  );
+
+  localStorage.setItem("roster", JSON.stringify(rosterList));
+
   return rosterList;
 }
+
+/*
+function clearCache() {
+  localStorage.removeItem("roster");
+}
+*/
 
 export default function Characters() {
   const [characters, setCharacters] = useState([]);
@@ -22,8 +37,8 @@ export default function Characters() {
   useEffect(() => {
     async function loadCharacters() {
       try {
-        const data = getFullRoster()
-        setCharacters(data)
+        const data = await getFullRoster();
+        setCharacters(data);
       } catch (err) {
         console.error(err);
       } finally {
@@ -33,7 +48,7 @@ export default function Characters() {
 
     loadCharacters();
   }, []);
-
+  console.log(characters)
   if (loading) return <p>Loading...</p>;
 
   return (
@@ -44,7 +59,7 @@ export default function Characters() {
         <div key={char.Id}>
           <Link to={`/character/${char.Id}`}>
             <h2>{char.Name}</h2>
-            <img src={char.RoleHeadIcon} alt={char.Name} />
+            <img src={char.RolePortrait} alt={char.Name.Content} />
           </Link>
         </div>
       ))}
