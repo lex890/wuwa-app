@@ -1,6 +1,6 @@
 const BASE_URL = "https://api-v2.encore.moe/api";
 
-export async function getCharacters(lang = "en") {
+export async function getCharactersId(lang = "en") {
   const response = await fetch(`${BASE_URL}/${lang}/character`);
 
   if (!response.ok) {
@@ -8,7 +8,8 @@ export async function getCharacters(lang = "en") {
   }
 
   const data = await response.json();
-  return data.roleList ?? [];
+
+  return (data.roleList ?? []).map(character => character.Id);
 }
 
 export async function getCharacter(id, lang = "en") {
@@ -16,8 +17,12 @@ export async function getCharacter(id, lang = "en") {
     `${BASE_URL}/${lang}/character/${id}`
   );
 
+  console.log(response.status, response.statusText);
+
   if (!response.ok) {
-    throw new Error("Failed to fetch character");
+    throw new Error(
+      `Failed to fetch character: ${response.status} ${response.statusText}`
+    );
   }
 
   return response.json();

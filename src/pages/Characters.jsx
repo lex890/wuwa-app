@@ -1,7 +1,19 @@
 import { useEffect, useState } from "react";
-import { getCharacters } from "../api/encore.js";
+import { getCharacter, getCharactersId } from "../api/encore.js";
 
 import { Link } from "react-router-dom";
+
+async function getFullRoster() {
+  const idList = await getCharactersId();
+  const rosterList = [];
+
+  for (const id of idList) {
+    const data = await getCharacter(id);
+    rosterList.push(data);
+  }
+  console.log(rosterList)
+  return rosterList;
+}
 
 export default function Characters() {
   const [characters, setCharacters] = useState([]);
@@ -10,8 +22,8 @@ export default function Characters() {
   useEffect(() => {
     async function loadCharacters() {
       try {
-        const data = await getCharacters();
-        setCharacters(data);
+        const data = getFullRoster()
+        setCharacters(data)
       } catch (err) {
         console.error(err);
       } finally {
@@ -29,7 +41,6 @@ export default function Characters() {
       <h1>Characters</h1>
       
       {characters.map((char) => (
-        console.log(char),
         <div key={char.Id}>
           <Link to={`/character/${char.Id}`}>
             <h2>{char.Name}</h2>
