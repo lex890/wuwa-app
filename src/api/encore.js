@@ -1,3 +1,5 @@
+
+
 const BASE_URL = "https://api-v2.encore.moe/api";
 
 export async function getCharactersId(lang = "en") {
