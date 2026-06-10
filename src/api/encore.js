@@ -1,8 +1,19 @@
-
+import fs from "fs";
 
 const BASE_URL = "https://api-v2.encore.moe/api";
 
-export async function getCharactersId(lang = "en") {
+function saveJSON(data, filename = "wuwa.json") {
+  fs.writeFileSync(
+    filename,
+    JSON.stringify(data, null, 2),
+    "utf-8"
+  );
+
+  console.log(`Saved ${filename}`);
+}
+
+
+async function getCharactersId(lang = "en") {
   const response = await fetch(`${BASE_URL}/${lang}/character`);
 
   if (!response.ok) {
@@ -11,21 +22,34 @@ export async function getCharactersId(lang = "en") {
 
   const data = await response.json();
 
-  return (data.roleList ?? []).map(character => character.Id);
+  return (data.roleList ?? []).map(c => c.Id);
 }
 
-export async function getCharacter(id, lang = "en") {
-  const response = await fetch(
-    `${BASE_URL}/${lang}/character/${id}`
-  );
-
-  console.log(response.status, response.statusText);
+async function getCharacter(id, lang = "en") {
+  const response = await fetch(`${BASE_URL}/${lang}/character/${id}`);
 
   if (!response.ok) {
-    throw new Error(
-      `Failed to fetch character: ${response.status} ${response.statusText}`
-    );
+    throw new Error(`Failed to fetch character ${id}`);
   }
 
   return response.json();
 }
+
+async function dumpAllCharacters() {
+  const ids = await getCharactersId();
+
+  const results = [];
+
+  for (const id of ids) {
+    try {
+      const character = await getCharacter(id);
+      results.push(character);
+    } catch (err) {
+      console.error("Failed id:", id, err);
+    }
+  }
+
+  saveJSON(results, "wuwa-characters.json");
+}
+
+dumpAllCharacters();
