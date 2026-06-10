@@ -68,12 +68,18 @@ export default function TierList() {
   const explicitTierMap = useMemo(() => {
     const map = {};
     const add = (names, tier, col) => {
-      names.forEach((n) => (map[nameKey(n)] = { tier, col }));
+      names.forEach((n) => {
+        const key = nameKey(n);
+        if (!map[key]) {
+          map[key] = [];
+        }
+        map[key].push({ tier, col });
+      });
     };
 
-    add(["ameath", "aemeath", "hiyuki", "luuk herssen", "sigrika"], "T0", "DPS");
+    add(["aemeath", "hiyuki", "luuk herssen", "sigrika"], "T0", "DPS");
     add(["denia", "lupa", "lynae", "qiuyuan"], "T0", "HYBRID");
-    add(["chisa", "mornye", "the shorekeeper", "chixia"], "T0", "SUPPORT");
+    add(["chisa", "mornye", "shorekeeper"], "T0", "SUPPORT");
 
     add(["augusta", "cartethyia", "galbrena", "iuno", "lucy", "phrolova"], "T0.5", "DPS");
     add(["ciaccona"], "T0.5", "HYBRID");
@@ -81,17 +87,17 @@ export default function TierList() {
 
     add(["carlotta"], "T1", "DPS");
     add(["iuno", "rebecca"], "T1", "HYBRID");
-    add(["rover aero", "rover: aero"], "T1", "SUPPORT");
+    add(["rover: aero", "rover aero"], "T1", "SUPPORT");
 
     add(["brant", "jiyan", "phoebe", "zani"], "T1.5", "DPS");
     add(["brant", "mortefi"], "T1.5", "HYBRID");
-    add(["rover spectro", "rover: spectro"], "T1.5", "SUPPORT");
+    add(["rover: spectro", "rover spectro"], "T1.5", "SUPPORT");
 
     add(["camellya", "encore", "jinhsi"], "T2", "DPS");
     add(["cantarella", "changli", "phoebe", "sanhua", "zhezhi"], "T2", "HYBRID");
     add(["buling"], "T2", "SUPPORT");
 
-    add(["lingyang", "rover havoc", "rover: havoc", "xiangli yao"], "T3", "DPS");
+    add(["lingyang", "rover: havoc", "rover havoc", "xiangli yao"], "T3", "DPS");
     add(["danjin", "roccia", "yinlin"], "T3", "HYBRID");
     add(["baizhi"], "T3", "SUPPORT");
 
@@ -179,8 +185,12 @@ export default function TierList() {
     sorted.forEach((character, index) => {
       const nk = nameKey(character.name);
       const explicit = explicitTierMap[nk];
-      if (explicit && TIER_ROWS.includes(explicit.tier) && ROLE_COLUMNS.includes(explicit.col)) {
-        rows[explicit.tier][explicit.col].push(character);
+      if (Array.isArray(explicit)) {
+        explicit.forEach(({ tier, col }) => {
+          if (TIER_ROWS.includes(tier) && ROLE_COLUMNS.includes(col)) {
+            rows[tier][col].push(character);
+          }
+        });
         return;
       }
       // fallback distribution: fill tiers by groups of 8 (binocular viewport)
