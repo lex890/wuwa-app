@@ -1,3 +1,5 @@
+import './Admin.scss'
+
 function Admin({ data }) {
   console.log(data)
   return(
