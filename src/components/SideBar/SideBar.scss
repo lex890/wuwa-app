@@ -5,7 +5,7 @@ nav#side-bar {
   display: flex;
   flex-direction: column;
   border-right: 1px solid #373737;
-  
+  grid-row: 1 / 3;
   a {
     font-size: 1em;
     display: flex;
@@ -28,7 +28,7 @@ nav#side-bar {
       padding: 0;
     }
   }
-  a:hover {
+  a:hover:not(:first-child) {
     transform: translate(0.6em);
     cursor: pointer;
   }
