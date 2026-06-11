@@ -1,0 +1,42 @@
+
+
+nav#side-bar {
+  font-size: 16px;
+  display: flex;
+  flex-direction: column;
+  border-right: 1px solid #373737;
+  
+  a {
+    font-size: 1em;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    text-decoration: none;
+    width: auto;
+    padding: 0.8em 1.8em;
+    gap: 0.8em;
+    transition: transform 120ms;
+
+    svg {
+      max-width: 12%;
+      height: auto;
+    }
+    span {
+      font-size: 1em;
+      font-weight: 400;
+      color: white;
+      padding: 0;
+    }
+  }
+  a:hover {
+    transform: translate(0.6em);
+    cursor: pointer;
+  }
+  span {
+    font-weight: 700;
+    text-align: start;
+    padding: 0.2em 1.8em;
+    font-size: 0.75em;
+    color: #858282;
+  }
+}
