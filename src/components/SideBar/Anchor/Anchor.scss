@@ -1,0 +1,36 @@
+
+a.nav-item, a.title {
+  font-size: 1em;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  text-decoration: none;
+  width: auto;
+  padding: 0.8em 1.8em;
+  gap: 0.8em;
+  transition: transform 120ms;
+
+  > svg {
+    max-width: 12%;
+    height: auto;
+  }
+  > span {
+    font-size: 1em;
+    font-weight: 400;
+    color: white;
+    padding: 0;
+  }
+}
+a.title {
+  height: 3%;
+  margin-bottom: 50px;
+  padding: 1.7em 1.8em 0;
+}
+
+a.title:hover {
+  cursor: pointer;
+}
+a:hover:not(:first-child) {
+  transform: translate(0.6em);
+  cursor: pointer;
+}

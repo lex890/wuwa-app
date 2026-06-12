@@ -2,6 +2,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { supabase } from "./api/supabase.js";
 import Admin from "./pages/Admin/Admin.jsx"
+// import process from './api/clean.js'
 
 export default function App() {
 
@@ -12,14 +13,15 @@ export default function App() {
     async function fetchData() {
       const { data, error } = await supabase
         .from("wuwa-data")
-        .select("*")
+        .select(`payload`);
 
       if (error) {
         console.error(error)
         return
       }
-
-      setCharData(data)
+      console.log(data)
+      // const result = process(data) 
+      setCharData(data) // result
     }
 
     fetchData();
