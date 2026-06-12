@@ -2,7 +2,7 @@ import ReactIcon from '../../../assets/react.svg'
 
 function Title() {
   return(
-    <a href="/" class="title">
+    <a href="/" className="title">
       <img src={ReactIcon} alt="" />
       <span>Sonoro</span>
     </a>
