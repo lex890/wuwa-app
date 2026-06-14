@@ -1,16 +1,20 @@
 import './Admin.scss'
 import NavBar from '../../components/NavBar/NavBar'
 import SideBar from '../../components/SideBar/SideBar'
-import Content from './Content/Content.jsx'
+import { Outlet } from "react-router-dom";
 
-function Admin({ data }) {
-  console.log(data)
+function Admin() {
   return(
     <>
       <div className="admin">
         <NavBar />
         <SideBar />
-        <Content />
+
+        <div className="content">
+          <div className="main-wrapper">
+            <Outlet />
+          </div>
+        </div>
       </div>
     </>
   )
