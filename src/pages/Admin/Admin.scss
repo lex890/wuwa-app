@@ -16,15 +16,13 @@ div.admin{
 
     div.main-wrapper {
       box-sizing: border-box;
-      border: 1px solid rgb(92, 92, 92);
       height: 100%;
-      width: calc(100% - 420px);
+      width: calc(100% - 320px);
       position: relative;
-
-      div.header-container {
-        display: flex;
-      }
-
+      display: flex;
+      flex-direction: column;
+      gap: 1em;
+      padding: 2em 16%;
     }
   }
 

@@ -1,13 +1,21 @@
-function Card({ Icon, name, amount }) {
-  return(
-    <>
-      <div>
+import { Link } from "react-router-dom";
+
+function Card({ Icon, name, amount, to="/admin/home" }) {
+  return (
+    <Link to={to} className="cards">
+      <div className="card-icon">
         <Icon />
-        <div><span>{name}</span></div>
-        <div><span>{amount}</span></div>
       </div>
-    </>
-  )
+
+      <div className="card-name">
+        <span>{name}</span>
+      </div>
+
+      <div className="card-amount">
+        <span>{amount}</span>
+      </div>
+    </Link>
+  );
 }
 
-export default Card
+export default Card;

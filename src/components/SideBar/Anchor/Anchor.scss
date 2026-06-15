@@ -1,5 +1,5 @@
-
-a.nav-item, a.title {
+nav#side-bar {
+  > a.nav-item, a.title {
   font-size: 1em;
   display: flex;
   align-items: center;
@@ -29,7 +29,7 @@ a.nav-item, a.title {
   }
 }
 
-a.title {
+> a.title {
   display: flex;
   gap: 5px;
   height: 3%;
@@ -39,10 +39,11 @@ a.title {
   letter-spacing: 0.1em;
 }
 
-a.title:hover {
+> a.nav-item:hover {
   cursor: pointer;
 }
-a:hover:not(:first-child) {
-  transform: translate(0.6em);
-  cursor: pointer;
+> a.nav-item:not(:first-of-type):hover {
+  transform: translateX(0.6em);
 }
+}
+

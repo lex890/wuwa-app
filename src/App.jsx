@@ -64,18 +64,18 @@ export default function App() {
   
   return (
     <BrowserRouter>
-      <Routes> 
-        <Route path="/admin/home" element={<Admin />}>
-          <Route index element={<Home data={{characters, weapons, echoes}}/>} />
-          <Route path="character" element={<Characters data={characters}/>} />
-          <Route path="echo" element={<Echoes data={echoes}/>} />
-          <Route path="weapon" element={<Weapons data={weapons}/>} />
+      <Routes>
+        <Route path="/admin" element={<Admin />}>
+          <Route index element={<Navigate to="home" replace />} />
+
+          <Route path="home" element={<Home data={{ characters, weapons, echoes }} />} />
+          <Route path="character" element={<Characters data={characters} />} />
+          <Route path="echo" element={<Echoes data={echoes} />} />
+          <Route path="weapon" element={<Weapons data={weapons} />} />
         </Route>
-        { /* <Route path="/login" element={<Login />} /> */ }
-        
+
         <Route path="/" element={<Navigate to="/admin/home" replace />} />
       </Routes>
-      
     </BrowserRouter>
   );
 }

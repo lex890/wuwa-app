@@ -4,8 +4,12 @@ function Characters({ data }) {
   console.log('num of data: ', data.length)
   return(
     <>      
-      <div className="header-container">
-        <h1>Characters Admin Page</h1>
+      <div className="char-list">
+        <ul>
+          {data.map(char => 
+            <li>{char.id}</li>
+          )}
+        </ul>
       </div>
     </>
   )
