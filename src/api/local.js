@@ -1,8 +1,6 @@
 // util functions for localStorage caching
 
-const CACHE_KEY = "wuwa-data";
-
-export function getCachedData() {
+export function getCachedData(CACHE_KEY) {
   const cached = localStorage.getItem(CACHE_KEY);
   try {
     return JSON.parse(cached);
@@ -12,7 +10,7 @@ export function getCachedData() {
   }
 }
 
-export function setCachedData(data) {
+export function setCachedData(data, CACHE_KEY) {
   try {
     console.log("saving data: ", {
       size: Array.isArray(data) ? data.length : "non-array",

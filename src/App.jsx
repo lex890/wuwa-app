@@ -10,27 +10,50 @@ import Echoes from "./pages/Admin/Echoes/Echoes.jsx"
 
 export default function App() {
 
-  const [charData, setStateData] = useState([])
-  // const [ users, setUsers ] = useState([])
-
+  const [characters, setCharacters] = useState([])
+  const [weapons, setWeapons] = useState([])
+  const [echoes, setEchoes] = useState([])
+  
   useEffect(() => {
     (async () => {
       try {
-        const cache = getCachedData()
+        const local_char = getCachedData("wuwa-character")
+        const local_weapon = getCachedData("wuwa-weapon")
+        const local_echo = getCachedData("wuwa-echo")
 
-        if (cache !== null){
-          setStateData(cache.data)
-          console.log("loaded cache")
+        if (local_char !== null && 
+            local_weapon !== null && 
+            local_echo !== null) {
+          setCharacters(local_char.data)
+          setWeapons(local_weapon.data)
+          setEchoes(local_echo.data)
+          
           return
         }
 
-        const { data, error } = await supabase
-          .from("wuwa_characters") // "wuwa_weapons", "wuwa_echoes", etc...
-          .select("*");
+        const [
+          { data: s_char, error: c_error },
+          { data: s_weap, error: w_error },
+          { data: s_echo, error: e_error }
+        ] = await Promise.all([
+          supabase.from("wuwa_characters").select("*"),
+          supabase.from("wuwa_weapons").select("*"),
+          supabase.from("wuwa_echoes").select("*")
+        ]);
 
-        if (!error && data.length > 0) {
-          setCachedData(data)
-          setStateData(data)
+        if (!c_error && s_char?.length > 0) {
+          setCachedData(s_char, "wuwa-character")
+          setCharacters(s_char)
+        }
+
+        if (!w_error && s_weap?.length > 0) {
+          setCachedData(s_weap, "wuwa-weapon")
+          setWeapons(s_weap)
+        }
+
+        if (!e_error && s_echo?.length > 0) {
+          setCachedData(s_echo, "wuwa-echo")
+          setEchoes(s_echo)
         }
       } catch (err) {
         console.error(err)
@@ -38,15 +61,15 @@ export default function App() {
       })();
   }, []);
   
-
+  
   return (
     <BrowserRouter>
       <Routes> 
         <Route path="/admin/home" element={<Admin />}>
-          <Route index element={<Home data={charData}/>} />
-          <Route path="character" element={<Characters data={charData}/>} />
-          <Route path="echo" element={<Echoes data={charData}/>} />
-          <Route path="weapon" element={<Weapons data={charData}/>} />
+          <Route index element={<Home data={{characters, weapons, echoes}}/>} />
+          <Route path="character" element={<Characters data={characters}/>} />
+          <Route path="echo" element={<Echoes data={echoes}/>} />
+          <Route path="weapon" element={<Weapons data={weapons}/>} />
         </Route>
         { /* <Route path="/login" element={<Login />} /> */ }
         
