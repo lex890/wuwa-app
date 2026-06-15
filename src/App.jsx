@@ -4,6 +4,9 @@ import { supabase } from "./api/supabase.js"
 import { getCachedData, setCachedData } from "./api/local.js"
 import Admin from "./pages/Admin/Admin.jsx"
 import Home from "./pages/Admin/Home/Home.jsx"
+import Characters from "./pages/Admin/Characters/Characters.jsx"
+import Weapons from "./pages/Admin/Weapons/Weapons.jsx"
+import Echoes from "./pages/Admin/Echoes/Echoes.jsx"
 
 export default function App() {
 
@@ -22,7 +25,7 @@ export default function App() {
         }
 
         const { data, error } = await supabase
-          .from("wuwa_characters")
+          .from("wuwa_characters") // "wuwa_weapons", "wuwa_echoes", etc...
           .select("*");
 
         if (!error && data.length > 0) {
@@ -39,8 +42,11 @@ export default function App() {
   return (
     <BrowserRouter>
       <Routes> 
-        <Route path="/" element={<Admin />}>
+        <Route path="/admin" element={<Admin />}>
           <Route index element={<Home data={charData}/>} />
+          <Route path="character" element={<Characters data={charData}/>} />
+          <Route path="echo" element={<Echoes data={charData}/>} />
+          <Route path="weapon" element={<Weapons data={charData}/>} />
         </Route>
         { /* <Route path="/login" element={<Login />} /> */ }
       </Routes>
