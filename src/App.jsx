@@ -1,4 +1,4 @@
-import { BrowserRouter, Routes, Route } from "react-router-dom"
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom"
 import { useEffect, useState } from "react"
 import { supabase } from "./api/supabase.js"
 import { getCachedData, setCachedData } from "./api/local.js"
@@ -42,14 +42,17 @@ export default function App() {
   return (
     <BrowserRouter>
       <Routes> 
-        <Route path="/admin" element={<Admin />}>
+        <Route path="/admin/home" element={<Admin />}>
           <Route index element={<Home data={charData}/>} />
           <Route path="character" element={<Characters data={charData}/>} />
           <Route path="echo" element={<Echoes data={charData}/>} />
           <Route path="weapon" element={<Weapons data={charData}/>} />
         </Route>
         { /* <Route path="/login" element={<Login />} /> */ }
+        
+        <Route path="/" element={<Navigate to="/admin/home" replace />} />
       </Routes>
+      
     </BrowserRouter>
   );
 }
