@@ -4,7 +4,9 @@ import './Anchor.scss'
 function Anchor({ Image, text }) {
   return(
     <a className='nav-item'>  
-      <Image />
+      <div className="icon-container">
+        <Image />
+      </div>
       <span>{text}</span>
     </a>
   )

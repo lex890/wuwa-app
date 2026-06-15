@@ -1,10 +1,12 @@
 import './Home.scss'
 
 function Home({ data }) {
-  console.log(data)
+  console.log('num of data: ', data.length)
   return(
     <>      
-      <h1>Welcome, Admin!</h1>
+      <div className="header-container">
+        <h1>Welcome, Admin!</h1>
+      </div>
     </>
   )
 }

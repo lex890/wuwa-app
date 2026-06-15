@@ -1,6 +1,7 @@
 import fs from "fs";
 
 const BASE_URL = "https://api-v2.encore.moe/api";
+const category = "echo" // character / weapon / echo / items / etc...
 
 function saveJSON(data, filename = "wuwa.json") {
   fs.writeFileSync(
@@ -13,8 +14,8 @@ function saveJSON(data, filename = "wuwa.json") {
 }
 
 
-async function getCharactersId(lang = "en") {
-  const response = await fetch(`${BASE_URL}/${lang}/character`);
+async function getWeapons(lang = "en") {
+  const response = await fetch(`${BASE_URL}/${lang}/${category}`);
 
   if (!response.ok) {
     throw new Error("Failed to fetch characters");
@@ -22,34 +23,14 @@ async function getCharactersId(lang = "en") {
 
   const data = await response.json();
 
-  return (data.roleList ?? []).map(c => c.Id);
+  return data.Echo;
 }
 
-async function getCharacter(id, lang = "en") {
-  const response = await fetch(`${BASE_URL}/${lang}/character/${id}`);
-
-  if (!response.ok) {
-    throw new Error(`Failed to fetch character ${id}`);
-  }
-
-  return response.json();
-}
 
 async function dumpAllCharacters() {
-  const ids = await getCharactersId();
+  const ids = await getWeapons();
 
-  const results = [];
-
-  for (const id of ids) {
-    try {
-      const character = await getCharacter(id);
-      results.push(character);
-    } catch (err) {
-      console.error("Failed id:", id, err);
-    }
-  }
-
-  saveJSON(results, "wuwa-characters.json");
+  saveJSON(ids, "wuwa-echoes.json");
 }
 
 dumpAllCharacters();

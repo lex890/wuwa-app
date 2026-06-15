@@ -1,4 +1,4 @@
-import ReactIcon from '../../../assets/react.svg'
+import ReactIcon from '../../../assets/svg/react.svg'
 
 function Title() {
   return(
