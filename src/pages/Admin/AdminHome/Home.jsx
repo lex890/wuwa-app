@@ -2,7 +2,7 @@ import './Home.scss'
 import Header from "../../../components/Header.jsx"
 import Card from "../../../components/Card.jsx"
 
-import CharacterIcon from '../../../../src/assets/components/CharacterIcon.jsx'
+import CharacterIcon from '../../../assets/components/CharacterIcon.jsx'
 import WeaponIcon from '../../../assets/components/WeaponIcon.jsx'
 import EchoesIcon from '../../../assets/components/EchoIcon.jsx'
 import TierListIcon from '../../../assets/components/TierlistIcon.jsx'
@@ -47,19 +47,19 @@ function Home(props) {
               Icon={CharacterIcon} 
               name={"Characters"} 
               amount={characters.length}
-              to={"/admin/character"}
+              to={"character"}
             />
             <Card 
               Icon={WeaponIcon} 
               name={"Weapons"} 
               amount={weapons.length}
-              to={"/admin/weapon"}
+              to={"weapon"}
             />
             <Card 
               Icon={EchoesIcon} 
               name={"Echoes"} 
               amount={echoes.length}
-              to={"/admin/echo"}
+              to={"echo"}
             />
           </div>
         </div>

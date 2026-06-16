@@ -1,0 +1,18 @@
+div.char-list {
+  background-color: red;
+  height: 100%;
+  overflow: hidden;
+  >ul {
+    padding: 0;
+    margin: 0;
+    >li.character-list {
+      background-color: green;
+      
+
+      >div {
+        display: flex;
+        justify-content: space-evenly;
+      }
+    }
+  }
+}

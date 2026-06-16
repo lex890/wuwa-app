@@ -2,10 +2,10 @@
 import './Anchor.scss'
 import { NavLink } from "react-router-dom";
 
-function Anchor({ Image, text, to="/home" }) {
+function Anchor({ Image, text, to="" }) {
   return(
     <NavLink
-      to={`/admin/${to}`}
+      to={to}
       className={({ isActive }) =>
         isActive ? "active nav-item" : "nav-item"
       }

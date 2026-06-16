@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 
-function Card({ Icon, name, amount, to="/admin/home" }) {
+function Card({ Icon, name, amount, to="" }) {
   return (
     <Link to={to} className="cards">
       <div className="card-icon">

@@ -13,6 +13,7 @@ div.admin{
     display: flex;
     align-items: center;
     justify-content: center;
+    min-height: 0;
 
     div.main-wrapper {
       box-sizing: border-box;
@@ -23,6 +24,11 @@ div.admin{
       flex-direction: column;
       gap: 1em;
       padding: 2em 16%;
+
+      div.character-list {
+        min-height: 0;
+        overflow: hidden;
+      }
     }
   }
 
