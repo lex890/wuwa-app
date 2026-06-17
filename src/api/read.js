@@ -1,7 +1,7 @@
 import { supabase } from "./supabase";
 import { getCachedData, setCachedData } from "../utils/local";
 
-export async function getWuwaData() {
+async function readData() {
   try {
     const localChar = getCachedData("wuwa-character");
     const localWeapon = getCachedData("wuwa-weapon");
@@ -52,3 +52,5 @@ export async function getWuwaData() {
     };
   }
 }
+
+export default readData

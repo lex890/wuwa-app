@@ -1,6 +1,6 @@
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom"
 import { useEffect, useState } from "react"
-import { getWuwaData } from "./api/read.js"
+import readDB from "./api/read"
 
 import Admin from "./pages/Admin/Admin.jsx"
 import Home from "./pages/Admin/AdminHome/Home.jsx"
@@ -17,11 +17,12 @@ export default function App() {
   
   useEffect(() => {
     (async () => {
-      const { characters, weapons, echoes } = await getWuwaData();
-
-      setCharacters(characters);
-      setWeapons(weapons);
-      setEchoes(echoes);
+      const { characters, weapons, echoes } = await readDB()
+      
+      // updating states
+      setCharacters(characters)
+      setWeapons(weapons)
+      setEchoes(echoes)
     })();
   }, []);
   

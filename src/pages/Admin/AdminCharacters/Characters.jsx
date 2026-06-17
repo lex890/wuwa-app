@@ -4,51 +4,55 @@ import Header from '../../../components/Header'
 import List from '../../../components/List'
 import Button from '../../../components/Button'
 
-import { supabase } from '../../../api/supabase'
 import { useState, useEffect } from "react";
+import deleteRow from '../../../api/delete'
+import updateRow from '../../../api/update'
 
 function Characters({ data }) {
   const [characters, setCharacters] = useState([]);
   const [deletedIds, setDeletedIds] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
+  const [row, setRowChanges] = useState()
 
   const ITEMS_PER_PAGE = 10;
+  const dbName = "wuwa_characters"
 
   useEffect(() => {
-    setCharacters(data);
-  }, [data]);
+    setCharacters(data)
+  }, [data])
 
-  const handleDelete = (id) => {
-    setCharacters(prev => prev.filter(char => char.id !== id));
-    setDeletedIds(prev => [...prev, id]);
+  const handleDelete = (dbName, id) => {
+    setCharacters(prev => prev.filter(char => char.id !== id)) 
+    setDeletedIds(prev => [...prev, id])
 
-    // Optional: move back a page if current page becomes empty
     const newLength = characters.length - 1;
-    const maxPage = Math.ceil(newLength / ITEMS_PER_PAGE);
+    const maxPage = Math.ceil(newLength / ITEMS_PER_PAGE)
 
     if (currentPage > maxPage && maxPage > 0) {
-      setCurrentPage(maxPage);
+      setCurrentPage(maxPage)
     }
-  };
+  }
 
   const handleSave = async () => {
-    if (!deletedIds.length) return;
-
-    const { error } = await supabase
-      .from("characters")
-      .delete()
-      .in("id", deletedIds);
-
-    if (error) {
-      console.error(error);
-      return;
-    }
-
-    setDeletedIds([]);
+    if (!deletedIds.length) return
+    await deleteRow(dbName, deletedIds)
+    setDeletedIds([])
+    handleFetch()
     console.log("Saved!");
-  };
+  }
 
-  // Pagination
+  const handleFetch = () => {
+    localStorage.clear()
+  }
+
+  const handleEdit = () => {
+    const newLength = characters.length - 1
+    const maxPage = Math.ceil(newLength / ITEMS_PER_PAGE)
+    setCurrentPage(maxPage)
+    console.log(characters)
+    // await updateRow()
+  }
+
   const totalPages = Math.ceil(characters.length / ITEMS_PER_PAGE);
 
   const paginatedCharacters = characters.slice(
@@ -61,8 +65,12 @@ function Characters({ data }) {
       <Header />
 
       <div className="char-list">
-        <Button text="Save Changes" onClick={handleSave} />
-
+        <div id="tools">
+          <Button text="Save Changes" onClick={handleSave} />
+          <Button text="Fetch Latest" onClick={handleFetch} />
+          <Button text="Add New" onClick={handleFetch} />
+        </div>
+        
         <List
           items={paginatedCharacters}
           renderItem={(char) => (
@@ -74,11 +82,11 @@ function Characters({ data }) {
 
                 <Button
                   text="Edit"
-                  onClick={() => console.log("handleEdit()")}
+                  onClick={() => handleEdit()}
                 />
                 <Button
                   text="Delete"
-                  onClick={() => handleDelete(char.id)}
+                  onClick={() => handleDelete(dbName, char.id)}
                 />
               </div>
             </li>
