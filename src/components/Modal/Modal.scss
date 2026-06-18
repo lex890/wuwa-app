@@ -1,0 +1,21 @@
+
+div.modal-overlay {
+  position: fixed;
+  inset: 0;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  background: rgba(0, 0, 0, 0.3);
+  backdrop-filter: blur(8px);
+}
+
+div.modal-popup {
+  background-color: rgb(38 32 87);
+  position: absolute;
+}
+
+div.hide {
+  display: none;
+}

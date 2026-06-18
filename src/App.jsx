@@ -1,6 +1,6 @@
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom"
 import { useEffect, useState } from "react"
-import readDB from "./api/read"
+import readTable from "./api/read"
 
 import Admin from "./pages/Admin/Admin.jsx"
 import Home from "./pages/Admin/AdminHome/Home.jsx"
@@ -15,16 +15,18 @@ export default function App() {
   const [weapons, setWeapons] = useState([])
   const [echoes, setEchoes] = useState([])
   
+  const loadData = async () => {
+    const { characters, weapons, echoes } = await readTable()
+
+    setCharacters(characters)
+    setWeapons(weapons)
+    setEchoes(echoes)
+  }
+
   useEffect(() => {
-    (async () => {
-      const { characters, weapons, echoes } = await readDB()
-      
-      // updating states
-      setCharacters(characters)
-      setWeapons(weapons)
-      setEchoes(echoes)
-    })();
-  }, []);
+    // eslint-disable-next-line react-hooks/set-state-in-effect
+    loadData()
+  }, [])
   
   
   return (
@@ -35,7 +37,7 @@ export default function App() {
         <Route path="/home" element={<Admin />}>
           <Route index element={<Home data={{ characters, weapons, echoes }} />} />
 
-          <Route path="character" element={<Characters data={characters} />} />
+          <Route path="character" element={<Characters data={characters} reload={loadData}/>} />
           <Route path="echo" element={<Echoes data={echoes} />} />
           <Route path="weapon" element={<Weapons data={weapons} />} />
         </Route>

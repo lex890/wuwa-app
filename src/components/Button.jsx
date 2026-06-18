@@ -1,6 +1,6 @@
-function Button({ text = "button", onClick, disabled }) {
+function Button({ text = "button", onClick, disabled, dataId="" }) {
   return (
-    <button onClick={onClick} disabled={disabled}>
+    <button onClick={onClick} disabled={disabled} data-id={dataId}>
       {text}
     </button>
   )

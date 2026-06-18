@@ -3,25 +3,31 @@ import './Characters.scss'
 import Header from '../../../components/Header'
 import List from '../../../components/List'
 import Button from '../../../components/Button'
+import Modal from '../../../components/Modal/Modal'
+import Form from '../../../components/Form'
 
 import { useState, useEffect } from "react";
 import deleteRow from '../../../api/delete'
 import updateRow from '../../../api/update'
 
-function Characters({ data }) {
+const ITEMS_PER_PAGE = 10;
+const dbName = "wuwa_characters"
+
+function Characters({ data, reload }) {
   const [characters, setCharacters] = useState([]);
   const [deletedIds, setDeletedIds] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
-  const [row, setRowChanges] = useState()
-
-  const ITEMS_PER_PAGE = 10;
-  const dbName = "wuwa_characters"
+  const [selectedCharacter, setSelectedCharacter] = useState({})
+  const [modalState, setModalState] = useState(false)
 
   useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     setCharacters(data)
   }, [data])
 
-  const handleDelete = (dbName, id) => {
+  const handleDelete = async (dbName, id) => {
+    await deleteRow(dbName, deletedIds)
+
     setCharacters(prev => prev.filter(char => char.id !== id)) 
     setDeletedIds(prev => [...prev, id])
 
@@ -33,67 +39,83 @@ function Characters({ data }) {
     }
   }
 
-  const handleSave = async () => {
-    if (!deletedIds.length) return
-    await deleteRow(dbName, deletedIds)
-    setDeletedIds([])
-    handleFetch()
-    console.log("Saved!");
+  const handleDummy = () => {
+    reload()
   }
 
-  const handleFetch = () => {
-    localStorage.clear()
+  const handleCloseEdit = () => {
+    setSelectedCharacter({})
+    setModalState(false)
   }
 
-  const handleEdit = () => {
-    const newLength = characters.length - 1
-    const maxPage = Math.ceil(newLength / ITEMS_PER_PAGE)
-    setCurrentPage(maxPage)
-    console.log(characters)
-    // await updateRow()
+  const handleOpenEdit = (e) => {
+    const targetId = Number(e.target.dataset.id)
+    const targetRow = characters.find(char => char.id === targetId)
+    
+    setSelectedCharacter(targetRow)
+    setModalState(true)
   }
 
+  const handleEditSubmit = async (data) => {
+
+    const result = await updateRow(dbName, data)
+
+    if (result.error) {
+      console.error(result.error)
+      return
+    }
+    console.log('Edited successfully')
+    setModalState(false)
+  }
+  /* 
+    const handleSaveEdit = (row) => {
+      await updateRow()
+    }
+  */
   const totalPages = Math.ceil(characters.length / ITEMS_PER_PAGE);
 
   const paginatedCharacters = characters.slice(
     (currentPage - 1) * ITEMS_PER_PAGE,
     currentPage * ITEMS_PER_PAGE
   );
-  console.log(currentPage)
+
   return (
     <>
       <Header />
 
       <div className="char-list">
-        <div id="tools">
-          <Button text="Save Changes" onClick={handleSave} />
-          <Button text="Fetch Latest" onClick={handleFetch} />
-          <Button text="Add New" onClick={handleFetch} />
+        <div className="tools">
+          <Button text="Save" onClick={() => reload()} />
+          <Button text="Fetch Latest" onClick={handleDummy} />
+          <Button text="Add New" onClick={handleDummy} />
         </div>
-        
-        <List
-          items={paginatedCharacters}
-          renderItem={(char) => (
-            <li key={char.id} className="character-list">
-              <div>
-                <span>{char.name}</span>
-                <p>{char.element_type}</p>
-                <p>{char.weapon_type}</p>
+        <div className="list-container">
+          <List
+            items={paginatedCharacters}
+            renderItem={(char) => (
+              <li key={char.id} className="character-list">
+                <div>
+                  <span>{char.name}</span>
+                  <p>{char.element_type}</p>
+                  <p>{char.weapon_type}</p>
 
-                <Button
-                  text="Edit"
-                  onClick={() => handleEdit()}
-                />
-                <Button
-                  text="Delete"
-                  onClick={() => handleDelete(dbName, char.id)}
-                />
-              </div>
-            </li>
-          )}
-        />
+                  <Button
+                    text="Edit"
+                    onClick={(e) => handleOpenEdit(e)}
+                    dataId={char.id}
+                  />
+                  <Button
+                    text="Delete"
+                    onClick={() => handleDelete(dbName, char.id)}
+                  />
+                </div>
+              </li>
+            )}
+          />
+        </div>
 
-        <div className="pagination">
+
+        <div className="pagination flex-row">
           <Button
             text="Previous"
             onClick={() => setCurrentPage(prev => prev - 1)}
@@ -111,6 +133,16 @@ function Characters({ data }) {
           />
         </div>
       </div>
+      <Modal 
+        hidden={modalState}
+        Content={ modalState && (
+            <Form 
+              data={characters}
+              selected={selectedCharacter}
+              close={() => handleCloseEdit()}
+              submit={handleEditSubmit}
+            />
+        )}/>
     </>
   );
 }
