@@ -265,7 +265,7 @@ export default function TierBuilder({ data = [] }) {
     const expanded = expandedId === character.id;
     return (
       <article
-        key={character.id}
+        key={`${character.id}-${character.name}`}
         draggable
         onDragStart={(event) => handleDragStart(event, character.id)}
         className="character-card"

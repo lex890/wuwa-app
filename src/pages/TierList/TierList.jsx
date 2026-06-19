@@ -263,7 +263,7 @@ export default function TierList({ data = [] }) {
   const renderCard = (character) => {
     return (
       <article
-        key={character.id}
+        key={`${character.id}-${character.name}`}
         className="quality-card"
         onClick={() => setSelectedCharacter(character)}
       >
