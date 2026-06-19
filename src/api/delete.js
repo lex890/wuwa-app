@@ -11,10 +11,11 @@ async function deleteRow(table, ids) {
 
     if (error) throw error
 
-    return null;
+    
   } catch (error) {
-    return error;
+    return error
   }
+  return null
 }
 
 export default deleteRow

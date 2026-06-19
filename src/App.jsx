@@ -15,8 +15,8 @@ export default function App() {
   const [weapons, setWeapons] = useState([])
   const [echoes, setEchoes] = useState([])
   
-  const loadData = async () => {
-    const { characters, weapons, echoes } = await readTable()
+  const loadData = async (forceRefresh = false) => {
+    const { characters, weapons, echoes } = await readTable(forceRefresh)
 
     setCharacters(characters)
     setWeapons(weapons)
@@ -37,7 +37,7 @@ export default function App() {
         <Route path="/home" element={<Admin />}>
           <Route index element={<Home data={{ characters, weapons, echoes }} />} />
 
-          <Route path="character" element={<Characters data={characters} reload={loadData}/>} />
+          <Route path="character" element={<Characters data={characters} reload={(truth) => loadData(truth)}/>} />
           <Route path="echo" element={<Echoes data={echoes} />} />
           <Route path="weapon" element={<Weapons data={weapons} />} />
         </Route>

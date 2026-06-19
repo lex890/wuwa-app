@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 
 import InputLabel from "./InputLabel"
+import SelectLabel from "./SelectLabel"
 
 function Form({ data, selected, close, submit }) {
   const [formData, setFormData] = useState(selected ?? {})
@@ -12,9 +13,14 @@ function Form({ data, selected, close, submit }) {
   }, [selected])
 
   const handleChange = (field, value) => {
+    setError("")
+
+    const parsedValue =
+      field === "id" ? Number(value) : value;
+
     setFormData(prev => ({
       ...prev,
-      [field]: value
+      [field]: parsedValue
     }))
   }
 
@@ -23,18 +29,27 @@ function Form({ data, selected, close, submit }) {
 
   const handleSubmit = (e) => {
     e.preventDefault()
+    
+    const hasEmptyFields = Object.entries(formData).some(
+      // eslint-disable-next-line no-unused-vars
+      ([_, value]) =>
+        value === "" ||
+        value === null ||
+        value === undefined
+    )
 
-    if (!hasChanges) {
-      setError("No changes detected.");
-      return;
+    if (hasEmptyFields) {
+      setError("Please fill in all fields.");
+      return
     }
 
-    // Exclude the current record being edited
-    const otherRecords = data.filter(
-      record => record.id !== selected.id
-    )
-    // Check for duplicate ID
-    const duplicateId = otherRecords.some(
+    const isEditing = selected?.id !== "";
+
+    const recordsToCheck = isEditing
+      ? data.filter(record => record.id !== selected.id)
+      : data
+
+    const duplicateId = recordsToCheck.some(
       record => record.id === formData.id
     )
 
@@ -42,7 +57,7 @@ function Form({ data, selected, close, submit }) {
       setError("ID already exists.")
       return
     }
-
+    console.log('I am here')
     setError("")
     submit(formData)
   }
@@ -50,19 +65,72 @@ function Form({ data, selected, close, submit }) {
   return(
     <>
       <form onSubmit={handleSubmit}>
-        {Object.entries(formData).map(([key, value]) => (
-          <InputLabel
-            key={key}
-            label={key}
-            value={value}
-            onChange={(value) => handleChange(key, value)}
-          />
-        ))}
-        <button type="submit">submit</button>
-        <button type="button" onClick={close}>close</button>
+        <InputLabel
+          type="number"
+          label="ID"
+          value={formData.id}
+          onChange={(value) => handleChange("id", value)}
+        />
+
+        <InputLabel
+          label="Name"
+          value={formData.name}
+          onChange={(value) => handleChange("name", value)}
+        />
+
+        <SelectLabel
+          label="Weapon Type"
+          value={formData.weapon_type}
+          options={[
+            "Sword",
+            "Rectifier",
+            "Gauntlets",
+            "Pistols",
+            "Broadblade",
+          ]}
+          onChange={(value) => handleChange("weapon_type", value)}
+        />
+
+        <SelectLabel
+          label="Quality"
+          value={formData.quality_id}
+          options={[
+            { value: 4, label: "4 Star" },
+            { value: 5, label: "5 Star" },
+          ]}
+          onChange={(value) => handleChange("quality_id", value)}
+        />
+
+        <SelectLabel
+          label="Element"
+          value={formData.elemen_type}
+          options={[
+            "Glacio",
+            "Fusion",
+            "Electro",
+            "Spectro",
+            "Aero",
+            "Havoc"
+          ]}
+          onChange={(value) => handleChange("elemen_type", value)}
+        />
+
+        <InputLabel
+          label="Icon"
+          value={formData.icon}
+          onChange={(value) => handleChange("icon", value)}
+        />
+
+        <button type="submit" disabled={!hasChanges}>
+          Submit
+        </button>
+
+        <button type="button" onClick={close}>
+          Close
+        </button>
+
         {error && <p style={{ color: "red" }}>{error}</p>}
-      </form>
-             
+      </form>        
     </>
   )
 }

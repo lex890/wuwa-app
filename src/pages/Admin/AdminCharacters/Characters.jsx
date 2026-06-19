@@ -9,8 +9,17 @@ import Form from '../../../components/Form'
 import { useState, useEffect } from "react";
 import deleteRow from '../../../api/delete'
 import updateRow from '../../../api/update'
+import addRow from '../../../api/add'
 
 const ITEMS_PER_PAGE = 10;
+const EMPTY_FORM = {
+  id: '',
+  name: '',
+  weapon_type: '',
+  quality_id: '',
+  elemen_type: '',
+  icon: ''
+}
 const dbName = "wuwa_characters"
 
 function Characters({ data, reload }) {
@@ -18,19 +27,19 @@ function Characters({ data, reload }) {
   const [deletedIds, setDeletedIds] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [selectedCharacter, setSelectedCharacter] = useState({})
-  const [modalState, setModalState] = useState(false)
+  const [editedRows, setEditedRows] = useState([])
+  const [addedRows, setAddedRows]= useState([])
+
+  const [modalState, setModalState] = useState(null)
+  const [message, setMessage] = useState("")
+  const [success, setSuccess] = useState(false)
 
   useEffect(() => {
     // eslint-disable-next-line react-hooks/set-state-in-effect
     setCharacters(data)
   }, [data])
 
-  const handleDelete = async (dbName, id) => {
-    await deleteRow(dbName, deletedIds)
-
-    setCharacters(prev => prev.filter(char => char.id !== id)) 
-    setDeletedIds(prev => [...prev, id])
-
+  const resetPage = () => {
     const newLength = characters.length - 1;
     const maxPage = Math.ceil(newLength / ITEMS_PER_PAGE)
 
@@ -39,39 +48,86 @@ function Characters({ data, reload }) {
     }
   }
 
-  const handleDummy = () => {
-    reload()
+  const showMessage = (message, succ ,duration = 3000) => {
+    setMessage(message)
+    setSuccess(succ)
+    setTimeout(() => {  
+      setSuccess(false)
+      setMessage("")
+    }, duration)
+  }
+
+  const handleReload = (truth) => {
+    reload(truth)
+    resetPage() // recalculate page no.
+    showMessage("Success", true)
+  }
+
+  const handleDelete = (dbName, id) => {
+    setCharacters(prev => prev.filter(char => char.id !== id)) 
+    setDeletedIds(prev => [...prev, id])
+    
+    resetPage()
+  }
+
+  const handleSave = async () => {
+
+    if (deletedIds.length) {
+      await deleteRow(dbName, deletedIds)
+    }
+    if (editedRows.length) {
+      await updateRow(dbName, editedRows)
+    }
+    if (addedRows.length) {
+      await addRow(dbName, addedRows)
+    }
+
+    handleReload(true)
   }
 
   const handleCloseEdit = () => {
     setSelectedCharacter({})
-    setModalState(false)
+    setModalState(null)
   }
-
   const handleOpenEdit = (e) => {
     const targetId = Number(e.target.dataset.id)
     const targetRow = characters.find(char => char.id === targetId)
     
     setSelectedCharacter(targetRow)
-    setModalState(true)
+    setModalState('edit')
   }
-
   const handleEditSubmit = async (data) => {
 
-    const result = await updateRow(dbName, data)
+    // edit local state
+    setCharacters(prev =>
+      prev.map(char =>
+        char.id === data.id
+          ? data
+          : char
+      )
+    )
+    // add the id of the edited entry
+    setEditedRows(prev => [
+      ...prev.filter(row => row.id !== data.id),
+      data
+    ])
 
-    if (result.error) {
-      console.error(result.error)
-      return
-    }
-    console.log('Edited successfully')
-    setModalState(false)
+    setModalState(null)
   }
-  /* 
-    const handleSaveEdit = (row) => {
-      await updateRow()
-    }
-  */
+
+  const handleCloseAdd = () => {
+    setModalState(null)
+  }
+  const handleOpenAdd = () => {
+    setModalState('add')
+  }
+  const handleAddSubmit = (data) => {
+    setCharacters(prev => [...prev, data])
+    setAddedRows(prev => [...prev, data])
+
+    setModalState(null)
+  }
+
   const totalPages = Math.ceil(characters.length / ITEMS_PER_PAGE);
 
   const paginatedCharacters = characters.slice(
@@ -85,9 +141,14 @@ function Characters({ data, reload }) {
 
       <div className="char-list">
         <div className="tools">
-          <Button text="Save" onClick={() => reload()} />
-          <Button text="Fetch Latest" onClick={handleDummy} />
-          <Button text="Add New" onClick={handleDummy} />
+          <div className="search">
+            <input type="text" />
+          </div>
+          <div>
+            <Button text="Save" onClick={handleSave} />
+            <Button text="Fetch Latest" onClick={() => handleReload(true)} />
+            <Button text="Add New" onClick={handleOpenAdd} />
+          </div>
         </div>
         <div className="list-container">
           <List
@@ -135,14 +196,33 @@ function Characters({ data, reload }) {
       </div>
       <Modal 
         hidden={modalState}
-        Content={ modalState && (
-            <Form 
-              data={characters}
-              selected={selectedCharacter}
-              close={() => handleCloseEdit()}
-              submit={handleEditSubmit}
-            />
-        )}/>
+        Content={
+          <>
+            { modalState  === 'edit' && (
+              <Form 
+                data={characters}
+                selected={selectedCharacter}
+                close={handleCloseEdit}
+                submit={handleEditSubmit}
+              />
+            )}
+
+            { modalState === 'add' && (
+              <Form
+                data={characters}
+                selected={EMPTY_FORM}
+                close={handleCloseAdd}
+                submit={handleAddSubmit}
+              />
+            )}
+          </>
+            
+        }/>
+      {message && (
+        <p id="status-msg" style={{ color: success ? "green" : "red" }}>
+          {message}
+        </p>
+      )}
     </>
   );
 }

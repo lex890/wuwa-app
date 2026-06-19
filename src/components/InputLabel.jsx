@@ -1,9 +1,9 @@
-function InputLabel({ label, value = "", onChange }) {
+function InputLabel({ type = "text", label, value = "", onChange }) {
   return (
     <div>
       <label>{label}</label>
       <input
-        type="text"
+        type={type}
         defaultValue={value}
         onChange={(e) => onChange(e.target.value)}
       />

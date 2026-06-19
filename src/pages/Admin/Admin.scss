@@ -29,6 +29,17 @@ div.admin{
         min-height: 0;
         overflow: hidden;
       }
+
+      p#status-msg {
+        position: fixed;
+        bottom: 0;
+        right: 0;
+
+        width: 200px;
+
+        background-color: rgba(124, 102, 102, 0.452);
+        color: rgb(0, 0, 0);
+      }
     }
   }
 

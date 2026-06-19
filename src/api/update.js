@@ -1,15 +1,17 @@
 import { supabase } from "./supabase"
 
-async function updateRow(table, row) {
-  const { data, error } = await supabase
-    .from(table)
-    .update(row)
-    .eq("id", row.id)
-    .select()
+async function updateRow(table, rows) {
+  const updates = (Array.isArray(rows) ? rows : [rows]).map(row =>
+    supabase
+      .from(table)
+      .update(row)
+      .eq("id", row.id)
+      .select()
+  )
 
-  if (error) throw error
+  const results = await Promise.all(updates)
 
-  return data
+  return results
 }
 
 export default updateRow
