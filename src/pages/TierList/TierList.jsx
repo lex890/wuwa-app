@@ -1,4 +1,4 @@
-import { useMemo, useState } from "react";
+import { useMemo, useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import charactersData from "../../api/wuwa-data.json";
 import "./TierList.css";
