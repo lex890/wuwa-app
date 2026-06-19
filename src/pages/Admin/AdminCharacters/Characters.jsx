@@ -33,11 +33,17 @@ function Characters({ data, reload }) {
   const [modalState, setModalState] = useState(null)
   const [message, setMessage] = useState("")
   const [success, setSuccess] = useState(false)
+  const [searchTerm, setSearchTerm] = useState("")
 
   useEffect(() => {
     // eslint-disable-next-line react-hooks/set-state-in-effect
     setCharacters(data)
   }, [data])
+
+  useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect
+    setCurrentPage(1)
+  }, [searchTerm])
 
   const resetPage = () => {
     const newLength = characters.length - 1;
@@ -128,12 +134,26 @@ function Characters({ data, reload }) {
     setModalState(null)
   }
 
-  const totalPages = Math.ceil(characters.length / ITEMS_PER_PAGE);
+  
 
-  const paginatedCharacters = characters.slice(
+  const filteredCharacters = characters.filter(char => {
+    const search = searchTerm.toLowerCase();
+    const searchNumber = Number(searchTerm);
+
+    return (
+      (!isNaN(searchNumber) && char.id === searchNumber) ||
+      char.name?.toLowerCase().includes(search) ||
+      char.weapon_type?.toLowerCase().includes(search) ||
+      char.elemen_type?.toLowerCase().includes(search)
+    );
+  });
+  console.log(searchTerm)
+  const paginatedCharacters = filteredCharacters.slice(
     (currentPage - 1) * ITEMS_PER_PAGE,
     currentPage * ITEMS_PER_PAGE
-  );
+  )
+
+  const totalPages = Math.ceil(filteredCharacters.length / ITEMS_PER_PAGE);
 
   return (
     <>
@@ -142,7 +162,12 @@ function Characters({ data, reload }) {
       <div className="char-list">
         <div className="tools">
           <div className="search">
-            <input type="text" />
+            <input
+              type="text"
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
+              placeholder="Search..."
+            />
           </div>
           <div>
             <Button text="Save" onClick={handleSave} />
