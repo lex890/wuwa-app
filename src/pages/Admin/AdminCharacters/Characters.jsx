@@ -181,6 +181,7 @@ function Characters({ data, reload }) {
             renderItem={(char) => (
               <li key={char.id} className="character-list">
                 <div>
+                  <span>{char.id}</span>
                   <span>{char.name}</span>
                   <p>{char.element_type}</p>
                   <p>{char.weapon_type}</p>
