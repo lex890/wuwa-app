@@ -97,14 +97,38 @@ export default function TierList({ data = [] }) {
   const [qualityFilter, setQualityFilter] = useState("All");
   const [selectedCharacter, setSelectedCharacter] = useState(null);
 
-  const characters = useMemo(
-    () =>
-      (data.length ? data : charactersData)
-        .map(normalizeCharacter)
-        .sort(qualitySort)
-        .sort((a, b) => a.name.localeCompare(b.name)),
-    [data]
-  );
+  const characters = useMemo(() => {
+    const sourceArr = data.length ? data : charactersData;
+    const localById = new Map();
+    const localByNameKey = new Map();
+    charactersData.forEach((c) => {
+      const key = nameKey(c.Name?.Content || c.Name || c.name);
+      localByNameKey.set(key, c);
+      if (c.Id) localById.set(String(c.Id), c);
+      if (c.id) localById.set(String(c.id), c);
+    });
+
+    const mapped = sourceArr.map((raw) => {
+      const n = normalizeCharacter(raw);
+      const isPlaceholder = !n.image || n.image === placeholderImage;
+      if (isPlaceholder) {
+        const local = localById.get(String(n.id)) || localByNameKey.get(nameKey(n.name));
+        if (local) {
+          const localImage =
+            local.PreviewRoleCard || local.RolePortrait || local.Card || (local.Skins && local.Skins[0] && (local.Skins[0].PreviewRoleCard || local.Skins[0].previewRoleCard)) || local.RoleHeadIconLarge || local.RoleHeadIcon || "";
+          if (localImage) {
+            n.image = localImage;
+            n.fallback = local.RoleHeadIconLarge || local.Card || local.RoleHeadIcon || n.fallback;
+            n.element = n.element === "Unknown" ? (local.ElementName || n.element) : n.element;
+            n.quality = n.quality === "Unknown" ? (local.QualityName || n.quality) : n.quality;
+          }
+        }
+      }
+      return n;
+    });
+
+    return mapped.sort(qualitySort).sort((a, b) => a.name.localeCompare(b.name));
+  }, [data]);
 
   // log missing images/names to help debug unknown entries
   useEffect(() => {
