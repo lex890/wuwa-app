@@ -97,6 +97,8 @@ export default function TierList({ data = [] }) {
   const [qualityFilter, setQualityFilter] = useState("All");
   const [selectedCharacter, setSelectedCharacter] = useState(null);
 
+  const nameKey = (n) => (n || "").toLowerCase().replace(/[^a-z0-9 ]/g, "").trim();
+
   const characters = useMemo(() => {
     const sourceArr = data.length ? data : charactersData;
     const localById = new Map();
@@ -145,7 +147,6 @@ export default function TierList({ data = [] }) {
   }, [characters]);
 
   // explicit mapping provided by user: normalize names to lower-case keys
-  const nameKey = (n) => (n || "").toLowerCase().replace(/[^a-z0-9 ]/g, "").trim();
 
   const explicitTierMap = useMemo(() => {
     const map = {};
