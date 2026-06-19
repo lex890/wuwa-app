@@ -260,10 +260,10 @@ export default function TierList({ data = [] }) {
     return rows;
   }, [filteredCharacters]);
 
-  const renderCard = (character) => {
+  const renderCard = (character, idx) => {
     return (
       <article
-        key={`${character.id}-${character.name}`}
+        key={`${character.id}-${character.name}-${idx}`}
         className="quality-card"
         onClick={() => setSelectedCharacter(character)}
       >
@@ -386,7 +386,7 @@ export default function TierList({ data = [] }) {
                       <div className="tier-column-count">{items.length} chars</div>
                       <div className="quality-card-rail" style={{ maxWidth: `${railWidth}px` }}>
                         <div className="quality-card-grid">
-                          {items.map((character) => renderCard(character))}
+                          {items.map((character, idx) => renderCard(character, idx))}
                         </div>
                       </div>
                     </div>

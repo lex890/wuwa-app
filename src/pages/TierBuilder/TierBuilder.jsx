@@ -261,11 +261,11 @@ export default function TierBuilder({ data = [] }) {
     setExpandedId((current) => (current === characterId ? null : characterId));
   };
 
-  const renderCard = (character, tier) => {
+  const renderCard = (character, tier, idx) => {
     const expanded = expandedId === character.id;
     return (
       <article
-        key={`${character.id}-${character.name}`}
+        key={`${character.id}-${character.name}-${idx}`}
         draggable
         onDragStart={(event) => handleDragStart(event, character.id)}
         className="character-card"
@@ -409,7 +409,7 @@ export default function TierBuilder({ data = [] }) {
           onDragLeave={handleDragLeave}
           onDrop={(event) => handleDrop(event, "Unassigned")}
         >
-          {unassignedCharacters.map((character) => renderCard(character, null))}
+          {unassignedCharacters.map((character, idx) => renderCard(character, null, idx))}
         </div>
       </section>
 
@@ -442,7 +442,7 @@ export default function TierBuilder({ data = [] }) {
             </div>
             <div className="tier-dropzone">
               {tierCharacters[tier]?.length ? (
-                tierCharacters[tier].map((character) => renderCard(character, tier))
+                tierCharacters[tier].map((character, idx) => renderCard(character, tier, idx))
               ) : (
                 <div className="empty-state">
                   Drop cards here to assign them to {tier} tier.
