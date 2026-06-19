@@ -16,28 +16,64 @@ const PLACEHOLDER_IMAGE =
   "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='300'%3E%3Crect width='100%25' height='100%25' fill='%23f3f4f6'/%3E%3Ctext x='50%25' y='50%25' dominant-baseline='middle' text-anchor='middle' fill='%23999' font-family='system-ui, sans-serif' font-size='24'%3ENo image%3C/text%3E%3C/svg%3E";
 
 function normalizeCharacter(character) {
-  const source =
-    character.PreviewRoleCard || character.RolePortrait || character.Card || character.RoleHeadIconLarge || character.RoleHeadIcon || "";
+  const get = (obj, ...keys) => {
+    for (const k of keys) {
+      if (!obj || k == null) continue;
+      if (k.includes(".")) {
+        const parts = k.split(".");
+        let cur = obj;
+        let ok = true;
+        for (const p of parts) {
+          if (cur && Object.prototype.hasOwnProperty.call(cur, p)) {
+            cur = cur[p];
+          } else {
+            ok = false;
+            break;
+          }
+        }
+        if (ok && cur != null) return cur;
+      } else if (Object.prototype.hasOwnProperty.call(obj, k)) {
+        const v = obj[k];
+        if (v != null && v !== "") return v;
+      }
+    }
+    return undefined;
+  };
 
   const normalizeUrl = (url) => {
     if (!url) return "";
-    if (url.startsWith("http://") || url.startsWith("https://")) {
-      return url;
-    }
-    if (url.startsWith("/")) {
-      return `https://api.encore.moe${url}`;
-    }
+    if (typeof url !== "string") return "";
+    if (url.startsWith("http://") || url.startsWith("https://")) return url;
+    if (url.startsWith("/")) return `https://api.encore.moe${url}`;
     return url;
   };
 
+  let skins = character.Skins;
+  if (typeof skins === "string") {
+    try {
+      skins = JSON.parse(skins);
+    } catch (e) {
+      skins = null;
+    }
+  }
+
+  const source =
+    get(character, "PreviewRoleCard", "Preview_Role_Card", "previewRoleCard", "preview_role_card") ||
+    (skins && skins[0] && (skins[0].PreviewRoleCard || skins[0].previewRoleCard)) ||
+    (character.Skins && character.Skins[0] && (character.Skins[0].PreviewRoleCard || character.Skins[0].previewRoleCard)) ||
+    get(character, "RolePortrait", "rolePortrait", "role_portrait") ||
+    get(character, "Card", "card") ||
+    get(character, "RoleHeadIconLarge", "roleHeadIconLarge", "role_head_icon_large") ||
+    get(character, "RoleHeadIcon", "roleHeadIcon", "role_head_icon");
+
   return {
-    id: character.Id,
-    name: character.Name?.Content ?? "Unknown",
-    element: character.ElementName ?? "Unknown",
-    weapon: character.WeaponTypeName ?? "Unknown",
-    quality: character.QualityName ?? "Unknown",
+    id: get(character, "Id", "id") ?? get(character, "PropertyId"),
+    name: get(character, "Name.Content", "Name.content", "name", "Name") ?? "Unknown",
+    element: get(character, "ElementName", "elementName", "element") ?? "Unknown",
+    weapon: get(character, "WeaponTypeName", "weaponTypeName", "weapon") ?? "Unknown",
+    quality: get(character, "QualityName", "qualityName", "Quality", "quality") ?? "Unknown",
     image: normalizeUrl(source) || PLACEHOLDER_IMAGE,
-    fallback: normalizeUrl(character.RoleHeadIconLarge || character.Card || character.RoleHeadIcon || ""),
+    fallback: normalizeUrl(get(character, "RoleHeadIconLarge", "Card", "RoleHeadIcon", "roleHeadIconLarge", "card", "role_head_icon_large") || ""),
   };
 }
 
@@ -56,6 +92,19 @@ export default function TierBuilder({ data = [] }) {
         .sort((a, b) => a.name.localeCompare(b.name)),
     [data]
   );
+
+  useEffect(() => {
+    try {
+      const missing = characters.filter(
+        (c) => !c.image || c.image === PLACEHOLDER_IMAGE || !c.name || c.name === "Unknown"
+      );
+      if (missing.length) {
+        console.warn("TierBuilder: missing images/names for", missing.map((m) => ({ id: m.id, name: m.name, image: m.image })));
+      }
+    } catch (e) {
+      console.error(e);
+    }
+  }, [characters]);
 
   const elementOptions = useMemo(
     () => [

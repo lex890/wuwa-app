@@ -19,11 +19,34 @@ const qualitySort = (a, b) => {
 };
 
 function normalizeCharacter(character) {
-  const source =
-    character.PreviewRoleCard || character.RolePortrait || character.Card || character.RoleHeadIconLarge || character.RoleHeadIcon || "";
+  const get = (obj, ...keys) => {
+    for (const k of keys) {
+      if (!obj || k == null) continue;
+      // support nested like "Name.Content"
+      if (k.includes(".")) {
+        const parts = k.split(".");
+        let cur = obj;
+        let ok = true;
+        for (const p of parts) {
+          if (cur && Object.prototype.hasOwnProperty.call(cur, p)) {
+            cur = cur[p];
+          } else {
+            ok = false;
+            break;
+          }
+        }
+        if (ok && cur != null) return cur;
+      } else if (Object.prototype.hasOwnProperty.call(obj, k)) {
+        const v = obj[k];
+        if (v != null && v !== "") return v;
+      }
+    }
+    return undefined;
+  };
 
   const normalizeUrl = (url) => {
     if (!url) return "";
+    if (typeof url !== "string") return "";
     if (url.startsWith("http://") || url.startsWith("https://")) {
       return url;
     }
@@ -33,17 +56,38 @@ function normalizeCharacter(character) {
     return url;
   };
 
+  // prefer common variations and nested skin preview
+  let skins = character.Skins;
+  if (typeof skins === "string") {
+    try {
+      skins = JSON.parse(skins);
+    } catch (e) {
+      skins = null;
+    }
+  }
+
+  const source =
+    get(character, "PreviewRoleCard", "Preview_Role_Card", "previewRoleCard", "preview_role_card") ||
+    (skins && skins[0] && (skins[0].PreviewRoleCard || skins[0].previewRoleCard)) ||
+    (character.Skins && character.Skins[0] && (character.Skins[0].PreviewRoleCard || character.Skins[0].previewRoleCard)) ||
+    get(character, "RolePortrait", "rolePortrait", "role_portrait") ||
+    get(character, "Card", "card") ||
+    get(character, "RoleHeadIconLarge", "roleHeadIconLarge", "role_head_icon_large") ||
+    get(character, "RoleHeadIcon", "roleHeadIcon", "role_head_icon");
+
+  const elementIcon = get(character, "ElementIcon", "ElementIcon6", "elementIcon", "element_icon");
+
   return {
-    id: character.Id,
-    name: character.Name?.Content ?? "Unknown",
-    element: character.ElementName ?? "Unknown",
-    elementIcon: normalizeUrl(character.ElementIcon || character.ElementIcon6 || "") || placeholderImage,
-    weapon: character.WeaponTypeName ?? "Unknown",
-    quality: character.QualityName ?? "Unknown",
-    priority: character.Priority ?? 0,
-    tags: character.Tags || [],
+    id: get(character, "Id", "id") ?? get(character, "PropertyId"),
+    name: get(character, "Name.Content", "Name.content", "name", "Name") ?? "Unknown",
+    element: get(character, "ElementName", "elementName", "element") ?? "Unknown",
+    elementIcon: normalizeUrl(elementIcon) || placeholderImage,
+    weapon: get(character, "WeaponTypeName", "weaponTypeName", "weapon") ?? "Unknown",
+    quality: get(character, "QualityName", "qualityName", "Quality", "quality") ?? "Unknown",
+    priority: get(character, "Priority", "priority") ?? 0,
+    tags: get(character, "Tags", "tags") || [],
     image: normalizeUrl(source) || placeholderImage,
-    fallback: normalizeUrl(character.RoleHeadIconLarge || character.Card || character.RoleHeadIcon || ""),
+    fallback: normalizeUrl(get(character, "RoleHeadIconLarge", "Card", "RoleHeadIcon", "roleHeadIconLarge", "card", "role_head_icon_large") || ""),
   };
 }
 
@@ -61,6 +105,20 @@ export default function TierList({ data = [] }) {
         .sort((a, b) => a.name.localeCompare(b.name)),
     [data]
   );
+
+  // log missing images/names to help debug unknown entries
+  useEffect(() => {
+    try {
+      const missing = characters.filter(
+        (c) => !c.image || c.image === placeholderImage || !c.name || c.name === "Unknown"
+      );
+      if (missing.length) {
+        console.warn("TierList: missing images/names for", missing.map((m) => ({ id: m.id, name: m.name, image: m.image })));
+      }
+    } catch (e) {
+      console.error(e);
+    }
+  }, [characters]);
 
   // explicit mapping provided by user: normalize names to lower-case keys
   const nameKey = (n) => (n || "").toLowerCase().replace(/[^a-z0-9 ]/g, "").trim();
