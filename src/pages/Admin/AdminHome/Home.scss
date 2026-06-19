@@ -1,0 +1,90 @@
+div.header-container {
+  display: flex;
+  flex: 0 0 30px;
+  font-weight: 600;
+  > span:first-child {
+    margin-right: 5px;
+  }
+  > span > a {
+    text-decoration: auto;
+  }
+  
+}
+
+div.card-container {
+  flex: 1;
+  gap: 1em;
+  display: grid;
+  grid-template-rows: 1fr 1fr 1fr;
+}
+
+div.card-group {
+  $primary-color: rgb(0, 236, 253);
+  
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.5em;
+
+  > h2 {
+    margin: 0;
+    color: $primary-color;
+  }
+
+  > div.grid-container {
+    $p-color: rgb(0, 236, 253);
+    $s-color: rgb(52, 119, 163);
+    $t-color: rgb(36, 80, 109);
+
+    flex: 1;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 1em;
+    width: 100%;
+
+    > a.cards {
+      height: 100%;
+      border: 1px solid rgb(156, 156, 156);
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      grid-template-rows: 1fr 1fr 1fr;
+      border-radius: 8px;
+      transition: transform 120ms;
+      text-decoration: none;
+
+      >div.card-icon {
+        grid-column: 1 / 3;
+        grid-row: 1 / 3;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 1em;
+        >svg {
+          flex: 0 1 50px;
+        }
+      }
+      >div.card-name {
+        grid-column: 1 / 3;
+        grid-row: 3 / 4;
+      }
+      >div.card-amount {
+        grid-column: 3 / 4;
+        grid-row: 1 / 4;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        > span {
+          font-size: 32px;
+          color: $p-color;
+        }
+      }
+    }
+    a.cards:hover {
+      transform: scale(1.02);
+       box-shadow: 
+          0 0 10px 2px $p-color;
+      cursor: pointer;
+    }
+  }
+}
+

@@ -17,7 +17,7 @@ const PLACEHOLDER_IMAGE =
 
 function normalizeCharacter(character) {
   const source =
-    character.RolePortrait || character.Card || character.RoleHeadIconLarge || character.RoleHeadIcon || "";
+    character.PreviewRoleCard || character.RolePortrait || character.Card || character.RoleHeadIconLarge || character.RoleHeadIcon || "";
 
   const normalizeUrl = (url) => {
     if (!url) return "";
@@ -41,7 +41,7 @@ function normalizeCharacter(character) {
   };
 }
 
-export default function TierBuilder() {
+export default function TierBuilder({ data = [] }) {
   const [assignments, setAssignments] = useState({});
   const [search, setSearch] = useState("");
   const [elementFilter, setElementFilter] = useState("All");
@@ -51,10 +51,10 @@ export default function TierBuilder() {
 
   const characters = useMemo(
     () =>
-      charactersData
+      (data.length ? data : charactersData)
         .map(normalizeCharacter)
         .sort((a, b) => a.name.localeCompare(b.name)),
-    []
+    [data]
   );
 
   const elementOptions = useMemo(

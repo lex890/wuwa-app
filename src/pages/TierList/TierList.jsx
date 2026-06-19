@@ -20,7 +20,7 @@ const qualitySort = (a, b) => {
 
 function normalizeCharacter(character) {
   const source =
-    character.RolePortrait || character.Card || character.RoleHeadIconLarge || character.RoleHeadIcon || "";
+    character.PreviewRoleCard || character.RolePortrait || character.Card || character.RoleHeadIconLarge || character.RoleHeadIcon || "";
 
   const normalizeUrl = (url) => {
     if (!url) return "";
@@ -47,7 +47,7 @@ function normalizeCharacter(character) {
   };
 }
 
-export default function TierList() {
+export default function TierList({ data = [] }) {
   const [search, setSearch] = useState("");
   const [elementFilter, setElementFilter] = useState("All");
   const [qualityFilter, setQualityFilter] = useState("All");
@@ -55,11 +55,11 @@ export default function TierList() {
 
   const characters = useMemo(
     () =>
-      charactersData
+      (data.length ? data : charactersData)
         .map(normalizeCharacter)
         .sort(qualitySort)
         .sort((a, b) => a.name.localeCompare(b.name)),
-    []
+    [data]
   );
 
   // explicit mapping provided by user: normalize names to lower-case keys
