@@ -25,28 +25,35 @@ div.char-list {
         flex-direction: column;
         justify-content: center;
 
-        >div {
-          display: flex;
-          justify-content: space-evenly;
+        >div.list-wrapper {
+          display: grid;
+          grid-template-columns: 200px repeat(5, 1fr);
+          
+            > div.char-icon {
+                aspect-ratio: 7/2;
+                overflow: hidden;
+                height: 100%;
+              > img {
+                object-fit: none;
+                object-position: -5px -3em;
+              }
+            }
+            
+          }
         }
-      }
     }
   }
-
-
   >div.tools {
     display: flex;
     align-items: center;
     justify-content: space-between;
     height: 5%;
   }
-
   >div.pagination {
     height: 5%;
     align-items: center;
     justify-content: center;
   }
-
   .flex-row {
     display: flex;
     flex-direction: row;
@@ -55,7 +62,6 @@ div.char-list {
     display: flex;
     flex-direction: column;
   }
-
 
 }
 

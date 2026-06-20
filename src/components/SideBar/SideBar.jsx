@@ -14,7 +14,7 @@ function SideBar() {
       
       <nav id="side-bar">
         <Title />
-        <Anchor Image={HomeIcon} text={'Home'}/>
+        <Anchor Image={HomeIcon} text={'Home'} to={"/"}/>
         <span>DATABASE</span>
         <Anchor Image={CharIcon} text={'Characters'} to={"character"}/>
         <Anchor Image={WeaponIcon} text={'Weapons'} to={"weapon"}/>

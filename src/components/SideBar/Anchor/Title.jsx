@@ -1,11 +1,12 @@
 import ReactIcon from '../../../assets/svg/react.svg'
+import { NavLink } from "react-router-dom";
 
-function Title() {
+function Title({ to = "/", cName = "title" }) {
   return(
-    <a href="/" className="title">
+    <NavLink to={to} className={cName}>
       <img src={ReactIcon} alt="" />
       <span>Sonoro</span>
-    </a>
+    </NavLink>
   )
 }
 

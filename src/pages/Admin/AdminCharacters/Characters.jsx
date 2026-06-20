@@ -180,21 +180,26 @@ function Characters({ data, reload }) {
             items={paginatedCharacters}
             renderItem={(char) => (
               <li key={char.id} className="character-list">
-                <div>
+                <div className='list-wrapper'>
+                  <div className="char-icon">
+                    <img src={char.icon} alt="" />
+                  </div>
                   <span>{char.id}</span>
                   <span>{char.name}</span>
-                  <p>{char.element_type}</p>
-                  <p>{char.weapon_type}</p>
+                  <span>{char.elemen_type}</span>
+                  <span>{char.weapon_type}</span>
+                  <div> 
+                    <Button
+                      text="Edit"
+                      onClick={(e) => handleOpenEdit(e)}
+                      dataId={char.id}
+                    />
+                    <Button
+                      text="Delete"
+                      onClick={() => handleDelete(dbName, char.id)}
+                    />
+                  </div>
 
-                  <Button
-                    text="Edit"
-                    onClick={(e) => handleOpenEdit(e)}
-                    dataId={char.id}
-                  />
-                  <Button
-                    text="Delete"
-                    onClick={() => handleDelete(dbName, char.id)}
-                  />
                 </div>
               </li>
             )}
