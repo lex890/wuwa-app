@@ -5,6 +5,14 @@ import List from '../../../components/List'
 import Button from '../../../components/Button'
 import Modal from '../../../components/Modal/Modal'
 import Form from '../../../components/Form'
+import Dropdown from '../../../components/DropDown'
+
+import Direction from '../../../assets/components/Direction'
+import SearchIcon from '../../../assets/components/SearchIcon'
+import Save from '../../../assets/components/Save'
+import Fetch from '../../../assets/components/Fetch'
+import Add from '../../../assets/components/Add'
+import DotsIcon from '../../../assets/components/Dots'
 
 import { useState, useEffect } from "react";
 import deleteRow from '../../../api/delete'
@@ -34,6 +42,8 @@ function Characters({ data, reload }) {
   const [message, setMessage] = useState("")
   const [success, setSuccess] = useState(false)
   const [searchTerm, setSearchTerm] = useState("")
+  const [openDropdown, setOpenDropdown] = useState(null);
+
 
   useEffect(() => {
     // eslint-disable-next-line react-hooks/set-state-in-effect
@@ -77,6 +87,13 @@ function Characters({ data, reload }) {
   }
 
   const handleSave = async () => {
+    if (
+      deletedIds.length === 0 &&
+      editedRows.length === 0 &&
+      addedRows.length === 0
+    ) {
+      return
+    }
 
     if (deletedIds.length) {
       await deleteRow(dbName, deletedIds)
@@ -95,9 +112,8 @@ function Characters({ data, reload }) {
     setSelectedCharacter({})
     setModalState(null)
   }
-  const handleOpenEdit = (e) => {
-    const targetId = Number(e.target.dataset.id)
-    const targetRow = characters.find(char => char.id === targetId)
+  const handleOpenEdit = (e, id) => { 
+    const targetRow = characters.find(char => char.id === id)
     
     setSelectedCharacter(targetRow)
     setModalState('edit')
@@ -134,8 +150,6 @@ function Characters({ data, reload }) {
     setModalState(null)
   }
 
-  
-
   const filteredCharacters = characters.filter(char => {
     const search = searchTerm.toLowerCase();
     const searchNumber = Number(searchTerm);
@@ -160,20 +174,73 @@ function Characters({ data, reload }) {
       <Header />
 
       <div className="char-list">
+        <div className="separator-line"></div>
         <div className="tools">
           <div className="search">
-            <input
-              type="text"
-              value={searchTerm}
+            <SearchIcon width={"20px"} height={"20px"}/>
+            <input 
+              type="text" id="characterSearch" placeholder="Search..." autocomplete="off"
+              type="text" value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
-              placeholder="Search..."
             />
           </div>
-          <div>
-            <Button text="Save" onClick={handleSave} />
-            <Button text="Fetch Latest" onClick={() => handleReload(true)} />
-            <Button text="Add New" onClick={handleOpenAdd} />
+          <div className="search-count">Total {characters.length}</div>
+          <div className="container">
+            <Button
+              type="button"
+              className="save-button"
+              content={
+                <>
+                  <Save 
+                    size="24" 
+                    stroke="#ffffff"
+                    fill="none" 
+                  /> Save
+                </>
+
+              }
+              onClick={handleSave}
+            />
+            <Button
+              type="button"
+              className="fetch-button"
+              content={
+                <>
+                  <Fetch 
+                    size="24" 
+                    stroke="#ffffff"
+                    fill="none"
+                  /> Fetch
+                </>
+              }
+              onClick={() => handleReload(true)}
+            />
+            <Button
+              type="button"
+              className="add-button"
+              content={
+                <>
+                  <Add 
+                    size="24" 
+                    stroke="#ffffff"
+                    fill="none"
+                  /> Add New
+                </>
+              }
+              onClick={handleOpenAdd}
+            />
+
           </div>
+        </div>
+        <div className="table-filters">
+
+        </div>
+        <div className="table-label">
+          <span></span>
+          <span>id</span>
+          <span>name</span>
+          <span>element</span>
+          <span>weapon</span>
         </div>
         <div className="list-container">
           <List
@@ -188,17 +255,23 @@ function Characters({ data, reload }) {
                   <span>{char.name}</span>
                   <span>{char.elemen_type}</span>
                   <span>{char.weapon_type}</span>
-                  <div> 
+                  <Dropdown 
+                    key={char.id}
+                    id={char.id}
+                    openDropdown={openDropdown}
+                    setOpenDropdown={setOpenDropdown}
+                    Icon={DotsIcon}
+                  >
                     <Button
-                      text="Edit"
-                      onClick={(e) => handleOpenEdit(e)}
-                      dataId={char.id}
+                      content="Edit"
+                      onClick={(e) => handleOpenEdit(e, char.id)}
                     />
+
                     <Button
-                      text="Delete"
+                      content="Delete"
                       onClick={() => handleDelete(dbName, char.id)}
                     />
-                  </div>
+                  </Dropdown>
 
                 </div>
               </li>
@@ -209,7 +282,10 @@ function Characters({ data, reload }) {
 
         <div className="pagination flex-row">
           <Button
-            text="Previous"
+            content={
+              <Direction  color="none" stroke="#949473" />
+            }
+            className={"left-button"}
             onClick={() => setCurrentPage(prev => prev - 1)}
             disabled={currentPage === 1}
           />
@@ -219,7 +295,10 @@ function Characters({ data, reload }) {
           </span>
 
           <Button
-            text="Next"
+            content={
+              <Direction  color="none" stroke="#949473" direction="right"/>
+            }
+            className={"right-button"}
             onClick={() => setCurrentPage(prev => prev + 1)}
             disabled={currentPage === totalPages || totalPages === 0}
           />

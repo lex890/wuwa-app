@@ -1,7 +1,14 @@
-function Button({ text = "button", onClick, disabled, dataId="" }) {
+function Button({ 
+  content = "button", 
+  className="",
+  ...props 
+}) {
   return (
-    <button onClick={onClick} disabled={disabled} data-id={dataId}>
-      {text}
+    <button 
+      className={className}
+      {...props}
+    >
+      {content}
     </button>
   )
 }
