@@ -11,10 +11,9 @@ import TeamTierListIcon from '../../assets/components/TeamTierListIcon.jsx'
 function SideBar() {
   return(
     <>
-      
       <nav id="side-bar">
         <Title />
-        <Anchor Image={HomeIcon} text={'Home'} to={"/"}/>
+        <Anchor Image={HomeIcon} text={'Home'} to={"home"}/>
         <span>DATABASE</span>
         <Anchor Image={CharIcon} text={'Characters'} to={"character"}/>
         <Anchor Image={WeaponIcon} text={'Weapons'} to={"weapon"}/>

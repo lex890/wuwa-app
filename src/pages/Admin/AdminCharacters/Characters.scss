@@ -129,12 +129,16 @@ div.char-list {
             }
 
             .dropdown-content {
-              display: block;
-              position: absolute;
-              background: white;
-              min-width: 160px;
-              border: 1px solid #ddd;
-              left: 5em;
+                display: flex;
+                position: absolute;
+                background: white;
+                min-width: 160px;
+                border: 1px solid #ddd;
+                left: 6em;
+                flex-direction: column;
+
+                padding: 4px 15px;
+                top: 3px;
               .dropdown-content button {
                 display: block;
                 padding: 10px;
@@ -145,6 +149,7 @@ div.char-list {
                 display: block;
               }
             }
+
           }
             
         }
@@ -245,7 +250,7 @@ div.modal-popup {
   width: calc(100% - 48%);
   height: calc(100% - 12%);
   border-radius: 36px;
-
+  background-color: red;
   inset: 0;
   margin: auto;
 }
