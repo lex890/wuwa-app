@@ -45,13 +45,31 @@ div.admin{
 
 }
 
-@media screen and (min-width: 1440px) {
-  div.admin{ 
-    grid-template-columns: minmax(220px, 280px) 1fr;
-    grid-template-rows: 6% 1fr;
+@media screen and (max-width: 1024px) {
+  div.admin{
+    grid-template-columns: minmax(220px, 240px) 1fr; 
+    nav#side-bar {
+      a.title, > img {
+        font-size: 2.2em;
+      }
+    }
+
   }
 }
 
-ul {
-  list-style-type: none;
+@media screen and (max-width: 768px) {
+  div.admin{
+    div.content {
+      grid-column: 1 / 3;
+    } 
+    div#nav-bar {
+      display: block;
+      grid-column: 1 / 3;
+      grid-row: 1 / 2;
+    }
+    nav#side-bar {
+      display: none;
+    }
+
+  }
 }

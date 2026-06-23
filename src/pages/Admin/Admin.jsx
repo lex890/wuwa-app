@@ -4,6 +4,7 @@ import SideBar from '../../components/SideBar/SideBar'
 import { Outlet } from "react-router-dom";
 
 function Admin() {
+  
   return(
     <>
       <div className="admin">

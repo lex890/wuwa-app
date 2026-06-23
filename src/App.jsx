@@ -16,6 +16,8 @@ import CharacterList from "./pages/Public/PublicCharacters/Characters.jsx"
 import WeaponList from "./pages/Public/PublicWeapons/Weapons.jsx"
 import CharacterDetails from "./pages/Public/PublicCharacterDetails/CharacterDetails.jsx"
 import EchoList from "./pages/Public/PublicEchoes/Echoes.jsx"
+import TierList from "./pages/Public/PublicTierlist/Tierlist.jsx"
+import TierBuilder from "./pages/Public/TierListBuilder/TeamTierList.jsx"
 
 export default function App() {
 
@@ -52,9 +54,11 @@ export default function App() {
             }/> 
           <Route path="characters" element={<CharacterList />} />
           <Route path="characters/:id" element={<CharacterDetails />} />
-
           <Route path="weapons" element={<WeaponList />} />
           <Route path="echoes" element={<EchoList />} />
+
+          <Route path="tier-list" element={<TierList data={{ characters, weapons, echoes }}/>} />
+          <Route path="tier-builder" element={<TierBuilder data={{ characters, weapons, echoes }}/>} />
         </Route>
 
         {/* Admin */}
