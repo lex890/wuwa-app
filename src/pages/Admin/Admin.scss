@@ -3,7 +3,7 @@
 div.admin{ 
   width: 100%;
   display: grid;
-  grid-template-columns: 14% 1fr;
+  grid-template-columns: minmax(220px, 280px) 1fr;
   grid-template-rows: 6% 1fr;
   height: 100vh;
 
@@ -43,6 +43,13 @@ div.admin{
     }
   }
 
+}
+
+@media screen and (min-width: 1440px) {
+  div.admin{ 
+    grid-template-columns: minmax(220px, 280px) 1fr;
+    grid-template-rows: 6% 1fr;
+  }
 }
 
 ul {

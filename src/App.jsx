@@ -41,45 +41,50 @@ export default function App() {
   return (
     <BrowserRouter>
       <Routes>
-      {/* Public */}
-      <Route path="/" element={<PublicLayout />}>
-        <Route index element={<HeroPage />} />
+        {/* Public */}
+        <Route path="/" element={<PublicLayout />}>
+          <Route index element={ <Navigate to="home" replace />} />
+          
+          <Route // /home 
+            path="home"
+            element={
+              <HeroPage />
+            }/> 
+          <Route path="characters" element={<CharacterList />} />
+          <Route path="characters/:id" element={<CharacterDetails />} />
 
-        <Route path="characters" element={<CharacterList />} />
-        <Route path="characters/:id" element={<CharacterDetails />} />
+          <Route path="weapons" element={<WeaponList />} />
+          <Route path="echoes" element={<EchoList />} />
+        </Route>
 
-        <Route path="weapons" element={<WeaponList />} />
-        <Route path="echoes" element={<EchoList />} />
-      </Route>
+        {/* Admin */}
+        <Route path="/admin" element={<AdminLayout />}>
+          <Route index element={<Navigate to="home" replace />} />
 
-      {/* Admin */}
-      <Route path="/admin" element={<AdminLayout />}>
-        <Route index element={<Navigate to="home" replace />} />
+          <Route // admin/home
+            path="home"
+            element={
+              <AdminHome
+                data={{ characters, weapons, echoes }}
+              />
+            }
+          />
 
-        <Route
-          path="home"
-          element={
-            <AdminHome
-              data={{ characters, weapons, echoes }}
-            />
-          }
-        />
+          <Route 
+            path="character"
+            element={
+              <Characters
+                data={characters}
+                reload={loadData}
+              />
+            }
+          />
 
-        <Route
-          path="character"
-          element={
-            <Characters
-              data={characters}
-              reload={loadData}
-            />
-          }
-        />
-
-        <Route path="weapon" element={
-          <Weapons data={weapons} />} />
-        <Route path="echo" element={
-          <Echoes data={echoes} />} />
-      </Route>
+          <Route path="weapon" element={
+            <Weapons data={weapons} />} />
+          <Route path="echo" element={
+            <Echoes data={echoes} />} />
+        </Route>
       </Routes>
     </BrowserRouter>
   );
