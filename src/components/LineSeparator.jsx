@@ -8,6 +8,7 @@ function LineSeparator() {
         "linear-gradient(to right, transparent, rgba(255,255,255,0.1) 10%, rgba(255,255,255,0.1) 90%, transparent)",
       marginBottom: "24px",
       boxSizing: "border-box",
+      flexShrink: "0"
     }} />
 }
 

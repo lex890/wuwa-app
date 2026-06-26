@@ -57,7 +57,7 @@ export default function App() {
               data={characters}
             />} 
           />
-          <Route path="character/:characterName" element={<CharacterDetails data={characters}/>} />
+          <Route path="character/:characterName" element={<CharacterDetails />} />
           <Route path="weapons" element={<WeaponList />} />
           <Route path="echoes" element={<EchoList />} />
 

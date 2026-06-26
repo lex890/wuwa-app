@@ -11,10 +11,36 @@
   gap: $gap;
 }
 
+div.admin, div.public{ 
+  width: 100%;
+  display: grid;
+  grid-template-columns: minmax(10%, 220px) 1fr;
+  grid-template-rows: 6% 1fr;
+  height: 100vh;
 
-div.content {
-  overflow: auto;
+  div.content {
+    grid-column: 2 / 3;
+    grid-row: 2 / 3;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 0;
+
+    div.main-wrapper {
+      box-sizing: border-box;
+      height: 100%;
+      width: calc(100% - 320px);
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      gap: 1em;
+      padding: 2em 16%;
+      overflow-x: auto; 
+    }
+  }
+
 }
+
 
 div.search {
   @include flex-container(row, center, flex-start);
@@ -44,7 +70,7 @@ div.search-count {
 
 div.card-grid {
   display: grid;
-  grid-template-columns: repeat(6, 1fr);
+  grid-template-columns: repeat(auto-fit, minmax(60px, 1fr));
   gap: 12px;
 }
 

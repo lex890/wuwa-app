@@ -6,9 +6,7 @@ function CardGrid({ data }) {
       <div className="card-grid">
         {data.map((char) => {
           return(
-            <>
-              <CharacterCard character={char} />
-            </>
+            <CharacterCard character={char} />
           )
         })}
       </div>

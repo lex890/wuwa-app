@@ -1,8 +1,8 @@
 // util functions for localStorage caching
 
 export function getCachedData(CACHE_KEY) {
-  const cached = localStorage.getItem(CACHE_KEY);
   try {
+    const cached = localStorage.getItem(CACHE_KEY);
     return JSON.parse(cached);
   } catch {
     console.log("Failed to parse skipping cache write")

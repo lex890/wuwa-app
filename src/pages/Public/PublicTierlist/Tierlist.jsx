@@ -19,7 +19,7 @@ const qualitySort = (a, b) => {
 
 function normalizeCharacter(character) {
   const source =
-    character.RolePortrait || character.Card || character.RoleHeadIconLarge || character.RoleHeadIcon || "";
+    character.icons['RoleHeadIconBig'] || character.Card || character.RoleHeadIconLarge || character.RoleHeadIcon || "";
 
   const normalizeUrl = (url) => {
     if (!url) return "";
