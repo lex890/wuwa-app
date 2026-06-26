@@ -1,4 +1,5 @@
 import './Characters.scss'
+import { useState, useEffect } from "react"
 
 import Header from '../../../components/Header'
 import List from '../../../components/List'
@@ -6,15 +7,15 @@ import Button from '../../../components/Button'
 import Modal from '../../../components/Modal/Modal'
 import Form from '../../../components/Form'
 import Dropdown from '../../../components/DropDown'
+import Search from '../../../components/Search'
+import LineSeparator from '../../../components/LineSeparator'
 
 import Direction from '../../../assets/components/Direction'
-import SearchIcon from '../../../assets/components/SearchIcon'
 import Save from '../../../assets/components/Save'
 import Fetch from '../../../assets/components/Fetch'
 import Add from '../../../assets/components/Add'
 import DotsIcon from '../../../assets/components/Dots'
 
-import { useState, useEffect } from "react";
 import deleteRow from '../../../api/delete'
 import updateRow from '../../../api/update'
 import addRow from '../../../api/add'
@@ -119,7 +120,6 @@ function Characters({ data, reload }) {
     setModalState('edit')
   }
   const handleEditSubmit = async (data) => {
-
     // edit local state
     setCharacters(prev =>
       prev.map(char =>
@@ -168,22 +168,18 @@ function Characters({ data, reload }) {
   )
 
   const totalPages = Math.ceil(filteredCharacters.length / ITEMS_PER_PAGE);
-
+  
   return (
     <>
       <Header />
 
       <div className="char-list">
-        <div className="separator-line"></div>
+        <LineSeparator />
         <div className="tools">
-          <div className="search">
-            <SearchIcon width={"20px"} height={"20px"}/>
-            <input 
-              type="text" id="characterSearch" placeholder="Search..." autocomplete="off"
-              type="text" value={searchTerm}
-              onChange={(e) => setSearchTerm(e.target.value)}
-            />
-          </div>
+          <Search 
+            search={searchTerm} 
+            setSearch={setSearchTerm}
+          />
           <div className="search-count">Total {characters.length}</div>
           <div className="container">
             <Button
@@ -232,16 +228,7 @@ function Characters({ data, reload }) {
 
           </div>
         </div>
-        <div className="table-filters">
-
-        </div>
-        <div className="table-label">
-          <span></span>
-          <span>id</span>
-          <span>name</span>
-          <span>element</span>
-          <span>weapon</span>
-        </div>
+        
         <div className="list-container">
           <List
             items={paginatedCharacters}
@@ -249,7 +236,7 @@ function Characters({ data, reload }) {
               <li key={char.id} className="character-list">
                 <div className='list-wrapper'>
                   <div className="char-icon">
-                    <img src={char.icon} alt="" />
+                    <img src={char.icons["RoleHeadIconBig"]} alt="" />
                   </div>
                   <span>{char.id}</span>
                   <span>{char.name}</span>

@@ -52,8 +52,12 @@ export default function App() {
             element={
               <HeroPage />
             }/> 
-          <Route path="characters" element={<CharacterList />} />
-          <Route path="characters/:id" element={<CharacterDetails />} />
+          <Route path="character" element={
+            <CharacterList 
+              data={characters}
+            />} 
+          />
+          <Route path="character/:characterName" element={<CharacterDetails data={characters}/>} />
           <Route path="weapons" element={<WeaponList />} />
           <Route path="echoes" element={<EchoList />} />
 
