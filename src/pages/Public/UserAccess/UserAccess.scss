@@ -1,0 +1,232 @@
+.user-access,
+.user-access * {
+  box-sizing: border-box;
+}
+
+.user-access {
+  isolation: isolate;
+  position: relative;
+  width: 100%;
+  height: 100%;
+  min-height: 0;
+  overflow: hidden;
+  background: #050408;
+  display: grid;
+  place-items: center;
+}
+
+.user-access-background {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  display: grid;
+  place-items: center;
+  overflow: hidden;
+  pointer-events: auto;
+}
+
+.line-waves-frame {
+  position: relative;
+  width: max(100vw, calc(100vh * 16 / 9));
+  height: max(100vh, calc(100vw * 9 / 16));
+  flex: 0 0 auto;
+  aspect-ratio: 16 / 9;
+}
+
+.user-access .access-card {
+  position: relative;
+  z-index: 1;
+  width: min(420px, calc(100% - 32px));
+  padding: 1.2rem;
+  border: 1px solid rgba(205, 203, 176, 0.38);
+  border-radius: 20px;
+  background: rgba(5, 4, 8, 0.68);
+  box-shadow: 0 18px 60px rgba(0, 0, 0, 0.44);
+  backdrop-filter: blur(8px);
+  animation: access-card-in 260ms ease both;
+  view-transition-name: access-card;
+}
+
+.user-access button {
+  min-height: 42px;
+  border: 1px solid rgba(205, 203, 176, 0.28);
+  border-radius: 6px;
+  background: rgba(255, 255, 255, 0.04);
+  color: var(--text);
+  font: inherit;
+  font-weight: 700;
+  cursor: pointer;
+  transition: border-color 120ms, background-color 120ms, transform 120ms;
+}
+
+.user-access button:hover:not(:disabled),
+.user-access button.active {
+  border-color: rgba(205, 203, 176, 0.72);
+  background: rgba(205, 203, 176, 0.14);
+  transform: translateY(-1px);
+}
+
+.user-access button:active:not(:disabled) {
+  transform: translateY(0) scale(0.98);
+}
+
+.user-access button:disabled {
+  cursor: wait;
+  opacity: 0.68;
+}
+
+.user-access form {
+  display: flex;
+  flex-direction: column;
+  gap: 0.85rem;
+  text-align: left;
+}
+
+.user-access h1 {
+  margin: 0 0 0.25rem;
+  color: var(--main);
+  font-size: 32px;
+  line-height: 1.15;
+  text-align: left;
+  letter-spacing: 0;
+}
+
+.user-access .sonoro-brand {
+  display: inline-flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 0.55rem;
+  min-height: auto;
+  border: 0;
+  border-radius: 0;
+  padding: 0;
+  background: transparent;
+  color: inherit;
+  font-size: 4.25rem;
+  line-height: 1;
+  cursor: pointer;
+}
+
+.user-access .sonoro-brand:hover:not(:disabled) {
+  background: transparent;
+  border-color: transparent;
+}
+
+.user-access .sonoro-brand img {
+  width: 3.4rem;
+  height: 3.4rem;
+  object-fit: contain;
+}
+
+.user-access label {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  color: var(--text);
+  font-size: 16px;
+  font-weight: 700;
+}
+
+.user-access label > span {
+  font-size: 14px;
+}
+
+.user-access input {
+  min-height: 44px;
+  width: 100%;
+  border: 1px solid rgba(205, 203, 176, 0.28);
+  border-radius: 6px;
+  outline: none;
+  padding: 0 0.8rem;
+  background: rgba(0, 0, 0, 0.38);
+  color: var(--text);
+  font-family: inherit;
+  font-size: 16px;
+  line-height: 1.2;
+}
+
+.user-access input:focus {
+  border-color: rgba(205, 203, 176, 0.8);
+}
+
+.user-access .access-submit {
+  margin-top: 0.25rem;
+  background: rgba(175, 172, 131, 0.22);
+}
+
+.user-access .forgot-link {
+  min-height: auto;
+  border: 0;
+  background: transparent;
+  color: var(--accent);
+  padding: 0.2rem 0;
+}
+
+.user-access .access-status {
+  margin: 0;
+  border-radius: 6px;
+  padding: 0.65rem 0.75rem;
+  font-size: 0.88rem;
+  line-height: 1.35;
+  text-align: center;
+}
+
+.user-access .access-status.success {
+  border: 1px solid rgba(91, 255, 158, 0.36);
+  background: rgba(91, 255, 158, 0.1);
+  color: #bdfbd4;
+}
+
+.user-access .access-status.error {
+  border: 1px solid rgba(255, 116, 116, 0.4);
+  background: rgba(255, 116, 116, 0.1);
+  color: #ffc2c2;
+}
+
+::view-transition-old(access-card) {
+  animation: access-card-out 180ms ease both;
+}
+
+::view-transition-new(access-card) {
+  animation: access-card-in 260ms ease both;
+}
+
+@keyframes access-card-in {
+  from {
+    opacity: 0;
+    transform: translateY(16px) scale(0.98);
+    filter: blur(8px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+    filter: blur(0);
+  }
+}
+
+@keyframes access-card-out {
+  from {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+    filter: blur(0);
+  }
+
+  to {
+    opacity: 0;
+    transform: translateY(-10px) scale(0.98);
+    filter: blur(8px);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .user-access .access-card,
+  ::view-transition-old(access-card),
+  ::view-transition-new(access-card) {
+    animation-duration: 1ms;
+  }
+
+  .user-access button {
+    transition: none;
+  }
+}
