@@ -74,7 +74,7 @@ div.card-grid {
   gap: 12px;
 }
 
-a.char-nav{
+a.char-nav {
   div {
     width: auto;
     height: 200px;
@@ -86,4 +86,7 @@ a.char-nav{
     height: 100%;
     object-fit: cover;
   }
+}
+a.char-nav:hover {
+  transform: scale(1.1);
 }

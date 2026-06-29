@@ -26,9 +26,9 @@ function CharacterDetails() {
   
   return (
     <>
-      <div>{assets["main_id"]}</div>
-      <div>{tags["main_id"]}</div>
-      <div>{abilities["main_id"]}</div>
+      <div>{assets?.main_id ?? "N/A"}</div>
+      <div>{tags?.main_id ?? "N/A"}</div>
+      <div>{abilities?.main_id ?? "N/A"}</div>
     </>
   )
 }

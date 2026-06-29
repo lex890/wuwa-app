@@ -12,7 +12,7 @@ async function getDatabaseId(name) {
     console.error(error)
     return null
   }
-
+  console.log(data.id)
   return data.id
 }
 
@@ -27,24 +27,24 @@ async function getTableData(id, table) {
     console.error(error)
     return null
   }
-
+  console.log(data)
   return data
 }
 
 async function getCharData(name) {
   try {
-    const cached = [getCachedData(`wuwa-${name}`).data]
-
-    if (cached?.data) {
+    const cached = getCachedData(`wuwa-${name}`)
+    console.log(cached)
+    if (cached) {
       const { tags, assets, abilities } = cached.data || {}
 
       return {
-        tags: tags,
-        assets: assets,
-        abilities: abilities
+        tags,
+        assets,
+        abilities
       }
     }
-
+    
     const id = await getDatabaseId(name);
 
     const [
@@ -58,11 +58,11 @@ async function getCharData(name) {
     ])
 
     setCachedData(
-      [
-        newCharacterTags,
-        newCharacterAssets,
-        newCharacterAbilities
-      ],
+      {
+        tags: newCharacterTags,
+        assets: newCharacterAssets,
+        abilities: newCharacterAbilities,
+      },
       `wuwa-${name}`
     )
 
@@ -73,6 +73,7 @@ async function getCharData(name) {
     }
 
   } catch (error) {
+    
     console.error(error)
     throw error
   }
