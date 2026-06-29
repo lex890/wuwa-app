@@ -18,6 +18,8 @@ import CharacterDetails from "./pages/Public/PublicCharacterDetails/CharacterDet
 import EchoList from "./pages/Public/PublicEchoes/Echoes.jsx"
 import TierList from "./pages/Public/PublicTierlist/Tierlist.jsx"
 import TierBuilder from "./pages/Public/TierListBuilder/TeamTierList.jsx"
+import UserAccess from "./pages/Public/UserAccess/UserAccess.jsx"
+import Profile from "./pages/Public/UserAccess/Profile.jsx"
 
 export default function App() {
 
@@ -63,6 +65,12 @@ export default function App() {
 
           <Route path="tier-list" element={<TierList data={{ characters, weapons, echoes }}/>} />
           <Route path="tier-builder" element={<TierBuilder data={{ characters, weapons, echoes }}/>} />
+          <Route path="user-access" element={<Navigate to="/login" replace />} />
+          <Route path="login" element={<UserAccess />} />
+          <Route path="signup" element={<UserAccess />} />
+          <Route path="forgot-pass" element={<UserAccess />} />
+          <Route path="verify-email" element={<UserAccess />} />
+          <Route path="profile" element={<Profile />} />
         </Route>
 
         {/* Admin */}
