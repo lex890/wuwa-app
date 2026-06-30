@@ -1,0 +1,42 @@
+
+
+div.character-overview {
+  display: grid;
+  grid-template-columns: 50% 50%;
+
+  div {
+    min-width: 0;
+    min-height: 0;
+  }
+
+  div.character-info { grid-column: 1 / 2; }
+  div.character-images { grid-column: 2 / 3; }
+}
+
+
+div.character-images {
+  border: 1px solid yellow;
+  aspect-ratio: 1 / 1;
+  div.carousel {
+    height: 100%;
+    display: flex;
+    gap: 1em;
+  }
+  div.carousel div.item-example{
+    flex: 0 0 20em;
+    background-color: red;
+    aspect-ratio: 1 / 1;
+  }
+
+  // Carousel Scrollable 
+  div.carousel::scroll-button(*) {
+    border: none;
+    background-color: red;
+  }
+  div.carousel::scroll-button(right) {
+    content: 🢂;
+  }
+  div.carousel::scroll-button(left) {
+    content: 🢀;
+  }
+}

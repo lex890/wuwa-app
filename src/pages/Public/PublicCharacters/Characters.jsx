@@ -1,9 +1,10 @@
 import Header from "../../../components/Header"
 import LineSeparator from "../../../components/LineSeparator"
-import Filter from "../../../components/Filter"
-import CardGrid from "../../../components/CardGrid"
 import Footer from "../../../components/Footer"
 import Search from "../../../components/Search"
+import Filter from "./Filter"
+import CardGrid from "./CardGrid"
+
 
 
 function Characters({ data }) {
