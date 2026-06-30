@@ -29,13 +29,14 @@ div.admin, div.public{
     div.main-wrapper {
       box-sizing: border-box;
       height: 100%;
-      width: calc(100% - 320px);
+      width: calc(100% - 45px);
       position: relative;
       display: flex;
       flex-direction: column;
       gap: 1em;
       padding: 2em 16%;
-      overflow-x: auto; 
+      overflow-x: hidden;
+      overflow-y: auto; 
     }
   }
 

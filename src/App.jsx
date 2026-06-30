@@ -2,6 +2,8 @@ import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom"
 import { useEffect, useState } from "react"
 import readTable from "./api/read"
 
+import ErrorPage from "./assets/components/ErrorPage"
+
 // admin components
 import AdminLayout from "./pages/Admin/Admin.jsx"
 import AdminHome from "./pages/Admin/AdminHome/Home.jsx"
@@ -36,6 +38,10 @@ export default function App() {
   }
 
   useEffect(() => {
+    if (!localStorage.getItem('hasOpenedBefore')) {
+      localStorage.clear()
+      localStorage.setItem('hasOpenedBefore', 'true')
+    }
     // eslint-disable-next-line react-hooks/set-state-in-effect
     loadData()
   }, [])
@@ -72,6 +78,9 @@ export default function App() {
           <Route path="verify-email" element={<UserAccess />} />
           <Route path="reset-password" element={<UserAccess />} />
           <Route path="profile" element={<Profile />} />
+
+          {/* Public 404 */}
+          <Route path="*" element={<ErrorPage />} />
         </Route>
 
         {/* Admin */}
@@ -101,6 +110,9 @@ export default function App() {
             <Weapons data={weapons} />} />
           <Route path="echo" element={
             <Echoes data={echoes} />} />
+
+          {/* Public 404 */}
+          <Route path="*" element={<ErrorPage />} />
         </Route>
       </Routes>
     </BrowserRouter>
