@@ -1,10 +1,10 @@
-import StarIcon from '../../../assets/svg/star.png'
+import AnimatedLogo from '../../AnimatedLogo/AnimatedLogo.jsx'
 import { NavLink } from "react-router-dom";
 
 function Title({ to = "/", cName = "title" }) {
   return(
     <NavLink to={to} className={cName}>
-      <img src={StarIcon} alt="" />
+      <AnimatedLogo className="sonoro-logo" />
       <span>Sonoro</span>
     </NavLink>
   )

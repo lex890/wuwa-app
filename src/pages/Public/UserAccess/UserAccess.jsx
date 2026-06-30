@@ -1,9 +1,9 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useLocation, useNavigate } from 'react-router-dom'
 import './UserAccess.scss'
 import { supabase } from '../../../api/supabase.js'
 import LineWaves from '../../../components/LineWaves/LineWaves.jsx'
-import StarIcon from '../../../assets/svg/star.png'
+import AnimatedLogo from '../../../components/AnimatedLogo/AnimatedLogo.jsx'
 import { navigateWithTransition } from '../../../utils/viewTransition.js'
 
 async function sendVerificationCode(email) {
@@ -32,8 +32,27 @@ async function upsertUserProfile(user, username = '') {
   if (error) throw error
 }
 
+async function getEmailForUsername(username) {
+  const cleanUsername = username.trim()
+  const { data, error } = await supabase.rpc('get_email_for_username', {
+    username_input: cleanUsername,
+  })
+
+  if (error?.code === 'PGRST202') {
+    throw new Error('Username login is not active yet. Run the get_email_for_username SQL in Supabase, then reload the schema cache.')
+  }
+
+  if (error) throw error
+
+  if (!data) {
+    throw new Error('No account was found with that username. Check that this app is connected to the same Supabase project where that uname exists.')
+  }
+
+  return data.trim().toLowerCase()
+}
+
 function UserAccess() {
-  const { pathname } = useLocation()
+  const { pathname, search, hash } = useLocation()
   const navigate = useNavigate()
   const storedVerificationEmail = localStorage.getItem('wuwa_verification_email') || ''
   const [form, setForm] = useState({
@@ -46,6 +65,9 @@ function UserAccess() {
   const [verificationEmail, setVerificationEmail] = useState(storedVerificationEmail)
   const [status, setStatus] = useState({ type: '', message: '' })
   const [isSubmitting, setIsSubmitting] = useState(false)
+  const searchParams = new URLSearchParams(search)
+  const hashParams = new URLSearchParams(hash.startsWith('#') ? hash.slice(1) : hash)
+  const isRecoveryLink = searchParams.get('type') === 'recovery' || hashParams.get('type') === 'recovery'
 
   const mode = pathname === '/signup'
     ? 'signup'
@@ -53,10 +75,13 @@ function UserAccess() {
       ? 'forgot'
       : pathname === '/verify-email'
         ? 'verify'
-      : 'login'
+        : pathname === '/reset-password' || isRecoveryLink
+          ? 'reset'
+          : 'login'
   const isSignup = mode === 'signup'
   const isForgot = mode === 'forgot'
   const isVerify = mode === 'verify'
+  const isReset = mode === 'reset'
 
   const updateField = (event) => {
     setForm((current) => ({
@@ -69,12 +94,26 @@ function UserAccess() {
     setStatus({ type: '', message: '' })
   }
 
+  useEffect(() => {
+    const { data: { subscription } } = supabase.auth.onAuthStateChange((event) => {
+      if (event !== 'PASSWORD_RECOVERY') return
+
+      navigateWithTransition(navigate, '/reset-password', 'fade')
+    })
+
+    return () => {
+      subscription.unsubscribe()
+    }
+  }, [navigate])
+
   const handleModeChange = (nextMode) => {
     resetStatus()
     navigateWithTransition(navigate, nextMode === 'signup'
       ? '/signup'
       : nextMode === 'forgot'
         ? '/forgot-pass'
+        : nextMode === 'reset'
+          ? '/reset-password'
         : '/login',
       'fade')
   }
@@ -86,14 +125,19 @@ function UserAccess() {
 
     try {
       const email = form.email.trim().toLowerCase()
+      const username = form.username.trim()
 
-      if (!email) {
+      if (!email && (isSignup || isForgot || isVerify)) {
         throw new Error('Enter your email address.')
+      }
+
+      if (!username && !isSignup && !isForgot && !isVerify && !isReset) {
+        throw new Error('Enter your username.')
       }
 
       if (isForgot) {
         const { error } = await supabase.auth.resetPasswordForEmail(email, {
-          redirectTo: `${window.location.origin}/login`,
+          redirectTo: `${window.location.origin}/reset-password`,
         })
 
         if (error) throw error
@@ -106,10 +150,36 @@ function UserAccess() {
       }
 
       if (!form.password) {
-        throw new Error('Enter your password.')
+        throw new Error(isReset ? 'Enter your new password.' : 'Enter your password.')
+      }
+
+      if (isReset) {
+        if (form.password.length < 8) {
+          throw new Error('Password must be at least 8 characters.')
+        }
+
+        if (form.password !== form.confirmPassword) {
+          throw new Error('Passwords do not match.')
+        }
+
+        const { error } = await supabase.auth.updateUser({
+          password: form.password,
+        })
+
+        if (error) throw error
+
+        await supabase.auth.signOut()
+        setForm((current) => ({ ...current, password: '', confirmPassword: '' }))
+        setStatus({ type: 'success', message: 'Password updated. You can now log in.' })
+        navigateWithTransition(navigate, '/login', 'fade')
+        return
       }
 
       if (isSignup) {
+        if (!username) {
+          throw new Error('Choose a username.')
+        }
+
         if (form.password.length < 8) {
           throw new Error('Password must be at least 8 characters.')
         }
@@ -149,16 +219,18 @@ function UserAccess() {
         return
       }
 
+      const loginEmail = await getEmailForUsername(username)
+
       const { data, error } = await supabase.auth.signInWithPassword({
-        email,
+        email: loginEmail,
         password: form.password,
       })
 
       if (error) {
         if (error.message?.toLowerCase().includes('email not confirmed')) {
-          await sendVerificationCode(email)
-          localStorage.setItem('wuwa_verification_email', email)
-          setVerificationEmail(email)
+          await sendVerificationCode(loginEmail)
+          localStorage.setItem('wuwa_verification_email', loginEmail)
+          setVerificationEmail(loginEmail)
           setStatus({ type: 'error', message: 'Please verify your email first. A new code was sent.' })
           navigateWithTransition(navigate, '/verify-email', 'fade')
           return
@@ -168,8 +240,8 @@ function UserAccess() {
       }
 
       if (!data.user.email_confirmed_at) {
-        localStorage.setItem('wuwa_verification_email', email)
-        setVerificationEmail(email)
+        localStorage.setItem('wuwa_verification_email', loginEmail)
+        setVerificationEmail(loginEmail)
         setStatus({ type: 'error', message: 'Please verify your email first.' })
         navigateWithTransition(navigate, '/verify-email', 'fade')
         return
@@ -219,32 +291,45 @@ function UserAccess() {
       <section key={mode} className="access-card" aria-labelledby="access-title">
         <form onSubmit={handleSubmit}>
           <h1 id="access-title">
-            {isForgot || isSignup || isVerify ? (
-              isVerify ? 'Verify Email' : isForgot ? 'Reset Password' : 'Create Account'
+            {isForgot || isSignup || isVerify || isReset ? (
+              isReset ? 'New Password' : isVerify ? 'Verify Email' : isForgot ? 'Reset Password' : 'Create Account'
             ) : (
               <button
                 type="button"
                 className="sonoro-brand"
                 onClick={() => navigateWithTransition(navigate, '/home', 'fade')}
               >
-                <img alt="" src={StarIcon} />
+                <AnimatedLogo className="sonoro-logo" />
                 <span>Sonoro</span>
               </button>
             )}
           </h1>
 
-          <label>
-            <span>Email</span>
-            <input
-              type="email"
-              name="email"
-              value={form.email}
-              onChange={updateField}
-              autoComplete="email"
-              readOnly={isVerify && Boolean(verificationEmail)}
-              required
-            />
-          </label>
+          {!isReset && (
+            <label>
+              <span>{isSignup || isForgot || isVerify ? 'Email' : 'Username'}</span>
+              {isSignup || isForgot || isVerify ? (
+                <input
+                  type="email"
+                  name="email"
+                  value={form.email}
+                  onChange={updateField}
+                  autoComplete="email"
+                  readOnly={isVerify && Boolean(verificationEmail)}
+                  required
+                />
+              ) : (
+                <input
+                  type="text"
+                  name="username"
+                  value={form.username}
+                  onChange={updateField}
+                  autoComplete="username"
+                  required
+                />
+              )}
+            </label>
+          )}
 
           {isSignup && (
             <label>
@@ -255,6 +340,7 @@ function UserAccess() {
                 value={form.username}
                 onChange={updateField}
                 autoComplete="username"
+                required
               />
             </label>
           )}
@@ -267,21 +353,21 @@ function UserAccess() {
 
           {!isForgot && !isVerify && (
             <label>
-              <span>Password</span>
+              <span>{isReset ? 'New Password' : 'Password'}</span>
               <input
                 type="password"
                 name="password"
                 value={form.password}
                 onChange={updateField}
-                autoComplete={isSignup ? 'new-password' : 'current-password'}
+                autoComplete={isSignup || isReset ? 'new-password' : 'current-password'}
                 required
               />
             </label>
           )}
 
-          {isSignup && (
+          {(isSignup || isReset) && (
             <label>
-              <span>Confirm Password</span>
+              <span>{isReset ? 'Confirm New Password' : 'Confirm Password'}</span>
               <input
                 type="password"
                 name="confirmPassword"
@@ -301,7 +387,7 @@ function UserAccess() {
 
           {!isVerify && (
             <button className="access-submit" type="submit" disabled={isSubmitting}>
-              {isSubmitting ? 'Please wait...' : isForgot ? 'Find Account' : isSignup ? 'Create Account' : 'Login'}
+              {isSubmitting ? 'Please wait...' : isReset ? 'Update Password' : isForgot ? 'Find Account' : isSignup ? 'Create Account' : 'Login'}
             </button>
           )}
 
@@ -336,12 +422,12 @@ function UserAccess() {
           <button
             type="button"
             className="forgot-link"
-            onClick={() => handleModeChange(isForgot || isVerify ? 'login' : 'forgot')}
+            onClick={() => handleModeChange(isForgot || isVerify || isReset ? 'login' : 'forgot')}
           >
-            {isForgot || isVerify ? 'Go to login' : 'Forgot password?'}
+            {isForgot || isVerify || isReset ? 'Go to login' : 'Forgot password?'}
           </button>
 
-          {!isForgot && !isVerify && (
+          {!isForgot && !isVerify && !isReset && (
             <button
               type="button"
               className="forgot-link"
