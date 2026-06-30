@@ -7,7 +7,7 @@ import { Outlet, useLocation } from "react-router-dom";
 
 function Public() {
   const { pathname } = useLocation()
-  const isUserAccessPage = ['/user-access', '/login', '/signup', '/forgot-pass', '/verify-email'].includes(pathname)
+  const isUserAccessPage = ['/user-access', '/login', '/signup', '/forgot-pass', '/verify-email', '/reset-password'].includes(pathname)
   
   return(
     <>

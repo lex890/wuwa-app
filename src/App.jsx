@@ -70,6 +70,7 @@ export default function App() {
           <Route path="signup" element={<UserAccess />} />
           <Route path="forgot-pass" element={<UserAccess />} />
           <Route path="verify-email" element={<UserAccess />} />
+          <Route path="reset-password" element={<UserAccess />} />
           <Route path="profile" element={<Profile />} />
         </Route>
 
