@@ -28,15 +28,29 @@ export default function App() {
   const [characters, setCharacters] = useState([])
   const [weapons, setWeapons] = useState([])
   const [echoes, setEchoes] = useState([])
+
+  const [loading, setLoading] = useState(false)
+  const [error, setError] = useState(null)
   
   const loadData = async (forceRefresh = false) => {
-    const { characters, weapons, echoes } = await readTable(forceRefresh)
+      try {
+        setLoading(true)
+        setError(null)
 
-    setCharacters(characters) 
-    setWeapons(weapons)
-    setEchoes(echoes)
+        const { characters, weapons, echoes } =
+          await readTable(forceRefresh)
+
+        setCharacters(characters)
+        setWeapons(weapons)
+        setEchoes(echoes)
+      } catch (err) {
+        console.error(err)
+        setError(err.message || 'Failed to load data')
+      } finally {
+        setLoading(false)
+      }
   }
-
+  
   useEffect(() => {
     if (!localStorage.getItem('hasOpenedBefore')) {
       localStorage.clear()
@@ -45,9 +59,22 @@ export default function App() {
     // eslint-disable-next-line react-hooks/set-state-in-effect
     loadData()
   }, [])
-    console.log(characters)
 
-  
+  if (loading) {
+    return <div>Loading...</div>
+  }
+
+  if (error) {
+    return (
+      <div>
+        Error: {error}
+        <button onClick={() => loadData(true)}>
+          Retry
+        </button>
+      </div>
+    )
+  }
+
   return (
     <BrowserRouter>
       <Routes>
