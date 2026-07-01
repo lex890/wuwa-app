@@ -1,8 +1,8 @@
 import { useParams } from "react-router-dom";
-import getCharData from "../../../api/getCharData";
 import { useState, useEffect } from "react";
+import getCharData from "../../../api/getCharData";
 import Header from "@/components/Header";
-import Overview from "./Overview";
+import Overview from "./sections/Overview/Overview";
 
 import "./index.scss"
 
@@ -41,11 +41,15 @@ function CharacterDetails() {
   return (
     <>
       <Header />
-      <Overview data={character} tags={tags}/>
-      <div>{character?.id ?? "N/A"}</div>
-      <div>{assets?.main_id ?? "N/A"}</div>
-      <div>{tags?.main_id ?? "N/A"}</div>
-      <div>{abilities?.main_id ?? "N/A"}</div>
+      <Overview data={character} tags={tags} assets={assets} abilities={abilities}/>
+      {
+        /* 
+          <div>{character?.id ?? "N/A"}</div>
+          <div>{assets?.main_id ?? "N/A"}</div>
+          <div>{tags?.main_id ?? "N/A"}</div>
+          <div>{abilities?.main_id ?? "N/A"}</div>
+        */
+      }
     </>
   )
 }

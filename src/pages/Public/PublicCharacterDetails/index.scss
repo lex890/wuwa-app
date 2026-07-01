@@ -1,42 +1,126 @@
 
 
 div.character-overview {
-  display: grid;
-  grid-template-columns: 50% 50%;
+  display: flex;
+  justify-content: space-between;
+  gap: 40px;
 
   div {
     min-width: 0;
     min-height: 0;
   }
 
-  div.character-info { grid-column: 1 / 2; }
-  div.character-images { grid-column: 2 / 3; }
+  div.character-info, div.character-images { 
+    flex: 1; 
+    min-width: 0;
+  }
 }
 
+div.character-info {
+  font-size: 32px;
+
+  div.tag-row, div.name-row, div.info-row, div.desc-row {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+  }
+  div.name-row.first {
+    gap: 0.2em;
+    height: 76px;
+    h1 {
+      font-size: 1.2em;
+      letter-spacing: 5px;
+      margin: 0;
+    }
+    .element-icon img {
+      width: 1.6em;
+      height: 1.6em;
+    }
+  }
+  div.name-row.second {
+    .rarity-container {
+      > img {
+        width: 0.8em;
+      }
+    }
+  }
+  div.tag-row, div.info-row {
+    flex-direction: column;
+    align-items: flex-start;
+    margin: 1em 0;
+    h2 {
+      font-size: 0.6em;
+    }
+    div.tags {
+      position: relative;
+      display: flex;
+      gap: 16px;
+      > div {
+        img {
+          width: 1.2em;
+        }
+        .tag-tool-tip {
+          display: none;
+          position: absolute;
+        }
+      }
+    }
+  }
+  div.info-row {
+    margin: 0;
+    width: 100%;
+    div.info-entry {
+      width: 100%;
+      .flex-space-between {
+        display: flex;
+        justify-content: space-between;
+        font-size: 0.48em;
+      }
+    }
+  }
+  div.desc-row {
+    margin-top: 1.2em;
+    font-size: 0.54em;
+    text-align: justify;
+    letter-spacing: 0.4px;
+  }
+}
 
 div.character-images {
   border: 1px solid yellow;
-  aspect-ratio: 1 / 1;
+  clip-path: inset(-100px -100px -100px -100px);
+	overflow: visible !important;
+	z-index: 0;
   div.carousel {
+    // display: flex;
     height: 100%;
-    display: flex;
-    gap: 1em;
+    gap: 200px;
+    transition: transform 0.3s ease;
+
+    .carousel-item {
+      min-width: 100%;
+      display: flex;
+      justify-content: center;
+    }
   }
-  div.carousel div.item-example{
-    flex: 0 0 20em;
-    background-color: red;
-    aspect-ratio: 1 / 1;
+  div.carousel-dots {
+    background-color: rgba(0, 0, 0, 0.315);
+    height: 2em;
+    gap: 0.2em;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    .dot {
+      background-color: rgb(112, 112, 112);
+      display: block;
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+    }
+    .dot.active {
+      background-color: var(--main);
+    }
   }
 
-  // Carousel Scrollable 
-  div.carousel::scroll-button(*) {
-    border: none;
-    background-color: red;
-  }
-  div.carousel::scroll-button(right) {
-    content: 🢂;
-  }
-  div.carousel::scroll-button(left) {
-    content: 🢀;
-  }
 }

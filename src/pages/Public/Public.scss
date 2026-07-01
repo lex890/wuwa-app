@@ -65,6 +65,9 @@ div.public.user-access-layout {
       gap: 0;
       overflow: hidden;
     }
+    div.main-wrapper > * {
+      min-width: 0;
+    }
   }
 }
 
