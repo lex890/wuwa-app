@@ -1,4 +1,7 @@
-
+* {
+  margin: 0;
+  box-sizing: border-box;
+}
 
 div.character-overview {
   display: flex;
@@ -18,7 +21,9 @@ div.character-overview {
 
 div.character-info {
   font-size: 32px;
-
+  h2 {
+    margin-bottom: 1em;
+  }
   div.tag-row, div.name-row, div.info-row, div.desc-row {
     display: flex;
     align-items: center;
@@ -71,6 +76,10 @@ div.character-info {
     width: 100%;
     div.info-entry {
       width: 100%;
+      .cv-container {
+        width: 40%;
+        font-size: 2em;
+      }
       .flex-space-between {
         display: flex;
         justify-content: space-between;
@@ -101,6 +110,11 @@ div.character-images {
       min-width: 100%;
       display: flex;
       justify-content: center;
+      > img {
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
+      }
     }
   }
   div.carousel-dots {

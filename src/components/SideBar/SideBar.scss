@@ -15,7 +15,11 @@ nav#side-bar {
     padding: 0.2em 1.8em;
     font-size: 0.75em;
     letter-spacing: 3px;
-
+    margin-top: 1.5em;
+    color: var(--text);
+  }
+  > a.nav-item {
+    margin-top: 0.8em;
   }
 
   .sidebar-account-wrapper {
