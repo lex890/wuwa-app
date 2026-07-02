@@ -3,6 +3,7 @@ import { useState, useEffect } from "react";
 import getCharData from "../../../api/getCharData";
 import Header from "@/components/Header";
 import Overview from "./sections/Overview/Overview";
+import Stats from "./sections/Stats/Stats";
 
 import "./index.scss"
 
@@ -36,20 +37,34 @@ function CharacterDetails() {
   }
 
   const { assets, tags, abilities, character } = data
-  console.log(character.id)
-  
+  console.log('logging: ', abilities.stats)
+
+  const elementColors = {
+    Aero: "#00ffbf",
+    Electro: "#cc00ff",
+    Fusion: "#ff3300",
+    Glacio: "#00eeff",
+    Havoc: "#ff009d",
+    Spectro: "#ffe600",
+  };
+
   return (
     <>
-      <Header />
-      <Overview data={character} tags={tags} assets={assets} abilities={abilities}/>
-      {
-        /* 
-          <div>{character?.id ?? "N/A"}</div>
-          <div>{assets?.main_id ?? "N/A"}</div>
-          <div>{tags?.main_id ?? "N/A"}</div>
-          <div>{abilities?.main_id ?? "N/A"}</div>
-        */
-      }
+      <div style={{"--accent-color": elementColors[character.elemen_type]}}>
+        <Header />
+        <Overview data={character} tags={tags} assets={assets} abilities={abilities}/>
+        <Stats stats={abilities.stats}/>
+        <Stats stats={abilities.stats}/>
+        <Stats stats={abilities.stats}/>
+        {
+          /* 
+            <div>{character?.id ?? "N/A"}</div>
+            <div>{assets?.main_id ?? "N/A"}</div>
+            <div>{tags?.main_id ?? "N/A"}</div>
+            <div>{abilities?.main_id ?? "N/A"}</div>
+          */
+        }
+      </div>
     </>
   )
 }

@@ -9,8 +9,8 @@ function CVList({ cv }) {
         Object.entries(cv).map(([key, value]) => {
           return(
             <>  
-              <div className="flex-space-between test">
-                <div>{key}:</div>
+              <div className="flex-end subtext gap">
+                <div className="main-color bold">{key}:</div>
                 <div>{value}</div>
               </div>
             </>

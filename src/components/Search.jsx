@@ -7,7 +7,7 @@ function Search({ search, setSearch }) {
             <SearchIcon width={"20px"} height={"20px"}/>
             <input 
               type="text" id="characterSearch" placeholder="Search..." autocomplete="off"
-              type="text" value={search}
+               value={search}
               onChange={(e) => setSearch(e.target.value)}
             />
           </div>
