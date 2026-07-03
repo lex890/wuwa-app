@@ -4,8 +4,6 @@ import CVList from "./CVList"
 function InfoRow({ tags }) {
   
   const { affiliation, birthday, gender, cv } = tags
-
-  console.log("tags: ", affiliation, birthday, gender, cv )
   
   return(
     <>

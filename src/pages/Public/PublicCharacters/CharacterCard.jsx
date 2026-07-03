@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 
 function CharacterCard({ character }) {
+  console.log("character info", `/character/${encodeURIComponent(character.name)}`)
   return(
     <>
         <Link

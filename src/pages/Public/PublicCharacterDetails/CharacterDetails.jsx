@@ -4,6 +4,8 @@ import getCharData from "../../../api/getCharData";
 import Header from "@/components/Header";
 import Overview from "./sections/Overview/Overview";
 import Stats from "./sections/Stats/Stats";
+import Skins from "./sections/Stats/Skins";
+import Skills from "./sections/Stats/Skills";
 
 import "./index.scss"
 
@@ -13,7 +15,7 @@ async function loadData(name) {
     JSON.parse(localStorage.getItem('wuwa-character') || '{"data":[]}').data;
 
   const character = general.find(entry => entry.name === name);
-
+  console.log('this is selected name: ', name)
   const data = await getCharData(name)
 
   return {
@@ -24,20 +26,21 @@ async function loadData(name) {
 
 function CharacterDetails() {
   const { characterName } = useParams()
-  const [data, setData] = useState(null)
+  const [ data, setData ] = useState(null)
+
+  const decCharName = decodeURIComponent(characterName);
 
   useEffect(() => {
-    loadData(characterName)
+    loadData(decCharName)
       .then(setData)
       .catch(console.error)
-  }, [characterName])
+  }, [decCharName])
 
   if (!data) {
     return <div>Loading...</div> // skeleton loader here
   }
 
   const { assets, tags, abilities, character } = data
-  console.log('logging: ', abilities.stats)
 
   const elementColors = {
     Aero: "#00ffbf",
@@ -45,17 +48,17 @@ function CharacterDetails() {
     Fusion: "#ff3300",
     Glacio: "#00eeff",
     Havoc: "#ff009d",
-    Spectro: "#ffe600",
+    Spectro: "#ffef5e",
   };
 
   return (
     <>
-      <div style={{"--accent-color": elementColors[character.elemen_type]}}>
+      <div className="grid-island" style={{"--accent-color": elementColors[character.elemen_type]}}>
         <Header />
         <Overview data={character} tags={tags} assets={assets} abilities={abilities}/>
         <Stats stats={abilities.stats}/>
-        <Stats stats={abilities.stats}/>
-        <Stats stats={abilities.stats}/>
+        <Skins />
+        <Skills skills={abilities.skills}/>
         {
           /* 
             <div>{character?.id ?? "N/A"}</div>

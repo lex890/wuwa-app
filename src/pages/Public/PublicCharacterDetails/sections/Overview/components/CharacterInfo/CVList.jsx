@@ -1,8 +1,5 @@
-
-
 function CVList({ cv }) {
 
-  console.log(cv)
   return(<>
     <div className="cv-container">
       {

@@ -6,7 +6,7 @@ function TagsRow({ tags }) {
       <div className="tags">
         {
           tags.map((tag) => {
-            return <Tags info={tag}/>
+            return <Tags info={tag} key={tag.id}/>
           })
         }
       </div>
