@@ -21,11 +21,27 @@ function Skills({ skills }) {
     });
   }
 
+  const formatSkillDescription = (html) => {
+    return html
+      // Remove game-specific size tags
+      .replace(/<size=\d+>/g, "")
+      .replace(/<\/size>/g, "")
+
+      // Fix malformed span tags
+      .replace(
+        /<span class="([^"]+)\sstyle="([^"]+)">/g,
+        '<span class="$1" style="$2">'
+      )
+
+      // Remove duplicate closing spans (if you know they're always accidental)
+      .replace(/<\/span><\/span>/g, "</span>");
+  }
+
   const orderedSkills = reOrderData()
 
   return(
     <>
-      <div className="section-card grid-whole">
+      <div className="section-card grid-whole  margin-top">
         <div className="view-card character-skills">
           <h1>Skills</h1>
           {
