@@ -2,11 +2,13 @@ import { supabase } from "./supabase"
 import { setCachedData, getCachedData } from "../utils/local"
 
 async function getDatabaseId(name) {
+  console.log('this is name: ', name)
   const { data, error } = await supabase
     .from("wuwa_characters")
     .select("id")
     .eq("name", name)
-    .single()
+    .limit(1)
+    .maybeSingle();
 
   if (error) {
     console.error(error)
@@ -21,7 +23,8 @@ async function getTableData(id, table) {
     .from(table)
     .select("*")
     .eq("main_id", id)
-    .single()
+    .limit(1)
+    .maybeSingle();
 
   if (error) {
     console.error(error)
@@ -32,6 +35,7 @@ async function getTableData(id, table) {
 }
 
 async function getCharData(name) {
+
   try {
     const cached = getCachedData(`wuwa-${name}`)
     console.log(cached)

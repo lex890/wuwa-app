@@ -14,6 +14,8 @@ nav#side-bar {
     div.icon-container {
       width: auto;
       height: 100%;
+      display: flex;
+      align-items: center;
       > svg {
         height: auto;
         width: 100%;

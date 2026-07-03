@@ -7,7 +7,7 @@ function Header() {
     .split("/")
     .filter(Boolean)
     .filter(word => word !== "home" && word !== "admin")
-  console.log(words)
+    .map(word => decodeURIComponent(word));
   
   return (
     <div className="header-container">
