@@ -8,7 +8,7 @@ function Stats({ stats }) {
 
   return(
     <>
-      <div className="section-card">
+      <div className="section-card margin-top">
         <div className="view-card">
           <div className="character-stat">
             <h1>Stats</h1>
