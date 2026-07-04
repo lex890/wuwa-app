@@ -1,4 +1,5 @@
-
+import SkillDescription from "./SkillDescription";
+import SkillNumbers from "./SkillNumbers";
 
 function Skills({ skills }) {
 
@@ -21,22 +22,6 @@ function Skills({ skills }) {
     });
   }
 
-  const formatSkillDescription = (html) => {
-    return html
-      // Remove game-specific size tags
-      .replace(/<size=\d+>/g, "")
-      .replace(/<\/size>/g, "")
-
-      // Fix malformed span tags
-      .replace(
-        /<span class="([^"]+)\sstyle="([^"]+)">/g,
-        '<span class="$1" style="$2">'
-      )
-
-      // Remove duplicate closing spans (if you know they're always accidental)
-      .replace(/<\/span><\/span>/g, "</span>");
-  }
-
   const orderedSkills = reOrderData()
 
   return(
@@ -45,16 +30,19 @@ function Skills({ skills }) {
         <div className="view-card character-skills">
           <h1>Skills</h1>
           {
-            orderedSkills.map(([key, value])=>{
+            orderedSkills.map(([, value])=>{
               return(
                 <div className="section-card">
-                  <div className="inner-view-card">
-                    <div className="flex-start gap1">
+                  <div className="">
+                    <div className="skill-header flex-start gap1">
                       <img src={value.Icon} alt="" />
                       <h3>{value.SkillName ?? ""}</h3>
                       <span>{value.SkillType}</span>
                     </div>
-                    <div>{value.SkillDescribe}</div>
+                    <div className="skill-desc flex-center inner-view-card">
+                      <SkillDescription text={value.SkillDescribe}/>
+                      <SkillNumbers attributes={value.SkillAttributes}/>
+                    </div>
                   </div>
                 </div>
               )
