@@ -4,8 +4,8 @@ import getCharData from "../../../api/getCharData";
 import Header from "@/components/Header";
 import Overview from "./sections/Overview/Overview";
 import Stats from "./sections/Stats/Stats";
-import Skins from "./sections/Stats/Skins";
-import Skills from "./sections/Stats/Skills";
+import Skins from "./sections/Skins/Skins";
+import Skills from "./sections/Skills/Skills";
 
 import "./index.scss"
 
