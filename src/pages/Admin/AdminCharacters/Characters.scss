@@ -161,7 +161,7 @@ div.char-list {
     height: 8%;
     grid-template-columns: 30% auto 1fr;
     
-    > div.search {
+    > div.search-section {
       @include flex-container(row, center, center);
       position: relative;
       padding-right: 1em;

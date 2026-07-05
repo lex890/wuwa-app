@@ -2,7 +2,7 @@ function Filter() {
 
   return(
     <>
-      <div> 
+      <div id="filter-section"> 
         <div>
           <span>Element</span>
           <button>Glacio</button>
@@ -26,7 +26,6 @@ function Filter() {
           <span>Rarity</span>
           <button>5</button>
           <button>4</button>
-
         </div>
       </div>
     </>
