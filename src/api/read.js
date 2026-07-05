@@ -2,7 +2,7 @@ import { supabase } from "./supabase";
 import { getCachedData, setCachedData } from "../utils/local";
 
 async function readData(forceRefresh = false) {
-  console.log("forceRefresh:", forceRefresh)
+
   try {
     if (!forceRefresh) {
       const localChar = getCachedData("wuwa-character")
@@ -27,7 +27,7 @@ async function readData(forceRefresh = false) {
       supabase.from("wuwa_weapons").select("*"),
       supabase.from("wuwa_echoes").select("*"),
     ]);
-    console.log(characters)
+
     if (!cError && characters?.length) {
       setCachedData(characters, "wuwa-character");
     }

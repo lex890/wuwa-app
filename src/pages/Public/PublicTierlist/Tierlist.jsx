@@ -52,8 +52,6 @@ export default function TierList({ data }) {
   const [qualityFilter, setQualityFilter] = useState("All");
   const [selectedCharacter, setSelectedCharacter] = useState(null);
 
-  console.log(data)
-
   const characters = useMemo(() => {
     if (!Array.isArray(data)) return [];
     return data.map(normalizeCharacter);

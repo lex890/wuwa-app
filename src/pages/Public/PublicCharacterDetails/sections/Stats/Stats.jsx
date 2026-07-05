@@ -5,7 +5,7 @@ import { useState } from "react";
 
 function Stats({ stats }) {
   const [level, setLevel] = useState(90);
-  console.log(stats)
+
   return(
     <>
       <div className="section-card margin-top">

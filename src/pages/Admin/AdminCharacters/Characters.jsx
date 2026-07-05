@@ -1,24 +1,12 @@
 import './Characters.scss'
 import { useState, useEffect } from "react"
 
-import Header from '../../../components/Header'
-import List from '../../../components/List'
-import Button from '../../../components/Button'
-import Modal from '../../../components/Modal/Modal'
-import Form from '../../../components/Form'
-import Dropdown from '../../../components/DropDown'
-import Search from '../../../components/Search'
-import LineSeparator from '../../../components/LineSeparator'
+import { Header, List, Button, Modal, Form, Dropdown, Search, LineSeparator } from '../../../components/index'
 
-import Direction from '../../../assets/components/Direction'
-import Save from '../../../assets/components/Save'
-import Fetch from '../../../assets/components/Fetch'
-import Add from '../../../assets/components/Add'
-import DotsIcon from '../../../assets/components/Dots'
+import { Direction, Save, Fetch, Add, DotsIcon} from '../../../assets/components/index'
 
-import deleteRow from '../../../api/delete'
-import updateRow from '../../../api/update'
-import addRow from '../../../api/add'
+import { deleteRow, updateRow, addRow } from '../../../api/index'
+
 
 const ITEMS_PER_PAGE = 10;
 const EMPTY_FORM = {
@@ -161,7 +149,6 @@ function Characters({ data, reload }) {
       char.elemen_type?.toLowerCase().includes(search)
     );
   });
-  console.log(searchTerm)
   const paginatedCharacters = filteredCharacters.slice(
     (currentPage - 1) * ITEMS_PER_PAGE,
     currentPage * ITEMS_PER_PAGE

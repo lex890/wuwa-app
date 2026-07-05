@@ -1,33 +1,51 @@
-function Filter() {
+import { ElementIcons } from "@/assets/webp/constant/element_small"
+import { RarityIcons } from "@/assets/webp/constant/rarity"
+import { WeaponIcons } from "@/assets/webp/constant/weapon"
+import Rarity from "@/components/Rarity"
 
+function Filter() {
   return(
     <>
-      <div id="filter-section"> 
-        <div>
+      <section id="filter-section"> 
+        <div className="flex-start-row">
           <span>Element</span>
-          <button>Glacio</button>
-          <button>Havoc</button>
-          <button>Spectro</button>
-          <button>Fusion</button>
-          <button>Electro</button>
-          <button>Aero</button>
+          {
+            Object.entries(ElementIcons).map(([name, icons]) => {
+              return(
+                <button className="filter-button">
+                  <img src={icons} alt={name} data-element={name}/>
+                </button>
+              )
+            })
+          }
         </div>
 
-        <div>
+        <div className="flex-start-row">
           <span>Weapon</span>
-          <button>Gauntlet</button>
-          <button>Sword</button>
-          <button>Broadblade</button>
-          <button>Pistol</button>
-          <button>Rectifier</button>
+          {
+            Object.entries(WeaponIcons).map(([name, icons]) => {
+              return(
+                <button className="filter-button">
+                  <img src={icons} alt={name} data-element={name}/>
+                </button>
+              )
+            })
+          }
         </div>
 
-        <div>
+        <div className="flex-start-row">
           <span>Rarity</span>
-          <button>5</button>
-          <button>4</button>
+          {
+            Object.entries(RarityIcons).map(([name]) => {
+              return(
+                <button className="filter-button-long">
+                  <Rarity star={name === "Five" ? 5 : 4} element={name}/>
+                </button>
+              )
+            })
+          }
         </div>
-      </div>
+      </section>
     </>
   )
 }
