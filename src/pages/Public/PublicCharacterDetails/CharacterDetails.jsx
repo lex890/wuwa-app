@@ -46,7 +46,7 @@ function CharacterDetails() {
 
   return (
     <>
-      <div className="grid-island" style={{"--accent-color": theme}}>
+      <div id="grid-island" style={{"--accent-color": theme}}>
         <Header />
         <Overview data={character} tags={tags} assets={assets}/>
         <Stats stats={abilities.stats}/>

@@ -4,6 +4,7 @@ function CharacterCard({ character }) {
 
   return(
     <>
+    <div className="card">
         <Link
           key={character.id}
           to={`/character/${encodeURIComponent(character.name)}`}
@@ -13,6 +14,8 @@ function CharacterCard({ character }) {
             <img src={character.icons["FormationRoleCard"]} alt="" />
           </div>
         </Link>
+    </div>
+
     </>
   )
 }
