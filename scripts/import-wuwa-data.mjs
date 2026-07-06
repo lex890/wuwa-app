@@ -86,7 +86,6 @@ async function main() {
     imported += chunk.length;
   }
 
-  console.log(`Imported ${imported} characters into public.${tableName}.`);
 }
 
 main().catch((error) => {

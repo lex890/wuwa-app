@@ -2,7 +2,7 @@ import { supabase } from "./supabase"
 import { setCachedData, getCachedData } from "../utils/local"
 
 async function getDatabaseId(name) {
-  console.log('this is name: ', name)
+
   const { data, error } = await supabase
     .from("wuwa_characters")
     .select("id")
@@ -14,7 +14,7 @@ async function getDatabaseId(name) {
     console.error(error)
     return null
   }
-  console.log(data.id)
+
   return data.id
 }
 
@@ -30,7 +30,7 @@ async function getTableData(id, table) {
     console.error(error)
     return null
   }
-  console.log(data)
+
   return data
 }
 
@@ -38,7 +38,7 @@ async function getCharData(name) {
 
   try {
     const cached = getCachedData(`wuwa-${name}`)
-    console.log(cached)
+
     if (cached) {
       const { tags, assets, abilities } = cached.data || {}
 

@@ -3,7 +3,7 @@ import SearchIcon from "../assets/components/SearchIcon"
 function Search({ search, setSearch }) {
   return(
     <>
-          <div className="search">
+          <div className="search-section">
             <SearchIcon width={"20px"} height={"20px"}/>
             <input 
               type="text" id="characterSearch" placeholder="Search..." autocomplete="off"

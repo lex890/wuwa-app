@@ -6,11 +6,8 @@ import LineSeparator from "@/components/LineSeparator"
 import DescriptionRow from "./DescriptionRow"
 import InfoRow from "./InfoRow"
 
-function CharacterInfo({data, tags, assets, abilities}) {
-  console.log("abilities: ", abilities)
-  console.log("tags: ", tags)
-  console.log("assets: ", assets)
-  console.log("data: ", data)
+function CharacterInfo({data, tags, assets}) {
+
   return(
     <div className="character-info">
       <div className="name-row first">

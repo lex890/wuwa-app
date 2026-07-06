@@ -1,34 +1,64 @@
-function Filter() {
+import { ElementIcons } from "@/assets/webp/constant/element_small"
+import { RarityIcons } from "@/assets/webp/constant/rarity"
+import { WeaponIcons } from "@/assets/webp/constant/weapon"
+import Rarity from "@/components/Rarity"
 
+function Filter(props) {
+  const { setElement, setWeapon, setRarity, element, weapon, rarity } = props
   return(
     <>
-      <div> 
-        <div>
+      <section id="filter-section"> 
+        <div className="flex-start-row">
           <span>Element</span>
-          <button>Glacio</button>
-          <button>Havoc</button>
-          <button>Spectro</button>
-          <button>Fusion</button>
-          <button>Electro</button>
-          <button>Aero</button>
+          {
+            Object.entries(ElementIcons).map(([name, icons]) => {
+              return(
+                <button 
+                  className={`filter-button ${element.includes(name) ? "active" : ""}`}
+                  onClick={() => setElement(name)}
+                >
+                  <img src={icons} alt={name} data-element={name}/>
+                </button>
+              )
+            })
+          }
         </div>
 
-        <div>
+        <div className="flex-start-row">
           <span>Weapon</span>
-          <button>Gauntlet</button>
-          <button>Sword</button>
-          <button>Broadblade</button>
-          <button>Pistol</button>
-          <button>Rectifier</button>
+          {
+            Object.entries(WeaponIcons).map(([name, icons]) => {
+              return(
+                <button 
+                  className={`filter-button ${weapon.includes(name) ? "active" : ""}`}
+                  onClick={() => setWeapon(name)}
+                >
+                  <img src={icons} alt={name} data-element={name}/>
+                </button>
+              )
+            })
+          }
         </div>
 
-        <div>
+        <div className="flex-start-row">
           <span>Rarity</span>
-          <button>5</button>
-          <button>4</button>
-
+          {
+            Object.entries(RarityIcons).map(([name]) => {
+              return(
+                <>
+                  {console.log(rarity)}
+                  <button 
+                    className={`filter-button-long ${rarity.includes(Number(name)) ? "active" : ""}`}
+                    onClick={() => setRarity(Number(name))}
+                  >
+                    <Rarity star={name} element={name}/>
+                  </button>
+                </>
+              )
+            })
+          }
         </div>
-      </div>
+      </section>
     </>
   )
 }

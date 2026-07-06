@@ -24,7 +24,6 @@ export function setCachedData(data, CACHE_KEY) {
         data,
       })
     )
-    console.log("write success")
 
   } catch (err) {
     console.warn("write failed: ", err);

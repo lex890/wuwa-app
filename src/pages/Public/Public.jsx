@@ -1,7 +1,7 @@
 import './Public.scss'
 import NavBar from '../../components/NavBar/NavBar'
 import SideBar from '../../components/SideBar/SideBar'
-
+import Footer from '@/components/Footer';
 import { Outlet, useLocation } from "react-router-dom";
 
 
@@ -19,6 +19,7 @@ function Public() {
           <div className="main-wrapper">
             <Outlet />
           </div>
+          <Footer /> 
         </div>
       </div>
     </>

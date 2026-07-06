@@ -24,5 +24,3 @@ const rows = flat.map(obj =>
 const csv = [headers, ...rows].join("\n");
 
 fs.writeFileSync("data.csv", csv);
-
-console.log("CSV created");

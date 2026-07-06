@@ -10,7 +10,7 @@ function saveJSON(data, filename = "wuwa.json") {
     "utf-8"
   );
 
-  console.log(`Saved ${filename}`);
+
 }
 
 

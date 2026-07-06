@@ -7,7 +7,7 @@ async function addRow(table, rows) {
     const { error } = await supabase
       .from(table)
       .insert(rowsArray)
-    console.log(error)
+
     if (error) throw error
     
     return null;

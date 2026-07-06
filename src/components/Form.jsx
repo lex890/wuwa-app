@@ -57,7 +57,6 @@ function Form({ data, selected, close, submit }) {
       setError("ID already exists.")
       return
     }
-    console.log('I am here')
     setError("")
     submit(formData)
   }

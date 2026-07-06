@@ -1,7 +1,7 @@
 import SkillRow from "./SkillRow"
 
 function SkillDisplay({ stats, level }) {
-  console.log("attributes", stats)
+
   return(
     <>
       {

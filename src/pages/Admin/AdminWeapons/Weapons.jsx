@@ -1,7 +1,6 @@
 import './Weapons.scss'
 
 function Weapons({ data }) {
-  console.log('num of data: ', data.length)
   return(
     <>      
       <div className="header-container">
