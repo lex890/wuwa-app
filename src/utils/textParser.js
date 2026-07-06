@@ -38,4 +38,10 @@ function processText(text) {
   return result;
 }
 
+export function removeSTags(text) {
+  if (typeof text !== "string") return text;
+
+  return text.replace(/<\/?s>/gi, "");
+}
+
 export default processText

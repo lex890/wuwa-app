@@ -136,9 +136,10 @@ div.search-section {
     font-size: 14px;
     color: #fff;
     border: none;
-    width: 40%;
+    width: 100%;
   }
 }
+span#total {font-size: 0.8em;}
 div.search-count {
   @include flex-container(row, center, center);
   font-size: 14px;
@@ -195,21 +196,26 @@ section#filter-section {
 }
 
 // Character Selection Grid
-div.card-grid {
-  grid-template-columns: repeat(auto-fit, minmax(60px, 1fr));
-  display: grid;
-  gap: 12px;
+div#card-container {
+  gap: 1.2em;
+  display: flex;
+  flex-flow: wrap;
+  align-items: center;
+  justify-content: flex-start;
 }
 
-div.card {}
+div.card { 
+  flex: 0 0 15%;
+  transform: rotateZ(1deg);
+  border-radius: 10px;
+  overflow: hidden;
+} 
 div.card:hover { transform: scale(1.2); }
 
 a.char-nav {
   div {
-    background: #434343;
     overflow: hidden;
-    height: 200px;
-    width: auto;
+    background: none;
   }
   img {
     object-fit: cover;

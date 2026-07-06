@@ -78,10 +78,14 @@ function Characters({ data }) {
           setWeapon={toggleWeapon}
           setRarity={toggleRarity}
         />
-        <Search 
-          search={search} 
-          setSearch={setSearch}
-        />
+        <div className="flex-start-row">
+          <Search 
+            search={search} 
+            setSearch={setSearch}
+          />
+          <span id="total">Total {filterData.length}</span>
+        </div>
+        
         <LineSeparator />
         <CardGrid data={filterData}/> 
       </div>

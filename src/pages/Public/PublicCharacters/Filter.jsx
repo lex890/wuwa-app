@@ -46,7 +46,6 @@ function Filter(props) {
             Object.entries(RarityIcons).map(([name]) => {
               return(
                 <>
-                  {console.log(rarity)}
                   <button 
                     className={`filter-button-long ${rarity.includes(Number(name)) ? "active" : ""}`}
                     onClick={() => setRarity(Number(name))}

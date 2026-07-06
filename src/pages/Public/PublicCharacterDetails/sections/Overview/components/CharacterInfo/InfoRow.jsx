@@ -1,10 +1,10 @@
 
 import CVList from "./CVList"
+import { removeSTags } from "@/utils/textParser"
 
 function InfoRow({ tags }) {
-  
   const { affiliation, birthday, gender, cv } = tags
-  
+
   return(
     <>
       <div className="info-entry">
@@ -18,7 +18,7 @@ function InfoRow({ tags }) {
         </div>
         <div className="flex-space-between subtext">
           <div>Affiliation:</div>
-          <div>{affiliation}</div>
+          <div>{removeSTags(affiliation)}</div>
         </div>
         <div className="flex-space-between subtext">
           <span>CV:</span>

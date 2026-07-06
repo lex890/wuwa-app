@@ -1,29 +1,10 @@
 import SkillDescription from "./SkillDescription";
 import SkillNumbers from "./SkillNumbers";
+import reOrderData from "./reorder";
 
 function Skills({ skills }) {
 
-  const reOrderData = () => {
-    const skillOrder = [
-      "normal",
-      "skill",
-      "liberation",
-      "inherent_1",
-      "inherent_2",
-      "intro",
-      "forte",
-      "inherent_3",
-      "outro",
-      "tune"
-    ];
-
-    return Object.entries(skills).sort(([keyA], [keyB]) => {
-      return skillOrder.indexOf(keyA) - skillOrder.indexOf(keyB);
-    });
-  }
-
-  const orderedSkills = reOrderData()
-
+  const orderedSkills = reOrderData(skills)
   return(
     <>
       <div className="section-card grid-whole  margin-top">
