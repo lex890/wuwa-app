@@ -7,6 +7,7 @@ import { Direction, Save, Fetch, Add, DotsIcon} from '../../../assets/components
 
 import { deleteRow, updateRow, addRow } from '../../../api/index'
 
+import defaultImage from '../../../assets/webp/default_image.webp'
 
 const ITEMS_PER_PAGE = 10;
 const EMPTY_FORM = {
@@ -223,7 +224,10 @@ function Characters({ data, reload }) {
               <li key={char.id} className="character-list">
                 <div className='list-wrapper'>
                   <div className="char-icon">
-                    <img src={char.icons["RoleHeadIconBig"]} alt="" />
+                    <img 
+                      src={char.icons?.RoleHeadIconBig ?? defaultImage} 
+                      alt={char?.name ?? "Character icon"} 
+                    />
                   </div>
                   <span>{char.id}</span>
                   <span>{char.name}</span>

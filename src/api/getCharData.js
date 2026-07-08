@@ -40,25 +40,28 @@ async function getCharData(name) {
     const cached = getCachedData(`wuwa-${name}`)
 
     if (cached) {
-      const { tags, assets, abilities } = cached.data || {}
+      const { tags, assets, abilities, skins } = cached.data || {}
 
       return {
         tags,
         assets,
-        abilities
+        abilities,
+        skins
       }
     }
     
     const id = await getDatabaseId(name);
-
+    
     const [
       newCharacterTags,
       newCharacterAssets,
-      newCharacterAbilities
+      newCharacterAbilities,
+      newCharacterSkins
     ] = await Promise.all([
       getTableData(id, "character_tags"),
       getTableData(id, "character_assets"),
-      getTableData(id, "character_abilities")
+      getTableData(id, "character_abilities"),
+      getTableData(id, "character_skins")
     ])
 
     setCachedData(
@@ -66,6 +69,7 @@ async function getCharData(name) {
         tags: newCharacterTags,
         assets: newCharacterAssets,
         abilities: newCharacterAbilities,
+        skins: newCharacterSkins
       },
       `wuwa-${name}`
     )
@@ -74,6 +78,7 @@ async function getCharData(name) {
       tags: newCharacterTags,
       assets: newCharacterAssets,
       abilities: newCharacterAbilities,
+      skins: newCharacterSkins
     }
 
   } catch (error) {

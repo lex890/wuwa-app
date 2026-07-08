@@ -19,7 +19,7 @@ function StatRow({ stat, level, index }) {
 
   return(
     <>
-      <div className={`flex-space-between ${index % 2 === 0 ? "row-even" : "row-odd"} chonk`}>
+      <div className={`status-entry flex-space-between ${index % 2 === 0 ? "row-even" : "row-odd"} chonk`}>
         <span className="flex-end gap">
           <img style={{width: "1.5em"}} src={baseURL+convertPath(Icon)} alt={Name} />
           <span className="subtext2 three-dots">{Name}</span>

@@ -6,6 +6,7 @@ import Overview from "./sections/Overview/Overview";
 import Stats from "./sections/Stats/Stats";
 import Skins from "./sections/Skins/Skins";
 import Skills from "./sections/Skills/Skills";
+import ErrorPage from "@/assets/components/ErrorPage";
 
 import "./index.scss"
 import elementColors from "@/constant/colors";
@@ -41,16 +42,23 @@ function CharacterDetails() {
     return <div className="loading-box">Loading...</div> // skeleton loader here
   }
 
-  const { assets, tags, abilities, character } = data
-  const theme =  elementColors[character.elemen_type]
+  const { assets, tags, abilities, character, skins } = data
 
+  if ([assets, tags, abilities, character, skins].some(value => value == null)) {
+    return ( <ErrorPage /> )
+  }
+
+  const theme =  elementColors[character.elemen_type]
+  console.log(data)
   return (
     <>
       <div id="grid-island" style={{"--accent-color": theme}}>
         <Header />
         <Overview data={character} tags={tags} assets={assets}/>
-        <Stats stats={abilities.stats}/>
-        <Skins />
+        <div className="section-card grid-whole flex-center-stretch">
+          <Stats stats={abilities.stats}/>
+          <Skins skinData={skins}/>
+        </div>
         <Skills skills={abilities.skills}/>
       </div>
     </>

@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import elementColors from "@/constant/colors";
+import defaultImage from '../../../assets/webp/default_image.webp'
 
 function CharacterCard({ character }) {
   const theme =  elementColors[character.elemen_type]
@@ -14,7 +15,7 @@ function CharacterCard({ character }) {
         <div>{character.elemen_type}</div> {/* this is image */}
         <div>{character.quality_id}</div> {/* this is image */}
         <div>
-          <img src={character.icons["FormationRoleCard"]} alt="" />
+          <img src={character.icons?.["FormationRoleCard"] ?? defaultImage} alt="character.name" />
         </div>
         <div>{character.name}</div>
       </Link>

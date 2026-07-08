@@ -1,5 +1,7 @@
 import LevelRow from "./LevelRow"
 import StatDisplay from "./StatDisplay"
+import Materials from "./Materials";
+import { LineSeparator } from "@/components";
 
 import { useState } from "react";
 
@@ -20,6 +22,8 @@ function Stats({ stats }) {
               stats={stats}
               level={level}
             />
+            <LineSeparator />
+            <Materials />
           </div>
         </div>
       </div>

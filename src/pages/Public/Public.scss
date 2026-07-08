@@ -26,8 +26,6 @@
   gap: 0.64em;
 }
 
-
-
 div.admin, div.public{ 
   grid-template-columns: minmax(10%, 220px) 1fr;
   grid-template-rows: 6% 1fr;
@@ -197,15 +195,15 @@ section#filter-section {
 
 // Character Selection Grid
 div#card-container {
-  gap: 1.2em;
+  gap: 2vh 2vw;
   display: flex;
   flex-flow: wrap;
   align-items: center;
-  justify-content: flex-start;
+  justify-content: space-evenly;
 }
 
 div.card { 
-  flex: 0 0 15%;
+  flex: 0 0 150px;
   transform: rotateZ(1deg);
   border-radius: 10px;
   overflow: hidden;

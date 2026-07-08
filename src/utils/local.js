@@ -12,6 +12,7 @@ export function getCachedData(CACHE_KEY) {
 
 export function setCachedData(data, CACHE_KEY) {
   try {
+    console.log('this is: ', data)
     console.log("saving data: ", {
       size: Array.isArray(data) ? data.length : "non-array",
       timestamp: Date.now(),
