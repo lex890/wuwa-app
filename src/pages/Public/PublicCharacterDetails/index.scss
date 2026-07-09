@@ -166,16 +166,39 @@ div.character-info {
       position: relative;
       display: flex;
       gap: 16px;
+      > div:hover {
+        > div.tag-tool-tip.view-card { 
+          opacity: 1;
+          visibility: visible; 
+        }
+      }
       > div {
         img {
           width: 1.2em;
         }
-        .tag-tool-tip {
-          display: none;
-          position: absolute;
+        > div.tag-tool-tip.view-card {
+            opacity: 0;
+            margin-top: 0.4em;
+            visibility: hidden;
+            transition: opacity 0.2s ease;
+            display: block; // set as none later
+            position: absolute;
+            width: 240px;
+            padding: 0.6em 1em;
+            h2 { 
+              text-align: left;
+              font-size: 1rem;
+              margin-bottom: 0.6em; 
+            }
+            span {
+              display: block;
+              text-align: left;
+              font-size: 0.6em; 
+            }
         }
       }
     }
+
   }
   div.info-row {
     margin: 0;

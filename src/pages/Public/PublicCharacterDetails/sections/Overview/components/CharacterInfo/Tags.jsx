@@ -6,9 +6,9 @@ function Tags({ info }) {
   
   return(
     <>
-      <div>
+      <div data-name={TagName}>
         <img src={baseURL + TagIcon} alt={TagName} />
-        <div className="tag-tool-tip">
+        <div className="tag-tool-tip view-card">
           <h2>{TagName}</h2>
           <span>{TagDesc}</span>
         </div>
