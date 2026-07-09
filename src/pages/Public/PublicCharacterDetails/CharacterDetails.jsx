@@ -12,8 +12,6 @@ import {
   ErrorPage,
 } from "./";
 
-
-
 function CharacterDetails() {
   const { characterName } = useParams()
   const [ data, setData ] = useState(null)

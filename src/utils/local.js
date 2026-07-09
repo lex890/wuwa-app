@@ -1,6 +1,7 @@
 // util functions for localStorage caching
 
 export function getCachedData(CACHE_KEY) {
+  console.log('fetching cache data')
   try {
     const cached = localStorage.getItem(CACHE_KEY);
 

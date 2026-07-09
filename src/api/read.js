@@ -9,15 +9,8 @@ function reshapeData(data = {}) {
   };
 }
 
-function readJSON() {}
-function readDB() {}
-
-async function readData(forceRefresh = false) {
-  if (!forceRefresh) {
-    const cache = getCachedData("wuwa-data");
-    if (cache) return reshapeData(cache);
-  }
-  console.log('getting from db now')
+async function fetchDataBase() {
+  console.log('fetching db data')
   const [
     { data: characters, error: cError },
     { data: weapons, error: wError },
@@ -41,5 +34,62 @@ async function readData(forceRefresh = false) {
   setCachedData(data, "wuwa-data");
   console.log(data)
   return data;
+}
+
+async function fetchJSONData() {
+  console.log('fetching json data')
+  try {
+    const [characters, weapons, echoes] = await Promise.all([
+      fetch("./src/json/wuwa-characters.json").then((res) => {
+        console.log(res.status)
+        if (!res.ok) throw new Error(`HTTP ${res.status}`);
+        return res.json();
+      }),
+      fetch("/src/json/wuwa-weapons.json").then((res) => {
+        console.log(res.status)
+        if (!res.ok) throw new Error(`HTTP ${res.status}`);
+        return res.json();
+      }),
+      fetch("/src/json/wuwa-echoes.json").then((res) => {
+        console.log(res.json)
+        if (!res.ok) throw new Error(`HTTP ${res.status}`);
+        return res.json();
+      }),
+    ]);
+    const data = reshapeData({
+      characters,
+      weapons,
+      echoes,
+    });
+    setCachedData(data, "wuwa-data");
+    return data
+  } catch (error) {
+    console.error("Failed to load local JSON data:", error);
+    throw error;
+  }
+}
+
+async function readData({ source = "auto" } = {}) {
+  switch (source) {
+    case "cache":
+      return reshapeData(getCachedData("wuwa-data"));
+    case "json":
+      return await fetchJSONData();
+    case "db":
+      return await fetchDataBase();
+
+    case "auto":
+    default: {
+      const cache = getCachedData("wuwa-data");
+
+      if (cache) return reshapeData(cache);
+
+      try {
+        return await fetchJSONData();
+      } catch {
+        return await fetchDataBase();
+      }
+    }
+  }
 }
 export default readData

@@ -9,12 +9,12 @@ export function useGameData() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
 
-  const loadData = useCallback(async (forceRefresh = false) => {
+  const loadData = useCallback(async () => {
     try {
       setLoading(true);
       setError(null);
 
-      const data = await readData(forceRefresh);
+      const data = await readData();
 
       setCharacters(data.characters);
       setWeapons(data.weapons);
