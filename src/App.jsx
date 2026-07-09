@@ -7,7 +7,7 @@ export default function App() {
 
   // if (gameData.loading) return <Loading />; no loading component yet
   if (gameData.error) return <Error />;
-
+  console.log(gameData)
   return (
     <BrowserRouter>
       <AppRoutes {...gameData} />

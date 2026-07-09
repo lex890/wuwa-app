@@ -1,12 +1,23 @@
 import { supabase } from "./supabase";
 import { getCachedData, setCachedData } from "../utils/local";
 
+function reshapeData(data = {}) {
+  return {
+    characters: data.characters ?? [],
+    weapons: data.weapons ?? [],
+    echoes: data.echoes ?? [],
+  };
+}
+
+function readJSON() {}
+function readDB() {}
+
 async function readData(forceRefresh = false) {
   if (!forceRefresh) {
     const cache = getCachedData("wuwa-data");
-    if (cache) return cache;
+    if (cache) return reshapeData(cache);
   }
-
+  console.log('getting from db now')
   const [
     { data: characters, error: cError },
     { data: weapons, error: wError },
@@ -21,11 +32,11 @@ async function readData(forceRefresh = false) {
   if (wError) throw wError;
   if (eError) throw eError;
 
-  const data = {
-    characters: characters ?? [],
-    weapons: weapons ?? [],
-    echoes: echoes ?? [],
-  };
+  const data = reshapeData({
+    characters,
+    weapons,
+    echoes,
+  });
 
   setCachedData(data, "wuwa-data");
   console.log(data)

@@ -3,10 +3,15 @@
 export function getCachedData(CACHE_KEY) {
   try {
     const cached = localStorage.getItem(CACHE_KEY);
-    return JSON.parse(cached);
+
+    if (!cached) return null;
+
+    const { timestamp, ...local } = JSON.parse(cached);
+    console.log(`Retrieved data from ${timestamp}`)
+    return local.data;
   } catch {
-    console.log("Failed to parse skipping cache write")
-    return
+    console.log("Failed to parse, skipping cache read");
+    return null;
   }
 }
 
