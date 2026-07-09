@@ -14,7 +14,7 @@ function Characters({ data }) {
   const [ element, setElement ] = useState([])
   const [ weapon, setWeapon ] = useState([])
   const [ rarity, setRarity ] = useState([])
-
+  console.log(data)
   // filter 'data' through state filters
   const filterData = data.filter((char) => {
     const stringSearch = search.toLowerCase()

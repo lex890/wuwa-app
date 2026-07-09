@@ -1,30 +1,18 @@
-import { useParams } from "react-router-dom";
-import { useState, useEffect } from "react";
-import getCharData from "../../../api/getCharData";
-import Header from "@/components/Header";
-import Overview from "./sections/Overview/Overview";
-import Stats from "./sections/Stats/Stats";
-import Skins from "./sections/Skins/Skins";
-import Skills from "./sections/Skills/Skills";
-import ErrorPage from "@/assets/components/ErrorPage";
-
 import "./index.scss"
+import { useState, useEffect } from "react";
+import { useParams } from "react-router-dom";
 import elementColors from "@/constant/colors";
+import {
+  getCharData,
+  Header,
+  Overview,
+  Stats,
+  Skins,
+  Skills,
+  ErrorPage,
+} from "./";
 
-async function loadData(name) {
 
-  const general =
-    JSON.parse(localStorage.getItem('wuwa-character') || '{"data":[]}').data;
-
-  const character = general.find(entry => entry.name === name);
-
-  const data = await getCharData(name)
-
-  return {
-    character,
-    ...data
-  }
-}
 
 function CharacterDetails() {
   const { characterName } = useParams()
@@ -33,13 +21,24 @@ function CharacterDetails() {
   const decCharName = decodeURIComponent(characterName);
 
   useEffect(() => {
+    const loadData = async (name) => {
+      const general =
+        JSON.parse(localStorage.getItem('wuwa-data')).data.characters;
+      const character = general.find(entry => entry.name === name);
+      const data = await getCharData(name)
+      return {
+        character,
+        ...data
+      }
+    }
     loadData(decCharName)
       .then(setData)
       .catch(console.error)
   }, [decCharName])
 
   if (!data) {
-    return <div className="loading-box">Loading...</div> // skeleton loader here
+    // skeleton loader here
+    return <div className="loading-box">Loading...</div> 
   }
 
   const { assets, tags, abilities, character, skins } = data
@@ -49,7 +48,7 @@ function CharacterDetails() {
   }
 
   const theme =  elementColors[character.elemen_type]
-  console.log(data)
+
   return (
     <>
       <div id="grid-island" style={{"--accent-color": theme}}>

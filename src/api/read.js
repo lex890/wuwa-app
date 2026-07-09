@@ -2,58 +2,33 @@ import { supabase } from "./supabase";
 import { getCachedData, setCachedData } from "../utils/local";
 
 async function readData(forceRefresh = false) {
-
-  try {
-    if (!forceRefresh) {
-      const localChar = getCachedData("wuwa-character")
-      const localWeapon = getCachedData("wuwa-weapon")
-      const localEcho = getCachedData("wuwa-echo")
-
-      if (localChar && localWeapon && localEcho) {
-        return {
-          characters: localChar.data,
-          weapons: localWeapon.data,
-          echoes: localEcho.data,
-        }
-      }
-    }
-    // I am fetching in the db
-    const [
-      { data: characters, error: cError },
-      { data: weapons, error: wError },
-      { data: echoes, error: eError },
-    ] = await Promise.all([
-      supabase.from("wuwa_characters").select("*"),
-      supabase.from("wuwa_weapons").select("*"),
-      supabase.from("wuwa_echoes").select("*"),
-    ]);
-
-    if (!cError && characters?.length) {
-      setCachedData(characters, "wuwa-character");
-    }
-
-    if (!wError && weapons?.length) {
-      setCachedData(weapons, "wuwa-weapon");
-    }
-
-    if (!eError && echoes?.length) {
-      setCachedData(echoes, "wuwa-echo");
-    }
-
-    return {
-      characters: characters || [],
-      weapons: weapons || [],
-      echoes: echoes || [],
-    };
-  } catch (error) {
-    console.error(error);
-
-    return {
-      characters: [],
-      weapons: [],
-      echoes: [],
-    }
+  if (!forceRefresh) {
+    const cache = getCachedData("wuwa-data");
+    if (cache) return cache;
   }
-}
 
+  const [
+    { data: characters, error: cError },
+    { data: weapons, error: wError },
+    { data: echoes, error: eError },
+  ] = await Promise.all([
+    supabase.from("wuwa_characters").select("*"),
+    supabase.from("wuwa_weapons").select("*"),
+    supabase.from("wuwa_echoes").select("*"),
+  ]);
+
+  if (cError) throw cError;
+  if (wError) throw wError;
+  if (eError) throw eError;
+
+  const data = {
+    characters: characters ?? [],
+    weapons: weapons ?? [],
+    echoes: echoes ?? [],
+  };
+
+  setCachedData(data, "wuwa-data");
+  console.log(data)
+  return data;
+}
 export default readData
