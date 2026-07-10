@@ -1,11 +1,10 @@
-@use '../../../index' as *;
+
 
 @mixin button-container(
   $fill: none,
   $border: 1px solid black,
   $gap: none
 ) {
-  @include flex-container(row, center, center);
   background-color: $fill;
   border: $border;
   gap: $gap;
@@ -29,9 +28,6 @@ div.char-list {
   display: flex;
   flex-direction: column;
 
-  .flex-container {
-    @include flex-container(row, center, center);
-  }
 
   >div.separator-line {
     padding: 0 20px;
@@ -162,11 +158,11 @@ div.char-list {
     grid-template-columns: 30% auto 1fr;
     
     > div.search-section {
-      @include flex-container(row, center, center);
+
       position: relative;
       padding-right: 1em;
       > div.search-icon {
-        @include flex-container(row, center, center);
+
         position: absolute;
         left: 5%;
       }
@@ -182,11 +178,11 @@ div.char-list {
       }
     }
     > div.search-count {
-      @include flex-container(row, center, center);
+
       font-size: 14px;
     }
     > div.container {
-      @include flex-container(row, center, center);
+
       gap: 1em;
       justify-content: flex-end;
       padding: 0 0 0 3em;

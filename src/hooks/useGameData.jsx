@@ -6,16 +6,12 @@ export function useGameData() {
   const [weapons, setWeapons] = useState([]);
   const [echoes, setEchoes] = useState([]);
 
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
   const loadData = useCallback(async () => {
     try {
-      setLoading(true);
-      setError(null);
-
       const data = await readData();
-
       setCharacters(data.characters);
       setWeapons(data.weapons);
       setEchoes(data.echoes);

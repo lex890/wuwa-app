@@ -5,10 +5,10 @@ import Minimize from '../../assets/components/Minimize.jsx'
 function NavBar() {
   return(
     <> 
-      <div id="nav-bar">
+      <nav id="nav-bar">
         {/* <Title />  di kasya pag mobile view*/}
         <Minimize />
-      </div>
+      </nav>
     </>
   ) 
 }

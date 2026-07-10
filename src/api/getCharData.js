@@ -38,10 +38,9 @@ async function getCharData(name) {
 
   try {
     const cached = getCachedData(`wuwa-${name}`)
-
+    console.log(cached)
     if (cached) {
-      const { tags, assets, abilities, skins } = cached.data || {}
-
+      const { tags, assets, abilities, skins } = cached || {}
       return {
         tags,
         assets,

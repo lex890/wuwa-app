@@ -1,0 +1,116 @@
+@use "./styles/mixins" as *;
+
+// MainLayout
+main#public, main#admin {
+  flex: 1;  
+  @include grid(
+    $columns: minmax(10%, 220px) 1fr,
+    $gap: 0,
+    $rows: 80px 1fr
+  ) 
+}
+aside#side-bar { 
+  @include grid-space(
+    $column: "1 / 2", 
+    $row: "1 / 3"
+  ) 
+}
+nav#nav-bar { 
+  @include grid-space(
+    $column: "2 / 3", 
+    $row: "1 / 2"
+  );
+  display: none; 
+}
+div#content { 
+  @include grid-space(
+    $column: "2 / 3", 
+    $row: "1 / 3"
+  );
+}
+
+div#content { 
+  @include flex(
+    $direction: column,
+    $align: center,
+    $gap: 1.2em
+  );
+  min-height: 0;
+  overflow-x: hidden;
+  overflow-y: auto;
+}
+section#main-wrapper { 
+  @include flex(
+    $direction: column,
+  );
+  position: relative;
+  padding: 2em 16%;
+  width: 100%;
+  flex: 1;
+}
+div#characters-container {
+  @include flex(
+    $direction: column,
+    $gap: 1.2em
+  );
+}
+
+footer {
+  background-color: var(--card-background);
+  justify-content: center;
+  color: var(--sub);
+  font-size: 13px;
+  padding: 2em;
+  width: 100%;
+
+  div.footer-text {
+    @include flex($direction: column, $justify: center, $align: center);
+    width: 100%;
+    gap: 1em;
+    p#subtext {
+      @include flex($justify: center, $align: center);
+      text-align: center;
+      gap: 1em;
+    }
+    p#contacts {
+      @include flex($gap: 1em);
+      a { color: var(--sub); gap: 1em; }
+    }
+  }
+
+}
+
+
+
+// AuthLayout 
+
+div.public.user-access-layout {
+  grid-template-columns: 1fr;
+  grid-template-rows: 1fr;
+
+  div.content {
+    justify-content: stretch;
+    align-items: stretch;
+    position: relative;
+    grid-column: 1 / 2;
+    overflow: hidden;
+    grid-row: 1 / 2;
+    height: 100vh;
+    width: 100%;
+
+    div.main-wrapper {
+      width: calc(100% - 160px);
+      box-sizing: border-box;
+      flex-direction: column;
+      position: relative;
+      padding: 2em 16%;
+      display: flex;     
+      gap: 1em;
+      flex: 1;
+    }
+    div.main-wrapper > * {
+      min-width: 0;
+    }
+  }
+}
+

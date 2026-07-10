@@ -4,7 +4,7 @@ export function getCachedData(CACHE_KEY) {
   console.log('fetching cache data')
   try {
     const cached = localStorage.getItem(CACHE_KEY);
-
+    console.log(cached)
     if (!cached) return null;
 
     const { timestamp, ...local } = JSON.parse(cached);
@@ -36,6 +36,10 @@ export function setCachedData(data, CACHE_KEY) {
     console.warn("write failed: ", err);
   }
   logCacheSize(data)
+}
+
+export function clearLocalStorage() {
+  localStorage.clear
 }
 
 function logCacheSize(data) {

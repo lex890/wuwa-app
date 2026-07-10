@@ -1,4 +1,3 @@
-export { default as PublicLayout } from "./Public";
 export { default as HeroPage } from "./PublicHome/Hero";
 export { default as CharacterList } from "./PublicCharacters/Characters";
 export { default as WeaponList } from "./PublicWeapons/Weapons";

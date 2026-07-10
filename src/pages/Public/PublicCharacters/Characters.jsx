@@ -1,3 +1,5 @@
+import "./index.scss"
+
 import Header from "../../../components/Header"
 import LineSeparator from "../../../components/LineSeparator"
 
