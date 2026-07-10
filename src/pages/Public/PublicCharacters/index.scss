@@ -1,0 +1,129 @@
+@use "../../../styles/mixins" as *;
+
+.flex-start-row {
+  @include flex(
+    $align: center,
+    $gap: 0.64em
+  );
+}
+
+// Filter Section
+section#filter-section {
+  @include flex(
+    $gap: 0.64em,
+    $justify: center,
+    $direction: column,
+    $align: flex-start,
+  );
+
+  span {
+    font-size: 0.8em;
+  }
+}
+
+.filter-button {
+  @include icon-button();
+
+  img {
+    width: 2em;
+  }
+}
+
+.filter-button-long {
+  @include pill-button();
+
+  > div {
+    @include flex(
+      $direction: row,
+      $align: center
+    );
+  }
+
+  img {
+    width: 1.6em;
+  }
+}
+
+.filter-button:hover,
+.filter-button-long:hover {
+  background-color: var(--main);
+}
+
+.filter-button.active,
+.filter-button-long.active {
+  border: 1px solid var(--accent);
+}
+
+// Search Section
+div.search-section {
+  @include flex($align: center);
+
+  position: relative;
+  padding-right: 1.6em;
+
+  div.search-icon {
+    @include flex($align: center);
+
+    margin-left: 1em;
+    position: absolute;
+    left: 2%;
+  }
+
+  input {
+    width: 100%;
+    padding: 10px 16px 10px 48px;
+
+    box-sizing: border-box;
+    border: none;
+    border-radius: 32px;
+
+    background: var(--search-bar);
+    color: #fff;
+    font-size: 14px;
+  }
+}
+
+span#total {
+  font-size: 0.8em;
+}
+
+div.search-count {
+  @include flex($align: center);
+
+  font-size: 14px;
+}
+
+// Characters Section
+div#card-container {
+  @include flex(
+    $justify: space-evenly,
+    $align: center,
+    $gap: 2vh 2vw
+  );
+
+  flex-wrap: wrap;
+}
+
+div.card {
+  flex: 0 0 150px;
+  overflow: hidden;
+  border-radius: 10px;
+  transform: rotateZ(1deg);
+
+  &:hover {
+    transform: scale(1.2);
+  }
+}
+
+a.char-nav {
+  div {
+    overflow: hidden;
+    background: none;
+  }
+
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+}

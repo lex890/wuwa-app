@@ -75,7 +75,7 @@ function SideBar() {
 
   return(
     <>
-      <nav id="side-bar">
+      <aside id="side-bar">
         <Title />
         <Anchor Image={HomeIcon} text={'Home'} to={"home"}/>
         <span>DATABASE</span>
@@ -117,7 +117,7 @@ function SideBar() {
             </NavLink>
           )}
         </div>
-      </nav>
+      </aside>
     </>
   ) 
 }

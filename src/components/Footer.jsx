@@ -2,8 +2,8 @@ function Footer() {
   return(
     <>
       <footer>
-        <div class="footer-container flex-center-column">
-          <div class="footer-text flex-center-column">
+        <div className="footer-container flex-center-column">
+          <div className="footer-text flex-center-column">
             <p id="subtext" data-i18n="footer.disclaimer">
               ※ Sonoro is an unofficial Wuthering Waves fan site. Wuthering Waves and all related trademarks, copyrights, and assets are the property of Kuro Games.</p>
             <p id="contacts">
