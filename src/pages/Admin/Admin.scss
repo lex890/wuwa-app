@@ -24,24 +24,19 @@ div.admin {
       flex-direction: column;
       gap: 1em;
       padding: 2em 16%;
+
       div.character-list {
         min-height: 0;
         overflow: hidden;
       }
 
-      p#status-msg {
-        position: fixed;
-        bottom: 0;
-        right: 0;
-
-        width: 200px;
-
-        background-color: rgba(124, 102, 102, 0.452);
-        color: rgb(0, 0, 0);
-      }
+      div#status-msg.view-card {
+        position: absolute;
+      } 
     }
   }
 
+  div.header-container { margin-bottom: 1em; }
 }
 
 @media screen and (max-width: 1024px) {

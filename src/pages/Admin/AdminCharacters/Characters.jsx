@@ -29,11 +29,13 @@ function Characters({ data, reload }) {
   const [addedRows, setAddedRows]= useState([])
 
   const [modalState, setModalState] = useState(null)
-  const [message, setMessage] = useState("")
-  const [success, setSuccess] = useState(false)
+
   const [searchTerm, setSearchTerm] = useState("")
   const [openDropdown, setOpenDropdown] = useState(null);
 
+  const [ statusColor, setStatusColor ] = useState('white')
+  const [ message, setMessage ] = useState("Stand By")
+  const [ success, setSuccess ] = useState(false)
 
   useEffect(() => {
     // eslint-disable-next-line react-hooks/set-state-in-effect
@@ -54,12 +56,14 @@ function Characters({ data, reload }) {
     }
   }
 
-  const showMessage = (message, succ ,duration = 3000) => {
+  const showMessage = (message, succ, duration = 3000) => {
     setMessage(message)
     setSuccess(succ)
+    setStatusColor('green')
     setTimeout(() => {  
       setSuccess(false)
       setMessage("")
+      setStatusColor('')
     }, duration)
   }
 
@@ -257,7 +261,6 @@ function Characters({ data, reload }) {
           />
         </div>
 
-
         <div className="pagination flex-row">
           <Button
             content={
@@ -282,6 +285,21 @@ function Characters({ data, reload }) {
           />
         </div>
       </div>
+      <div 
+        id="status-msg"             
+        className={`view-card ${success ? "show" : ""}`}
+        style={{
+          transform: success ? "translateX(0)" : "translateX(220px)"
+        }}
+      >
+        <div>
+          <p style={{ color: statusColor }}>{message}</p>
+        </div>
+        <span>
+          <span style={{ background: statusColor }}/>
+        </span>
+      </div>
+
       <Modal 
         hidden={modalState}
         Content={
@@ -306,11 +324,6 @@ function Characters({ data, reload }) {
           </>
             
         }/>
-      {message && (
-        <p id="status-msg" style={{ color: success ? "green" : "red" }}>
-          {message}
-        </p>
-      )}
     </>
   );
 }

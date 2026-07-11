@@ -22,7 +22,7 @@ function useCharacterData(characterName) {
         if (!character) {
           throw new Error("Character not found");
         }
-
+        // retrieve extra assets from db
         const extra = await getCharData(decCharName);
         console.log("Extra stuff: ", extra);
         if (!cancelled) {

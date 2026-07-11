@@ -5,7 +5,6 @@ function AuthLayout() {
   return(
     <>
       <div className='public user-access-layout'>
-        <div>this is auth nigga</div>
         <div className="content">
           <div className="main-wrapper">
             <Outlet />
