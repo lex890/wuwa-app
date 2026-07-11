@@ -9,6 +9,8 @@ import { deleteRow, updateRow, addRow } from '../../../api/index'
 
 import defaultImage from '../../../assets/webp/default_image.webp'
 
+import useNotification from '@/hooks/Admin/useNotification'
+
 const ITEMS_PER_PAGE = 10;
 const EMPTY_FORM = {
   id: '',
@@ -33,9 +35,7 @@ function Characters({ data, reload }) {
   const [searchTerm, setSearchTerm] = useState("")
   const [openDropdown, setOpenDropdown] = useState(null);
 
-  const [ statusColor, setStatusColor ] = useState('white')
-  const [ message, setMessage ] = useState("Stand By")
-  const [ success, setSuccess ] = useState(false)
+  const { notif, showMessage } = useNotification()
 
   useEffect(() => {
     // eslint-disable-next-line react-hooks/set-state-in-effect
@@ -56,21 +56,12 @@ function Characters({ data, reload }) {
     }
   }
 
-  const showMessage = (message, succ, duration = 3000) => {
-    setMessage(message)
-    setSuccess(succ)
-    setStatusColor('green')
-    setTimeout(() => {  
-      setSuccess(false)
-      setMessage("")
-      setStatusColor('')
-    }, duration)
-  }
+
 
   const handleReload = (truth) => {
     reload(truth)
     resetPage() // recalculate page no.
-    showMessage("Success", true)
+    showMessage("New Data Fetched", "success")
   }
 
   const handleDelete = (dbName, id) => {
@@ -287,16 +278,16 @@ function Characters({ data, reload }) {
       </div>
       <div 
         id="status-msg"             
-        className={`view-card ${success ? "show" : ""}`}
+        className={`view-card ${notif.status ? "show" : ""}`}
         style={{
-          transform: success ? "translateX(0)" : "translateX(220px)"
+          transform: notif.status ? "translateX(0)" : "translateX(220px)"
         }}
       >
         <div>
-          <p style={{ color: statusColor }}>{message}</p>
+          <p style={{ color: notif.color }}>{notif.message}</p>
         </div>
         <span>
-          <span style={{ background: statusColor }}/>
+          <span style={{ background: notif.color }}/>
         </span>
       </div>
 
