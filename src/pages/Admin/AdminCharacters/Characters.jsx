@@ -10,6 +10,8 @@ import { deleteRow, updateRow, addRow } from '../../../api/index'
 import defaultImage from '../../../assets/webp/default_image.webp'
 
 import useNotification from '@/hooks/Admin/useNotification'
+import usePagination from '@/hooks/Admin/usePagination'
+import useSearch from '@/hooks/Admin/useSearch'
 
 const ITEMS_PER_PAGE = 10;
 const EMPTY_FORM = {
@@ -25,50 +27,46 @@ const dbName = "wuwa_characters"
 function Characters({ data, reload }) {
   const [characters, setCharacters] = useState([]);
   const [deletedIds, setDeletedIds] = useState([]);
-  const [currentPage, setCurrentPage] = useState(1);
   const [selectedCharacter, setSelectedCharacter] = useState({})
   const [editedRows, setEditedRows] = useState([])
   const [addedRows, setAddedRows]= useState([])
 
   const [modalState, setModalState] = useState(null)
 
-  const [searchTerm, setSearchTerm] = useState("")
   const [openDropdown, setOpenDropdown] = useState(null);
 
-  const { notif, showMessage } = useNotification()
+  const { 
+    filterChar, 
+    searchTerm, 
+    updateSearch, 
+  } = useSearch(data) 
+  console.log(data)
+  console.log(filterChar)
+  const { 
+    page,
+    navigate
+  } = usePagination(filterChar)
+
+  const { 
+    notif, 
+    showMessage 
+  } = useNotification()
+
 
   useEffect(() => {
     // eslint-disable-next-line react-hooks/set-state-in-effect
     setCharacters(data)
   }, [data])
 
-  useEffect(() => {
-    // eslint-disable-next-line react-hooks/set-state-in-effect
-    setCurrentPage(1)
-  }, [searchTerm])
-
-  const resetPage = () => {
-    const newLength = characters.length - 1;
-    const maxPage = Math.ceil(newLength / ITEMS_PER_PAGE)
-
-    if (currentPage > maxPage && maxPage > 0) {
-      setCurrentPage(maxPage)
-    }
-  }
-
-
 
   const handleReload = (truth) => {
     reload(truth)
-    resetPage() // recalculate page no.
     showMessage("New Data Fetched", "success")
   }
 
   const handleDelete = (dbName, id) => {
     setCharacters(prev => prev.filter(char => char.id !== id)) 
     setDeletedIds(prev => [...prev, id])
-    
-    resetPage()
   }
 
   const handleSave = async () => {
@@ -146,8 +144,8 @@ function Characters({ data, reload }) {
     );
   });
   const paginatedCharacters = filteredCharacters.slice(
-    (currentPage - 1) * ITEMS_PER_PAGE,
-    currentPage * ITEMS_PER_PAGE
+    (page - 1) * ITEMS_PER_PAGE,
+    page * ITEMS_PER_PAGE
   )
 
   const totalPages = Math.ceil(filteredCharacters.length / ITEMS_PER_PAGE);
@@ -161,7 +159,7 @@ function Characters({ data, reload }) {
         <div className="tools">
           <Search 
             search={searchTerm} 
-            setSearch={setSearchTerm}
+            setSearch={updateSearch}
           />
           <div className="search-count">Total {characters.length}</div>
           <div className="container">
@@ -258,12 +256,12 @@ function Characters({ data, reload }) {
               <Direction  color="none" stroke="#949473" />
             }
             className={"left-button"}
-            onClick={() => setCurrentPage(prev => prev - 1)}
-            disabled={currentPage === 1}
+            onClick={() => navigate.prev(page)}
+            disabled={page === 1}
           />
 
           <span>
-            Page {currentPage} of {totalPages || 1}
+            Page {page} of {totalPages || 1}
           </span>
 
           <Button
@@ -271,8 +269,8 @@ function Characters({ data, reload }) {
               <Direction  color="none" stroke="#949473" direction="right"/>
             }
             className={"right-button"}
-            onClick={() => setCurrentPage(prev => prev + 1)}
-            disabled={currentPage === totalPages || totalPages === 0}
+            onClick={() => navigate.next(page)}
+            disabled={page === totalPages || totalPages === 0}
           />
         </div>
       </div>
