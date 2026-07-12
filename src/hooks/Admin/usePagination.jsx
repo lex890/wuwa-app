@@ -3,37 +3,40 @@ import { useState, useEffect } from "react";
 const ITEMS_PER_PAGE = 10;
 
 function usePagination(items) {
+  
   const [page, setPage] = useState(1);
   
+  const itemCount = items.length;
+  const totalPages = Math.ceil(itemCount / ITEMS_PER_PAGE);
+
   useEffect(() => {
-    const reset = () => {
-      setPage(1);
-    }
+    // eslint-disable-next-line react-hooks/set-state-in-effect
+    setPage(current => current === 1 ? current : 1);
+  }, [itemCount]);
 
-    if (page !== 1) {
-      reset()
-    }
-  }, [items])
-  
-  const length = items.length - 1;
-  const maxPage = Math.ceil(length / ITEMS_PER_PAGE)
+  const next = () => {
+    setPage((current) => Math.min(current + 1, totalPages));
+  };
 
-  const next = (page) => {
-    if (page >= maxPage) return
-    setPage(page + 1)
-  }
-  const prev = (page) => {
-    if (page <= 1) return
-    setPage(page - 1)
-  }
+  const prev = () => {
+    setPage((current) => Math.max(current - 1, 1));
+  };
 
+  const currentItems = items.slice(
+    (page - 1) * ITEMS_PER_PAGE,
+    page * ITEMS_PER_PAGE
+  );
 
   return { 
-  navigate : {
-    next,
-    prev
-  },
-   page
+    navigate : {
+      next,
+      prev
+    },
+    page: {
+      current: page,
+      total: totalPages,
+      items: currentItems,
+    }
   }
 } 
 

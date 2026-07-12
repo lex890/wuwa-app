@@ -3,10 +3,6 @@ import { useState, useMemo } from "react";
 function useSearch(characters) {
   const [searchTerm, setSearchTerm] = useState("")
 
-  const updateSearch = (value) => {
-    setSearchTerm(value)
-  }
-
   const filterChar = useMemo(() => {
     return characters.filter(char => {
       const search = searchTerm.toLowerCase();
@@ -21,7 +17,7 @@ function useSearch(characters) {
     });
   }, [characters, searchTerm]);
 
-  return { searchTerm, updateSearch, filterChar }
+  return { searchTerm, setSearchTerm, filterChar }
 }
 
 export default useSearch
