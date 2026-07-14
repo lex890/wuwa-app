@@ -26,17 +26,17 @@ async function exportTable(table, file) {
 async function main() {
   await exportTable(
     "wuwa_characters",
-    "./src/json/wuwa-characters.json"
+    "./public/wuwa-characters.json"
   );
 
   await exportTable(
     "wuwa_weapons",
-    "./src/json/wuwa-weapons.json"
+    "./public/wuwa-weapons.json"
   );
 
   await exportTable(
     "wuwa_echoes",
-    "./src/json/wuwa-echoes.json"
+    "./public/wuwa-echoes.json"
   );
 }
 

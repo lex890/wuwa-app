@@ -7,8 +7,8 @@ async function addRow(table, rows) {
     .from(table)
     .insert(rowsArray)
     .select();
-
-  return { data, error };
+  if (!error) console.log('data has been added: ', data)
+  return { error };
 }
 
 export default addRow

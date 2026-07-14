@@ -32,15 +32,25 @@ function useCharacterData(initialCharacters, loadData) {
         type: "neutral",
       }
     }
-    const { data, error } = await addRow("wuwa_characters", newData)
+    const confirmed = confirm(
+      `Save ${newData.length} new character(s)?`
+    );
+    if (!confirmed) {
+      return {
+        message: "Save cancelled.",
+        type: "neutral",
+      };
+    }
+
+    const { error } = await addRow("wuwa_characters", newData)
     if (error) { 
       return {
         message: "Adding failed.",
         type: "error",
       }
     }
-    // instead of adding the row with id in state, perform a force fetching
-    addCharacter(data)
+    localStorage.clear();
+    await loadData();
     return {
       message: "Character(s) saved.",
       type: "success"
