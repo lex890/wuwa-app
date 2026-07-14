@@ -47,19 +47,19 @@ function Home(props) {
               Icon={CharacterIcon} 
               name={"Characters"} 
               amount={characters.length}
-              to={"character"}
+              to={"/admin/character"}
             />
             <Card 
               Icon={WeaponIcon} 
               name={"Weapons"} 
               amount={weapons.length}
-              to={"weapon"}
+              to={"/admin/weapon"}
             />
             <Card 
               Icon={EchoesIcon} 
               name={"Echoes"} 
               amount={echoes.length}
-              to={"echo"}
+              to={"/admin/echo"}
             />
           </div>
         </div>

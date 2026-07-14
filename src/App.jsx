@@ -1,5 +1,5 @@
 import { BrowserRouter } from "react-router-dom"
-import { useGameData } from "./hooks/useGameData"
+import { useGameData } from "./hooks/Public/useGameData"
 import AppRoutes from "./routes/appRoutes";
 
 import './App.scss'

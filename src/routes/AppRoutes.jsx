@@ -67,8 +67,8 @@ export default function AppRoutes({
     <Route path="/admin" element={<AdminLayout />}>
       <Route index element={<Navigate to="home" replace />} />
 
-      <Route path="home" element={ <AdminHome data={{ characters, weapons,    echoes }} />}/>
-      <Route path="character" element={<Characters data={characters} reload={loadData}/>}/>
+      <Route path="home" element={ <AdminHome data={{ characters, weapons, echoes }} />}/>
+      <Route path="character" element={<Characters data={characters} loadData={loadData}/>}/>
       <Route path="weapon" element={<Weapons data={weapons} />}/>
       <Route path="echo" element={<Echoes data={echoes} />}/>
 

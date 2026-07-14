@@ -1,12 +1,18 @@
-# React + Vite
+# Sonoro
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A wuthering waves CMS Wikipedia app
 
-Currently, two official plugins are available:
+# installation
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+- npm run dev
 
-git commit -m "first commit"
+# export json data
+
+- npm run export-json
 
 
+# Stack
+Frontend: React + Vite
+Backend/BaaS: Supabase
+Database: PostgreSQL (via Supabase)
+Automation/Scripting: Node.js

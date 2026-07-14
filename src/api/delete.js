@@ -12,6 +12,7 @@ async function deleteRow(table, ids) {
     if (error) throw error
 
     
+    
   } catch (error) {
     return error
   }

@@ -1,6 +1,6 @@
 import "./index.scss"
 import elementColors from "@/constant/colors";
-import useCharacterData from "@/hooks/useCharacterData";
+import useCharacterData from "@/hooks/Public/useCharacterData";
 import { useParams } from "react-router-dom";
 
 import {

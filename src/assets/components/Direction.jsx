@@ -6,8 +6,8 @@ function Direction({ fill = "none", stroke = "black", direction = "left" }) {
       viewBox="0 0 24 24" 
       fill={fill} 
       stroke={stroke} 
-      stroke-width="2" 
-      stroke-linecap="round" stroke-linejoin="round"
+      strokeWidth="2" 
+      strokeLinecap="round" strokeLinejoin="round"
       style={{
         transform: direction === "right" ? "scaleX(-1)" : "none",
       }}>

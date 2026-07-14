@@ -29,7 +29,7 @@ function Dropdown({
       />
 
       {open && (
-        <div className="dropdown-content">
+        <div className="dropdown-content view-card">
           {children}
         </div>
       )}

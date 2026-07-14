@@ -2,10 +2,10 @@ import { useState, useEffect } from "react";
 import getCharData from "@/api/getCharData";
 
 function useCharacterData(characterName) {
-  const [data, setData] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-
+  const [data, setData] = useState(null);
+  
   const decCharName = decodeURIComponent(characterName);
 
   useEffect(() => {
@@ -22,7 +22,7 @@ function useCharacterData(characterName) {
         if (!character) {
           throw new Error("Character not found");
         }
-
+        // retrieve extra assets from db
         const extra = await getCharData(decCharName);
         console.log("Extra stuff: ", extra);
         if (!cancelled) {
