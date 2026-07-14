@@ -5,52 +5,34 @@ import { Header, Button, Search, LineSeparator } from '../../../components/index
 import { Direction, Save, Fetch, Add} from '../../../assets/components/index'
 
 
-
-import useCharacterData from '@/hooks/Admin/useCharacterData'
-import useNotification from '@/hooks/Admin/useNotification'
-import usePagination from '@/hooks/Admin/usePagination'
-import useSearch from '@/hooks/Admin/useSearch'
-import useModal from '@/hooks/Admin/useModal'
+import useCharacterController from '@/hooks/Admin/useCharacterController'
 
 import EditModal from './EditModal'
 import AddModal from './AddModal'
 
+import StatusMsg from './StatusMsg'
 
 
 import ItemRow from './ItemRow'
 
-function Characters({ data }) {
+function Characters({ data, loadData }) {
   const {
-    characters,
-    actions,
-  } = useCharacterData(data)
-  const { 
-    filterChar, 
-    searchTerm, 
-    setSearchTerm, 
-  } = useSearch(characters)
-  const { 
+    filterChar,
     page,
-    navigate
-  } = usePagination(filterChar)
-  const { 
-    notif, 
-    showMessage 
-  } = useNotification()
-  const {
+    navigate,
+    searchTerm,
+    setSearchTerm,
     modal,
     openModal,
-    closeModal
-  } = useModal()
-
-
-
+    closeModal,
+    notif,
+    actions
+  } = useCharacterController(data, loadData)
   return (
     <>
       <Header />
-
+      <LineSeparator />
       <div className="char-list">
-        <LineSeparator />
         <div className="tools">
           <Search 
             search={searchTerm} 
@@ -78,6 +60,7 @@ function Characters({ data }) {
             <Button
               type="button"
               className="fetch-button"
+              onClick={actions.reload}
               content={
                 <>
                   <Fetch 
@@ -87,11 +70,12 @@ function Characters({ data }) {
                   /> Fetch
                 </>
               }
-              onClick={actions.reload}
+              
             />
             <Button
               type="button"
               className="add-button"
+              onClick={() => openModal("add")}
               content={
                 <>
                   <Add 
@@ -101,7 +85,6 @@ function Characters({ data }) {
                   /> Add New
                 </>
               }
-              onClick={() => openModal("add")}
             />
 
           </div>
@@ -111,9 +94,9 @@ function Characters({ data }) {
           <ul>
             { 
               page.items.map((char) => (
-                <ItemRow 
+                <ItemRow
+                  key={char.id} 
                   item={char}
-                  type={modal.type}
                   openModal={openModal}
                   closeModal={closeModal}
                 />
@@ -146,26 +129,12 @@ function Characters({ data }) {
           />
         </div>
       </div>
-      <div 
-        id="status-msg"             
-        className={`view-card ${notif.status ? "show" : ""}`}
-        style={{
-          transform: notif.status ? "translateX(0)" : "translateX(220px)"
-        }}
-      >
-        <div>
-          <p style={{ color: notif.color }}>{notif.message}</p>
-        </div>
-        <span>
-          <span style={{ background: notif.color }}/>
-        </span>
-      </div>
+      <StatusMsg notif={notif} />
       { modal.type  === 'edit' && (
         <EditModal close={closeModal} data={modal.data}/>
       )}
-
       { modal.type === 'add' && (
-        <AddModal close={closeModal} data={modal.data}/>
+        <AddModal close={closeModal} addData={actions.add}/>
       )}
     </>
   );

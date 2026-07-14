@@ -1,9 +1,10 @@
 import { useState, useRef } from "react"
 
 const colors = {
-  success: "green",
+  success: "lime",
   error: "red",
   warning: "orange",
+  neutral: "var(--main)"
 };
 
 function useNotification() {

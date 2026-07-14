@@ -10,6 +10,7 @@ export function useGameData() {
   const [error, setError] = useState(null);
 
   const loadData = useCallback(async () => {
+    console.log("I ahve been cvalled")
     try {
       const data = await readData();
       setCharacters(data.characters);
@@ -21,7 +22,7 @@ export function useGameData() {
       setLoading(false);
     }
   }, []);
-
+  
   useEffect(() => {
     if (!localStorage.getItem("hasOpenedBefore")) {
       localStorage.clear();

@@ -8,11 +8,13 @@
     "build": "vite build",
     "lint": "eslint .",
     "import:wuwa": "node scripts/import-wuwa-data.mjs",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "export-json": "node src/scripts/export-json.js"
   },
   "dependencies": {
     "@supabase/supabase-js": "^2.108.0",
     "clsx": "^2.1.1",
+    "dotenv": "^17.4.2",
     "lucide-react": "^1.22.0",
     "ogl": "^1.0.11",
     "react": "^19.2.6",

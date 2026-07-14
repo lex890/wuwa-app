@@ -37,32 +37,33 @@ async function fetchDataBase() {
 }
 
 async function fetchJSONData() {
-  console.log('fetching json data')
+  console.log("fetching json data");
+
   try {
-    const [characters, weapons, echoes] = await Promise.all([
-      fetch("./src/json/wuwa-characters.json").then((res) => {
-        console.log(res.status)
-        if (!res.ok) throw new Error(`HTTP ${res.status}`);
-        return res.json();
-      }),
-      fetch("/src/json/wuwa-weapons.json").then((res) => {
-        console.log(res.status)
-        if (!res.ok) throw new Error(`HTTP ${res.status}`);
-        return res.json();
-      }),
-      fetch("/src/json/wuwa-echoes.json").then((res) => {
-        console.log(res.json)
-        if (!res.ok) throw new Error(`HTTP ${res.status}`);
-        return res.json();
-      }),
-    ]);
+    const characterRes = await fetch("src/json/wuwa-characters.json");
+    console.log("Characters:", characterRes.status, characterRes.headers.get("content-type"));
+    if (!characterRes.ok) throw new Error(`Characters: HTTP ${characterRes.status}`);
+    const characters = await characterRes.json();
+
+    const weaponRes = await fetch("src/json/wuwa-weapons.json");
+    console.log("Weapons:", weaponRes.status, weaponRes.headers.get("content-type"));
+    if (!weaponRes.ok) throw new Error(`Weapons: HTTP ${weaponRes.status}`);
+    const weapons = await weaponRes.json();
+
+    const echoRes = await fetch("src/json/wuwa-echoes.json");
+    console.log("Echoes:", echoRes.status, echoRes.headers.get("content-type"));
+    if (!echoRes.ok) throw new Error(`Echoes: HTTP ${echoRes.status}`);
+    const echoes = await echoRes.json();
+
     const data = reshapeData({
       characters,
       weapons,
       echoes,
     });
+
     setCachedData(data, "wuwa-data");
-    return data
+
+    return data;
   } catch (error) {
     console.error("Failed to load local JSON data:", error);
     throw error;

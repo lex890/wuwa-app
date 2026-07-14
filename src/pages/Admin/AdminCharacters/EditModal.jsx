@@ -1,7 +1,6 @@
 import { Form } from "@/components"
 
 function EditModal({ data, close }) {
-  
   return(
     <div onClick={close} className={`modal-overlay`}>
       <div 

@@ -1,9 +1,8 @@
 import OptionsButton from './OptionsButton'
-import OptionsModal from './OptionsModal'
 
 import defaultImage from '../../../assets/webp/default_image.webp'
 
-function ItemRow({ item, type, openModal, closeModal }) {
+function ItemRow({ item, openModal }) {
   return(
     <li key={item.id} className="character-list">
       <div className='list-wrapper'>
@@ -19,13 +18,8 @@ function ItemRow({ item, type, openModal, closeModal }) {
         <span>{item.weapon_type}</span>
         <div className="options">
           <OptionsButton 
-            open={() => openModal("options")}
+            open={() => openModal("edit", item)}
           />
-          { type === "options" && (
-            <OptionsModal 
-              close={() => closeModal()}
-            />
-          )}
         </div>
 
       </div>

@@ -2,8 +2,11 @@ import { DotsIcon } from "@/assets/components";
 
 function OptionsButton({ open }) {
   return(
-    <div className="dropbtn">
-      <button onClick={open}>
+    <div className="dropdown">
+      <button 
+        onClick={open}
+        className="dropbtn"
+      >
         <DotsIcon />
       </button>
     </div>

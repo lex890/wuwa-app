@@ -1,10 +1,13 @@
 
-function OptionsModal({ close }) {
+function OptionsModal({ close, open, data }) {
   return (
-    <div onClick={close} className={`modal-overlay`}>
-      <div className="dropdown-content view-card">
-        <button>Edit</button>
-        <button>Delete</button>
+    <div onClick={close} className="item-modal-overlay">
+      <div 
+        className="dropdown-content view-card"
+        onClick={(e) => e.stopPropagation()}
+      >
+        <button onClick={() => open("edit", data)}>Edit</button>
+        <button onClick={close}>Delete</button>
       </div>
     </div>
       
