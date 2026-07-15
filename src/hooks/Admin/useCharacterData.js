@@ -10,7 +10,17 @@ function useCharacterData(initialCharacters, loadData) {
   }, [initialCharacters]);
 
   const addCharacter = (character) => {
+    if (!character) {
+      return {
+        message: "Something went wrong.",
+        type: "error",
+      }
+    }
     setCharacters(prev => [...prev, character])
+    return {
+      message: "New Character added",
+      type: "success",
+    }
   }
   const removeCharacter = (character) => {
     setCharacters(prev => 
@@ -18,11 +28,21 @@ function useCharacterData(initialCharacters, loadData) {
     );
   };
   const updateCharacter  = (character) => {
+    if (!character) {
+      return {
+        message: "No changes detected.",
+        type: "neutral",
+      }
+    }
     setCharacters(prev =>
       prev.map(char =>
         char.id === character.id ? character : char
       )
     );
+    return {
+      message: `${character.id} has been updated.`,
+      type: "success",
+    }
   };
   const saveCharacters = async () => {
     const newData = characters.filter(char => !char.id);

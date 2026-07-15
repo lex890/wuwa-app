@@ -37,8 +37,13 @@ function useCharacterController(data, loadData) {
     showMessage(message, type);
   }
   const add = (newChar) => {
-    actions.add(newChar)
-    showMessage("New Character added", "neutral")
+    const { message, type } = actions.add(newChar);
+    showMessage(message, type)
+    closeModal()
+  }
+  const update = (newChar) => {
+    const { message, type } = actions.update(newChar);
+    showMessage(message, type)
     closeModal()
   }
 
@@ -56,6 +61,7 @@ function useCharacterController(data, loadData) {
     actions: {
       ...actions,
       reload,
+      update,
       save,
       add
     },

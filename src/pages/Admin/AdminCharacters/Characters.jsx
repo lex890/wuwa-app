@@ -131,10 +131,17 @@ function Characters({ data, loadData }) {
       </div>
       <StatusMsg notif={notif} />
       { modal.type  === 'edit' && (
-        <EditModal close={closeModal} data={modal.data}/>
+        <EditModal
+          editData={actions.update}  
+          close={closeModal} 
+          data={modal.data}
+        />
       )}
       { modal.type === 'add' && (
-        <AddModal close={closeModal} addData={actions.add}/>
+        <AddModal 
+          close={closeModal} 
+          addData={actions.add}
+        />
       )}
     </>
   );

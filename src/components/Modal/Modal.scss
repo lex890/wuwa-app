@@ -11,6 +11,10 @@ div.modal-overlay {
   backdrop-filter: blur(8px);
 }
 
+.relative {
+  position: relative;
+}
+
 div.modal-popup {
   position: absolute;
 }

@@ -10,6 +10,11 @@ function EditPreview({ data, assets }) {
         </div>
 
         <div>
+          <h3>Created at</h3>
+          <span>{data.date}</span>
+        </div>
+
+        <div>
           <h3>Name</h3>
           <span>{data.name}</span>
         </div>
@@ -29,10 +34,6 @@ function EditPreview({ data, assets }) {
           <span>{data.quality}</span>
         </div>
 
-        <div>
-          <h3>Created at</h3>
-          <span>{data.date}</span>
-        </div>
       </div>
     </>
   )
