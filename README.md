@@ -1,4 +1,4 @@
-# Wuthering Waves CMS
+# Sonoro: Wuthering Waves CMS
 
 A lightweight Content Management System (CMS) built for managing data used by a Wuthering Waves fan wiki. The application provides an authenticated admin panel for maintaining game data while serving a fast, cached experience for public users.
 
