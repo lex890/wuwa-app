@@ -79,7 +79,7 @@ function SideBar() {
         <Title />
         <Anchor Image={HomeIcon} text={'Home'} to={"home"}/>
         <span>DATABASE</span>
-        <Anchor Image={CharIcon} text={'Characters'} to={"character"}/>
+        <Anchor Image={CharIcon} text={'Resonators'} to={"character"}/>
         <Anchor Image={WeaponIcon} text={'Weapons'} to={"weapon"}/>
         <Anchor Image={EchoesIcon} text={'Echoes'} to={"echo"}/>
         <span>TIER LISTS</span>
