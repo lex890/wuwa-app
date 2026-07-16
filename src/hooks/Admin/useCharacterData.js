@@ -10,7 +10,17 @@ function useCharacterData(initialCharacters, loadData) {
   }, [initialCharacters]);
 
   const addCharacter = (character) => {
+    if (!character) {
+      return {
+        message: "Something went wrong.",
+        type: "error",
+      }
+    }
     setCharacters(prev => [...prev, character])
+    return {
+      message: "New Character added",
+      type: "success",
+    }
   }
   const removeCharacter = (character) => {
     setCharacters(prev => 
@@ -18,11 +28,21 @@ function useCharacterData(initialCharacters, loadData) {
     );
   };
   const updateCharacter  = (character) => {
+    if (!character) {
+      return {
+        message: "No changes detected.",
+        type: "neutral",
+      }
+    }
     setCharacters(prev =>
       prev.map(char =>
         char.id === character.id ? character : char
       )
     );
+    return {
+      message: `${character.id} has been updated.`,
+      type: "success",
+    }
   };
   const saveCharacters = async () => {
     const newData = characters.filter(char => !char.id);
@@ -32,15 +52,25 @@ function useCharacterData(initialCharacters, loadData) {
         type: "neutral",
       }
     }
-    const { data, error } = await addRow("wuwa_characters", newData)
+    const confirmed = confirm(
+      `Save ${newData.length} new character(s)?`
+    );
+    if (!confirmed) {
+      return {
+        message: "Save cancelled.",
+        type: "neutral",
+      };
+    }
+
+    const { error } = await addRow("wuwa_characters", newData)
     if (error) { 
       return {
         message: "Adding failed.",
         type: "error",
       }
     }
-    // instead of adding the row with id in state, perform a force fetching
-    addCharacter(data)
+    localStorage.clear();
+    await loadData();
     return {
       message: "Character(s) saved.",
       type: "success"

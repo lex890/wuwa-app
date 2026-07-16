@@ -1,6 +1,11 @@
 import ImageUpload from "@/components/ImageUpload"
+import useCharacterForm from "@/hooks/Admin/useCharacterForm";
 
-function AddForm({ handleSubmit, handleClose }) {
+
+function AddForm({ handleClose, addData }) {
+  
+  const { handleSubmit } = useCharacterForm(addData)
+
   return(
     <>
       <form id="addForm" onSubmit={handleSubmit}>
@@ -31,8 +36,6 @@ function AddForm({ handleSubmit, handleClose }) {
           <option value={4}>★★★★</option>
           <option value={5}>★★★★★</option>
         </select>
-
-        
 
         <hr />
         <div>

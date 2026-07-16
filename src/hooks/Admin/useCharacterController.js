@@ -31,16 +31,20 @@ function useCharacterController(data, loadData) {
   const reload = async () => {
     const { message, type } = await actions.reload();
     showMessage(message, type);
-  };
-
+  }
   const save = async () => {
     const { message, type } = await actions.save();
     showMessage(message, type);
   }
-
   const add = (newChar) => {
-    actions.add(newChar)
-    showMessage("New Character added", "neutral")
+    const { message, type } = actions.add(newChar);
+    showMessage(message, type)
+    closeModal()
+  }
+  const update = (newChar) => {
+    const { message, type } = actions.update(newChar);
+    showMessage(message, type)
+    closeModal()
   }
 
   return {
@@ -57,6 +61,7 @@ function useCharacterController(data, loadData) {
     actions: {
       ...actions,
       reload,
+      update,
       save,
       add
     },
