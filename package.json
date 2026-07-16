@@ -7,9 +7,11 @@
     "dev": "vite",
     "build": "vite build",
     "lint": "eslint .",
-    "import:wuwa": "node scripts/import-wuwa-data.mjs",
     "preview": "vite preview",
-    "export-json": "node src/scripts/export-json.js"
+    "import:wuwa": 
+      "node scripts/import-wuwa-data.mjs",
+    "export:wuwa": 
+      "node scripts/export-wuwa-data.js"
   },
   "dependencies": {
     "@supabase/supabase-js": "^2.108.0",
