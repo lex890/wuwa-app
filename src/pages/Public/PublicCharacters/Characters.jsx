@@ -2,13 +2,11 @@ import "./index.scss"
 
 import Header from "../../../components/Header"
 import LineSeparator from "../../../components/LineSeparator"
-
 import Search from "../../../components/Search"
 import Filter from "./Filter"
 import CardGrid from "./CardGrid"
 import { ErrorPage } from "../PublicCharacterDetails"
 
-import { useState } from "react"
 import { useGameData } from "@/hooks/Public/useGameData"
 import { useCharacterFilters } from "@/hooks/Public/useCharacterFilter"
 
