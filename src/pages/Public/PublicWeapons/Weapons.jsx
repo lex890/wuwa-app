@@ -1,22 +1,17 @@
 import './index.scss'
+import { useGameData } from '@/hooks/Public/useGameData';
+import { Header } from '@/components';
 
-function Weapons({ data }) {
-  if (!data) {
-    return <p>Loading...</p>;
-  }
+function Weapons() {
+  const { weapons, loading } = useGameData()
+  if (loading) return <p>Loading...</p>
+  
+  console.log(weapons)
   return(
     <>      
-      <div className="header-container">
-        <h1>Weapons Admin Page</h1>
-        {
-          data.map((weapon)=> {
-            return(
-              <>
-                <div>{weapon.name}</div>
-              </>
-            )
-          })
-        }
+      <div id="weapons-container">
+        <Header />
+
       </div>
     </>
   )

@@ -58,7 +58,7 @@ export default function AppRoutes({
       /> 
       <Route 
         path="characters" 
-        element={ <CharacterList data={characters}/> }
+        element={ <CharacterList /> }
       />
       <Route 
         path="character/:characterName" 
@@ -66,11 +66,11 @@ export default function AppRoutes({
       />
       <Route 
         path="weapons" 
-        element={<WeaponList data={weapons}/>} 
+        element={<WeaponList />} 
       />
       <Route 
         path="echoes" 
-        element={<EchoList data={echoes}/>} 
+        element={<EchoList />} 
       />
       <Route 
         path="tier-list" 
