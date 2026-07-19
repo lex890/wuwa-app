@@ -7,13 +7,18 @@ import WeaponIcon from '../../../assets/components/WeaponIcon.jsx'
 import EchoesIcon from '../../../assets/components/EchoIcon.jsx'
 import TierListIcon from '../../../assets/components/TierlistIcon.jsx'
 import TeamTierListIcon from '../../../assets/components/TeamTierListIcon.jsx'
-// import { useState } from 'react'
 
+import { useGameData } from '@/hooks/Public/useGameData'
 
-function Home(props) {
-  const { characters, weapons, echoes } = props.data;
-
-  // const [dbState, setDBState] = useState([])
+function Home() {
+  const { 
+    characters, 
+    weapons, 
+    echoes,
+    loading
+  } = useGameData();
+  console.log(characters)
+  if(loading) return <div>Loading...</div>
 
   return(
     <>      
@@ -47,7 +52,7 @@ function Home(props) {
               Icon={CharacterIcon} 
               name={"Characters"} 
               amount={characters.length}
-              to={"/admin/character"}
+              to={"/admin/characters"}
             />
             <Card 
               Icon={WeaponIcon} 

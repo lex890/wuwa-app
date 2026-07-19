@@ -26,12 +26,7 @@ import {
   MainLayout
 } from "../layout/"
 
-export default function AppRoutes({
-  characters,
-  weapons,
-  echoes,
-  loadData,
-}) {
+export default function AppRoutes() {
   return (
   <Routes>
     {/* AuthLayout */}
@@ -74,13 +69,11 @@ export default function AppRoutes({
       />
       <Route 
         path="tier-list" 
-        element={<TierList 
-        data={{ characters, weapons, echoes }}/>} 
+        element={<TierList data={{ characters, weapons, echoes }}/>} 
       />
       <Route 
         path="tier-builder" 
-        element={<TierBuilder 
-        data={{ characters, weapons, echoes }}/>} 
+        element={<TierBuilder data={{ characters, weapons, echoes }}/>} 
       />
 
       {/* Public 404 */}
@@ -98,21 +91,19 @@ export default function AppRoutes({
 
       <Route 
         path="home" 
-        element={ <AdminHome data={{ characters, weapons, echoes }} />}
+        element={ <AdminHome />}
       />
       <Route 
         path="characters" 
-        element={<Characters 
-        data={characters} 
-        loadData={loadData}/>}
+        element={<Characters />}
       />
       <Route 
         path="weapons" 
-        element={<Weapons data={weapons} />}
+        element={<Weapons />}
       />
       <Route 
         path="echoes" 
-        element={<Echoes data={echoes} />}
+        element={<Echoes />}
       />
 
       {/* Public 404 */}

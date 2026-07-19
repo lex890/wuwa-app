@@ -1,6 +1,6 @@
 import './index.scss'
 import { useGameData } from '@/hooks/Public/useGameData';
-import { useWeaponFilters } from '@/hooks/Public/useWeaponFilters';
+import { useWeaponFilters } from '@/hooks/Public/useWeaponFilter';
 import Header from "../../../components/Header"
 import LineSeparator from "../../../components/LineSeparator"
 import Filter from './Filter';

@@ -96,16 +96,16 @@ div.search-count {
 // Characters Section
 div#card-container {
   @include flex(
-    $justify: space-evenly,
+    $justify: flex-start,
     $align: center,
     $gap: 1em
   );
-
+  padding-left: 3em;
   flex-wrap: wrap;
 }
 
 div.card {
-  flex: 0 0 150px;
+  flex: 0 0 160px;
   overflow: hidden;
   transform: skew(-6deg);
   background-color: var(--card-bg);

@@ -3,61 +3,67 @@ import useCharacterForm from "@/hooks/Admin/useCharacterForm";
 
 
 function AddForm({ handleClose, addData }) {
-  
-  const { handleSubmit } = useCharacterForm(addData)
+  const { handleSubmit } = useCharacterForm(addData);
 
-  return(
-    <>
-      <form id="addForm" onSubmit={handleSubmit}>
-        <label htmlFor="name">Name</label>
-        <input id="name" name="name" />
+  return (
+    <form id="addForm" onSubmit={handleSubmit} className="chat-form">
 
-        <label htmlFor="element_type">Element</label>
-        <select id="element_type" name="element_type">
-          <option value="Glacio">Glacio</option>
-          <option value="Fusion">Fusion</option>
-          <option value="Electro">Electro</option>
-          <option value="Aero">Aero</option>
-          <option value="Spectro">Spectro</option>
-          <option value="Havoc">Havoc</option>
+      <div className="chat-bubble">
+        <label>Name</label>
+        <input name="name" />
+      </div>
+
+      <div className="chat-bubble">
+        <label>Element</label>
+        <select name="element_type">
+          <option>Glacio</option>
+          <option>Fusion</option>
+          <option>Electro</option>
+          <option>Aero</option>
+          <option>Spectro</option>
+          <option>Havoc</option>
         </select>
+      </div>
 
-        <label htmlFor="weapon_type">Weapon Type</label>
-        <select id="weapon_type" name="weapon_type">
-          <option value="Sword">Sword</option>
-          <option value="Broadblade">Broadblade</option>
-          <option value="Pistols">Pistols</option>
-          <option value="Gauntlets">Gauntlets</option>
-          <option value="Rectifier">Rectifier</option>
+      <div className="chat-bubble">
+        <label>Weapon</label>
+        <select name="weapon_type">
+          <option>Sword</option>
+          <option>Broadblade</option>
+          <option>Pistols</option>
+          <option>Gauntlets</option>
+          <option>Rectifier</option>
         </select>
+      </div>
 
-        <label htmlFor="quality_id">Quality</label>
-        <select id="quality_id" name="quality_id">
+      <div className="chat-bubble">
+        <label>Quality</label>
+        <select name="quality_id">
           <option value={4}>★★★★</option>
           <option value={5}>★★★★★</option>
         </select>
+      </div>
 
-        <hr />
-        <div>
-          <ImageUpload label={"Character Icon"} name={"icon"}/>
-          <ImageUpload label={"Role Portrait"}  name={"rolePortrait"}/>
-          <ImageUpload label={"Role Head Icon"} name={"roleHeadIcon"}/>
-          <ImageUpload label={"Formation Card"} name={"formationCard"}/>
-        </div>
+      <div className="chat-bubble">
+        <label>Images</label>
 
-      </form>
+        <ImageUpload label="Character Icon" name="icon" />
+        <ImageUpload label="Role Portrait" name="rolePortrait" />
+        <ImageUpload label="Role Head Icon" name="roleHeadIcon" />
+        <ImageUpload label="Formation Card" name="formationCard" />
+      </div>
 
-      <div className="actions">
-        <button type="submit" form="addForm">
-          Create
-        </button>
-
+      <div className="chat-actions">
         <button type="button" onClick={handleClose}>
           Cancel
         </button>
+
+        <button type="submit">
+          Create
+        </button>
       </div>
-    </>
-  )
+    </form>
+  );
 }
 
 export default AddForm
