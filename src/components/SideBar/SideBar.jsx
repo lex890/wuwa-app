@@ -79,9 +79,9 @@ function SideBar() {
         <Title />
         <Anchor Image={HomeIcon} text={'Home'} to={"home"}/>
         <span>DATABASE</span>
-        <Anchor Image={CharIcon} text={'Characters'} to={"character"}/>
-        <Anchor Image={WeaponIcon} text={'Weapons'} to={"weapon"}/>
-        <Anchor Image={EchoesIcon} text={'Echoes'} to={"echo"}/>
+        <Anchor Image={CharIcon} text={'Resonators'} to={"characters"}/>
+        <Anchor Image={WeaponIcon} text={'Weapons'} to={"weapons"}/>
+        <Anchor Image={EchoesIcon} text={'Echoes'} to={"echoes"}/>
         <span>TIER LISTS</span>
         <Anchor Image={TierListIcon} text={'Tier List'} to={"tier-list"}/>
         <Anchor Image={TeamTierListIcon} text={'Tier List Maker'} to={"tier-builder"}/>

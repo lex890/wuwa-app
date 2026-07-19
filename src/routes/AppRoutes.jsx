@@ -26,12 +26,7 @@ import {
   MainLayout
 } from "../layout/"
 
-export default function AppRoutes({
-  characters,
-  weapons,
-  echoes,
-  loadData,
-}) {
+export default function AppRoutes() {
   return (
   <Routes>
     {/* AuthLayout */}
@@ -52,25 +47,64 @@ export default function AppRoutes({
     <Route element={<MainLayout />}>
       <Route index element={ <Navigate to="home" replace />} />
       
-      <Route path="home" element={<HeroPage />}/> 
-      <Route path="character" element={<CharacterList data={characters}/>}/>
-      <Route path="character/:characterName" element={<CharacterDetails />}/>
-      <Route path="weapons" element={<WeaponList />} />
-      <Route path="echoes" element={<EchoList />} />
-      <Route path="tier-list" element={<TierList data={{ characters, weapons, echoes }}/>} />
-      <Route path="tier-builder" element={<TierBuilder data={{ characters, weapons, echoes }}/>} />
+      <Route 
+        path="home" 
+        element={<HeroPage />}
+      /> 
+      <Route 
+        path="characters" 
+        element={ <CharacterList /> }
+      />
+      <Route 
+        path="character/:characterName" 
+        element={<CharacterDetails />}
+      />
+      <Route 
+        path="weapons" 
+        element={<WeaponList />} 
+      />
+      <Route 
+        path="echoes" 
+        element={<EchoList />} 
+      />
+      <Route 
+        path="tier-list" 
+        element={<TierList data={{ characters, weapons, echoes }}/>} 
+      />
+      <Route 
+        path="tier-builder" 
+        element={<TierBuilder data={{ characters, weapons, echoes }}/>} 
+      />
+
       {/* Public 404 */}
-      <Route path="*" element={<ErrorPage />} />
+      <Route 
+        path="*" 
+        element={<ErrorPage />} 
+      />
     </Route>
 
     {/* Admin */}
     <Route path="/admin" element={<AdminLayout />}>
-      <Route index element={<Navigate to="home" replace />} />
+      <Route index 
+        element={<Navigate to="home" replace />} 
+      />
 
-      <Route path="home" element={ <AdminHome data={{ characters, weapons, echoes }} />}/>
-      <Route path="character" element={<Characters data={characters} loadData={loadData}/>}/>
-      <Route path="weapon" element={<Weapons data={weapons} />}/>
-      <Route path="echo" element={<Echoes data={echoes} />}/>
+      <Route 
+        path="home" 
+        element={ <AdminHome />}
+      />
+      <Route 
+        path="characters" 
+        element={<Characters />}
+      />
+      <Route 
+        path="weapons" 
+        element={<Weapons />}
+      />
+      <Route 
+        path="echoes" 
+        element={<Echoes />}
+      />
 
       {/* Public 404 */}
       <Route path="*" element={<ErrorPage />} />

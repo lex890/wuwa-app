@@ -15,7 +15,15 @@ import StatusMsg from './StatusMsg'
 
 import ItemRow from './ItemRow'
 
-function Characters({ data, loadData }) {
+import { useGameData } from '@/hooks/Public/useGameData'
+
+function Characters() {
+  const { 
+    characters, 
+    loadData, 
+    loading,
+    error 
+  } = useGameData()
   const {
     filterChar,
     page,
@@ -27,7 +35,11 @@ function Characters({ data, loadData }) {
     closeModal,
     notif,
     actions
-  } = useCharacterController(data, loadData)
+  } = useCharacterController(characters, loadData)
+
+  if (error) return <ErrorPage />
+  if (loading) return <p>Loading...</p>
+
   return (
     <>
       <Header />

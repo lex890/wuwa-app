@@ -1,6 +1,7 @@
 import { useEffect, useMemo, useState } from "react";
 import { Link } from "react-router-dom";
 import "./TierBuilder.css";
+import { useGameData } from "@/hooks/Public/useGameData";
 
 const TIERS = ["S", "A", "B", "C", "D"];
 const TIER_LABELS = {
