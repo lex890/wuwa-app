@@ -6,7 +6,7 @@ import DeleteButton from "../../../assets/svg/delete-button.svg"
 
 import { useState } from "react"
 import useModalData from "@/hooks/Admin/useModalData"
-import useCharacterForm from "@/hooks/Admin/useCharacterForm"
+import useCharacterForm from "@/hooks/Admin/useAddCharacterForm"
 
 function EditModal({ data, close, editData }) {
   if (!data) ( <div> data not found. . . </div> )

@@ -1,5 +1,5 @@
 import ImageUpload from "@/components/ImageUpload"
-import useCharacterForm from "@/hooks/Admin/useCharacterForm";
+import useCharacterForm from "@/hooks/Admin/useAddCharacterForm";
 
 
 function AddForm({ handleClose, addData }) {
