@@ -34,7 +34,7 @@ function EditForm({ data, handleSubmit }) {
           <label htmlFor="element">
             <h3>Element Type</h3>
           </label>
-          <select id="element" name="element" defaultValue={data.element}>
+          <select id="element" name="element">
             <option value="Glacio">Glacio</option>
             <option value="Fusion">Fusion</option>
             <option value="Electro">Electro</option>
@@ -48,7 +48,7 @@ function EditForm({ data, handleSubmit }) {
           <label htmlFor="weapon">
             <h3>Weapon Type</h3>
           </label>
-          <select id="weapon" name="weapon" defaultValue={data.weapon}>
+          <select id="weapon" name="weapon">
             <option value="Sword">Sword</option>
             <option value="Broadblade">Broadblade</option>
             <option value="Pistols">Pistols</option>
@@ -61,7 +61,7 @@ function EditForm({ data, handleSubmit }) {
           <label htmlFor="quality">
             <h3>Quality</h3>
           </label>
-          <select id="quality" name="quality" defaultValue={data.quality}>
+          <select id="quality" name="quality">
             <option value={4}>4</option>
             <option value={5}>5</option>
           </select>

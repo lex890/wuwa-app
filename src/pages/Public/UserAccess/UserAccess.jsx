@@ -6,14 +6,12 @@ import LineWaves from '../../../components/LineWaves/LineWaves.jsx'
 import AnimatedLogo from '../../../components/AnimatedLogo/AnimatedLogo.jsx'
 import { navigateWithTransition } from '../../../utils/viewTransition.js'
 
-const confirmationRedirectTo = () => `${window.location.origin}/login`
-
-async function resendSignupConfirmation(email) {
+async function sendVerificationCode(email) {
   const { error } = await supabase.auth.resend({
     type: 'signup',
     email,
     options: {
-      emailRedirectTo: confirmationRedirectTo(),
+      emailRedirectTo: `${window.location.origin}/login`,
     },
   })
 
@@ -21,22 +19,13 @@ async function resendSignupConfirmation(email) {
 }
 
 async function upsertUserProfile(user, username = '') {
-  const cleanUsername = username.trim()
-  const { data: existingProfile, error: readError } = await supabase
-    .from('users')
-    .select('uname,role')
-    .eq('id', user.id)
-    .maybeSingle()
-
-  if (readError) throw readError
-
   const { error } = await supabase
     .from('users')
     .upsert({
       id: user.id,
       email: user.email,
-      uname: cleanUsername || existingProfile?.uname || user.user_metadata?.uname || null,
-      role: existingProfile?.role || 'user',
+      uname: username.trim() || user.user_metadata?.uname || null,
+      role: 'user',
       verified: Boolean(user.email_confirmed_at),
     }, { onConflict: 'id' })
 
@@ -106,30 +95,10 @@ function UserAccess() {
   }
 
   useEffect(() => {
-    supabase.auth.getSession().then(({ data, error }) => {
-      if (error) {
-        setStatus({ type: 'error', message: error.message || 'Could not read your login session.' })
-        return
-      }
+    const { data: { subscription } } = supabase.auth.onAuthStateChange((event) => {
+      if (event !== 'PASSWORD_RECOVERY') return
 
-      if (data.session?.user?.email_confirmed_at) {
-        upsertUserProfile(data.session.user).catch((syncError) => {
-          setStatus({ type: 'error', message: syncError.message || 'Could not sync your profile.' })
-        })
-      }
-    })
-
-    const { data: { subscription } } = supabase.auth.onAuthStateChange((event, session) => {
-      if (event === 'PASSWORD_RECOVERY') {
-        navigateWithTransition(navigate, '/reset-password', 'fade')
-        return
-      }
-
-      if (event === 'SIGNED_IN' && session?.user?.email_confirmed_at) {
-        upsertUserProfile(session.user).catch((error) => {
-          setStatus({ type: 'error', message: error.message || 'Could not sync your profile.' })
-        })
-      }
+      navigateWithTransition(navigate, '/reset-password', 'fade')
     })
 
     return () => {
@@ -223,7 +192,7 @@ function UserAccess() {
           email,
           password: form.password,
           options: {
-            emailRedirectTo: confirmationRedirectTo(),
+            emailRedirectTo: `${window.location.origin}/login`,
             data: {
               uname: form.username.trim() || null,
             },
@@ -238,21 +207,8 @@ function UserAccess() {
           throw error
         }
 
-        if (!data.user) {
-          throw new Error('Supabase did not return a new account. Try again in a moment.')
-        }
-
-        if (Array.isArray(data.user.identities) && data.user.identities.length === 0) {
-          throw new Error('An account with this email already exists. Try logging in or use reset password.')
-        }
-
         if (data.session && data.user) {
           await upsertUserProfile(data.user, form.username)
-          localStorage.removeItem('wuwa_verification_email')
-          setStatus({ type: 'success', message: 'Account created. You are already signed in.' })
-          navigateWithTransition(navigate, '/profile', 'fade')
-          setForm((current) => ({ ...current, password: '', confirmPassword: '', verificationCode: '' }))
-          return
         }
 
         localStorage.setItem('wuwa_verification_email', email)
@@ -272,10 +228,10 @@ function UserAccess() {
 
       if (error) {
         if (error.message?.toLowerCase().includes('email not confirmed')) {
-          await resendSignupConfirmation(loginEmail)
+          await sendVerificationCode(loginEmail)
           localStorage.setItem('wuwa_verification_email', loginEmail)
           setVerificationEmail(loginEmail)
-          setStatus({ type: 'error', message: 'Please verify your email first. A new confirmation link was sent.' })
+          setStatus({ type: 'error', message: 'Please verify your email first. A new code was sent.' })
           navigateWithTransition(navigate, '/verify-email', 'fade')
           return
         }
@@ -448,18 +404,18 @@ function UserAccess() {
                   const email = form.email.trim().toLowerCase()
                   if (!email) throw new Error('Enter your email address.')
 
-                  await resendSignupConfirmation(email)
+                  await sendVerificationCode(email)
                   localStorage.setItem('wuwa_verification_email', email)
                   setVerificationEmail(email)
-                  setStatus({ type: 'success', message: 'A new confirmation link was sent.' })
+                  setStatus({ type: 'success', message: 'A new verification code was sent.' })
                 } catch (error) {
-                  setStatus({ type: 'error', message: error.message || 'Could not resend the confirmation link.' })
+                  setStatus({ type: 'error', message: error.message || 'Could not resend the code.' })
                 } finally {
                   setIsSubmitting(false)
                 }
               }}
             >
-              Resend confirmation link
+              Resend code
             </button>
           )}
 
