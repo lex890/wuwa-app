@@ -96,23 +96,81 @@ div.search-count {
 // Characters Section
 div#card-container {
   @include flex(
-    $justify: space-evenly,
+    $justify: flex-start,
     $align: center,
-    $gap: 2vh 2vw
+    $gap: 1em
   );
-
+  padding-left: 3em;
   flex-wrap: wrap;
 }
 
 div.card {
-  flex: 0 0 150px;
+  flex: 0 0 160px;
   overflow: hidden;
-  border-radius: 10px;
-  transform: rotateZ(1deg);
+  transform: skew(-6deg);
+  background-color: var(--card-bg);
+  transition: transform 0.1s ease, border 0.3s ease;
+}
 
-  &:hover {
-    transform: scale(1.2);
+div.card:hover {
+  transform: skew(-6deg) scale(1.1);
+  border: 1px solid var(--shadow-color);
+  cursor: pointer;
+  .card-shine {
+    transform: skew(-36deg) translateX(-100em);
+    background-color: rgba(255, 255, 255, 0.05);
   }
+}
+
+div.card {
+  position: relative;
+  .card-element,
+  .card-quality,
+  .card-highlight,
+  .card-shine,
+  .card-name {
+    position: absolute;
+    transform: skew(6deg, 0deg);
+    z-index: 1;
+    img { object-fit: contain } 
+  }
+  .card-element { 
+    top: 0;
+    img { width: 32px; }  
+  }
+  .card-quality {
+    z-index: 0 ; 
+    right: -32%;
+    transform: rotateZ(-90deg); 
+  }
+  .card-name { 
+    top: 88%;
+    letter-spacing: 2px;
+    text-shadow: 1px 1px 2px var(--main);
+    color: white;
+    text-overflow: ellipsis;
+    width: 80%;
+    font-weight: 600;
+    left: 10%;
+  }
+  .card-highlight { 
+    height: 100%;
+    width: 80px;
+    transform: skew(36deg);
+    background-color: var(--shadow-color);
+    z-index: -1;
+    top: 0;
+   }
+   .card-shine {
+    height: 100%;
+    width: 80px;
+    transform: skew(-36deg);
+    transition: transform 800ms ease-in;
+    
+    z-index: -2;
+    left: 120%;
+    top: 0;
+   }
 }
 
 a.char-nav {

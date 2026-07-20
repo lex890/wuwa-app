@@ -184,13 +184,15 @@ div.character-info {
             padding: 0.6em 1em;
             h2 { 
               text-align: left;
-              font-size: 1rem;
-              margin-bottom: 0.6em; 
+              font-size: 0.52em; 
+              letter-spacing: 1px;
+              margin-bottom: 1em; 
             }
             span {
               display: block;
               text-align: left;
-              font-size: 0.6em; 
+              font-size: 0.48em;
+              color: var(--gray-text); 
             }
         }
       }
