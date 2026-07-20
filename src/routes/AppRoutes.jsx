@@ -69,11 +69,11 @@ export default function AppRoutes() {
       />
       <Route 
         path="tier-list" 
-        element={<TierList data={{ characters, weapons, echoes }}/>} 
+        element={<TierList />} 
       />
       <Route 
         path="tier-builder" 
-        element={<TierBuilder data={{ characters, weapons, echoes }}/>} 
+        element={<TierBuilder />} 
       />
 
       {/* Public 404 */}
