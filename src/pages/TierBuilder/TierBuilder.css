@@ -1,15 +1,26 @@
 .tierlist-page {
-  padding: 24px;
-  max-width: 1180px;
+  padding: 28px;
+  max-width: 1480px;
   margin: 0 auto;
   text-align: left;
   color: var(--text-h);
+  background:
+    radial-gradient(circle at top left, rgba(192, 132, 252, 0.16), transparent 32%),
+    linear-gradient(135deg, rgba(8, 10, 20, 0.96), rgba(24, 30, 48, 0.94));
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 32px;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.08), 0 24px 70px rgba(0, 0, 0, 0.28);
+  backdrop-filter: blur(18px);
 }
 
 .tierlist-header {
   display: grid;
   gap: 16px;
   margin-bottom: 22px;
+  padding: 20px 22px;
+  border-radius: 24px;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.12);
 }
 
 .tierlist-header h1 {
@@ -20,7 +31,7 @@
 .tierlist-header p {
   margin: 0;
   max-width: 720px;
-  color: var(--text);
+  color: #e7e9f2;
   line-height: 1.6;
 }
 
@@ -33,27 +44,44 @@
 
 .tierlist-reset,
 .tierlist-export-buttons button,
+.tierlist-save-button,
 .tierlist-search,
 .tierlist-toolbar select {
   border: 1px solid rgba(120, 115, 138, 0.18);
   border-radius: 14px;
   padding: 10px 14px;
   font: inherit;
-  color: var(--text-h);
-  background: rgba(255, 255, 255, 0.82);
+  color: #111;
+  background: rgba(255, 255, 255, 0.94);
   backdrop-filter: blur(10px);
 }
 
 .tierlist-reset,
-.tierlist-export-buttons button {
+.tierlist-export-buttons button,
+.tierlist-save-button {
   cursor: pointer;
   color: var(--accent);
+}
+
+.tierlist-save-button {
+  background: rgba(170, 59, 255, 0.1);
+  border-color: rgba(170, 59, 255, 0.24);
+}
+
+.tier-save-status {
+  margin: 0;
+  color: var(--text);
+  font-size: 0.92rem;
 }
 
 .tierlist-toolbar {
   display: grid;
   gap: 16px;
   margin-bottom: 24px;
+  padding: 18px 20px;
+  border-radius: 22px;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.12);
 }
 
 .tierlist-filters {
@@ -66,6 +94,7 @@
   display: grid;
   gap: 8px;
   font-weight: 500;
+  color: #f2f3f8;
 }
 
 .tierlist-export-buttons {
@@ -92,20 +121,19 @@
 }
 
 .tier-columns-header {
-  position: sticky;
-  top: 0;
-  z-index: 15;
-  background: rgba(245, 245, 250, 0.95);
-  backdrop-filter: blur(12px);
-  padding: 10px 0 8px;
-  border-bottom: 1px solid rgba(120, 115, 138, 0.16);
+  position: static;
+  z-index: auto;
+  background: transparent;
+  backdrop-filter: none;
+  padding: 0 0 8px;
+  border-bottom: none;
 }
 
 .tier-column-header {
   padding: 14px 16px;
   border-radius: 16px;
-  background: rgba(255, 255, 255, 0.85);
-  border: 1px solid rgba(120, 115, 138, 0.14);
+  background: rgba(255, 255, 255, 0.12);
+  border: 1px solid rgba(255, 255, 255, 0.16);
   display: grid;
   gap: 6px;
   text-align: center;
@@ -119,13 +147,13 @@
 .tier-column-header .tier-label {
   font-size: 0.92rem;
   letter-spacing: 0.06em;
-  color: var(--text);
+  color: #f8f8fc;
   text-transform: uppercase;
 }
 
 .tier-column-header .tier-count {
   font-size: 0.85rem;
-  color: var(--text);
+  color: #f8f8fc;
 }
 
 .unassigned-header {
@@ -166,8 +194,8 @@
 .tier-column {
   padding: 16px;
   border-radius: 18px;
-  background: rgba(255, 255, 255, 0.75);
-  border: 1px solid rgba(120, 115, 138, 0.16);
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.14);
   min-height: 320px;
   display: grid;
   grid-template-rows: auto 1fr;
@@ -181,7 +209,8 @@
 }
 
 .character-card {
-  background: rgba(255, 255, 255, 0.64);
+  background: rgba(255, 255, 255, 0.94);
+  color: #111;
   border-radius: 18px;
   border: 1px solid rgba(120, 115, 138, 0.16);
   overflow: hidden;
@@ -213,7 +242,8 @@
   width: 100%;
   height: 180px;
   object-fit: cover;
-  background: rgba(248, 248, 252, 0.85);
+  display: block;
+  background: linear-gradient(135deg, rgba(15, 23, 42, 0.96), rgba(30, 41, 59, 0.9));
   border-bottom: 1px solid rgba(120, 115, 138, 0.14);
 }
 
@@ -234,19 +264,20 @@
   margin: 0;
   font-size: 1rem;
   line-height: 1.2;
+  color: #111;
 }
 
 .character-meta {
   display: flex;
   flex-wrap: wrap;
   gap: 10px;
-  color: var(--text);
+  color: #111;
   font-size: 0.92rem;
 }
 
 .character-tier-label {
   font-size: 0.9rem;
-  color: var(--text);
+  color: #111;
   text-transform: uppercase;
   letter-spacing: 0.04em;
 }
@@ -257,7 +288,7 @@
   padding: 12px;
   border-radius: 14px;
   background: rgba(245, 245, 255, 0.9);
-  color: var(--text);
+  color: #111;
   font-size: 0.92rem;
 }
 
@@ -271,16 +302,16 @@
   font-weight: 600;
 }
 
-.empty-state {
-  display: grid;
-  place-content: center;
-  min-height: 120px;
-  padding: 16px;
-  border-radius: 16px;
-  color: var(--text);
-  background: rgba(255, 255, 255, 0.4);
-  border: 1px dashed rgba(120, 115, 138, 0.24);
-  text-align: center;
+.status-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 4px 8px;
+  border-radius: 999px;
+  background: rgba(192, 132, 252, 0.14);
+  color: #7c3aed;
+  font-size: 0.8rem;
+  font-weight: 700;
 }
 
 .back-link {
@@ -288,7 +319,84 @@
   text-decoration: none;
   font-weight: 600;
 }
+.tier-auth-modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(12, 14, 27, 0.7);
+  display: grid;
+  place-items: center;
+  z-index: 999;
+  padding: 20px;
+}
 
+.tier-auth-modal {
+  width: min(420px, 100%);
+  background: #fff;
+  border-radius: 20px;
+  padding: 20px;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.18);
+  color: #111;
+}
+
+.tier-auth-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 8px;
+}
+
+.tier-auth-header h3 {
+  margin: 0;
+}
+
+.tier-auth-close {
+  border: none;
+  background: transparent;
+  font-size: 1.4rem;
+  cursor: pointer;
+  color: #111;
+}
+
+.tier-auth-form {
+  display: grid;
+  gap: 12px;
+  margin-top: 12px;
+}
+
+.tier-auth-form label {
+  display: grid;
+  gap: 6px;
+  font-weight: 600;
+}
+
+.tier-auth-form input {
+  border: 1px solid rgba(120, 115, 138, 0.2);
+  border-radius: 12px;
+  padding: 10px 12px;
+  font: inherit;
+}
+
+.tier-auth-message {
+  margin: 0;
+  color: var(--accent);
+  font-size: 0.92rem;
+}
+
+.tier-auth-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  align-items: center;
+}
+
+.tier-auth-switch {
+  border: none;
+  background: transparent;
+  color: var(--accent);
+  cursor: pointer;
+  font-weight: 600;
+}
 @media (max-width: 1080px) {
   .tier-columns {
     grid-template-columns: repeat(3, minmax(0, 1fr));

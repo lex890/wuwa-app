@@ -1,19 +1,36 @@
 import { useEffect, useMemo, useState } from "react";
 import { Link } from "react-router-dom";
 import charactersData from "../../api/wuwa-data.json";
+import { supabase } from "../../api/supabase";
 import "./TierBuilder.css";
 
-const TIERS = ["S", "A", "B", "C", "D"];
+const TIERS = ["T0", "T0.5", "T1", "T1.5", "T2", "T3", "T4"];
 const TIER_LABELS = {
-  S: "Best",
-  A: "Great",
-  B: "Good",
-  C: "Average",
-  D: "Low",
+  T0: "Top",
+  "T0.5": "High",
+  T1: "Strong",
+  "T1.5": "Solid",
+  T2: "Average",
+  T3: "Low",
+  T4: "Very Low",
 };
 
 const PLACEHOLDER_IMAGE =
-  "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='300'%3E%3Crect width='100%25' height='100%25' fill='%23f3f4f6'/%3E%3Ctext x='50%25' y='50%25' dominant-baseline='middle' text-anchor='middle' fill='%23999' font-family='system-ui, sans-serif' font-size='24'%3ENo image%3C/text%3E%3C/svg%3E";
+  "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='300'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0%25' y1='0%25' x2='100%25' y2='100%25'%3E%3Cstop offset='0%25' stop-color='%230f172a'/%3E%3Cstop offset='100%25' stop-color='%231e293b'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='100%25' height='100%25' fill='url(%23g)'/%3E%3Ccircle cx='200' cy='130' r='72' fill='rgba(170,59,255,0.18)'/%3E%3Cpath d='M132 230c20-42 49-63 68-63s48 21 68 63' fill='none' stroke='rgba(255,255,255,0.22)' stroke-width='18' stroke-linecap='round'/%3E%3C/svg%3E";
+
+const normalizeText = (value) => {
+  if (value == null) return undefined;
+  if (typeof value === "string") {
+    const trimmed = value.trim();
+    return trimmed || undefined;
+  }
+  if (typeof value === "object") {
+    if (typeof value.Content === "string" && value.Content.trim()) return value.Content.trim();
+    if (typeof value.content === "string" && value.content.trim()) return value.content.trim();
+    if (typeof value.Name === "string" && value.Name.trim()) return value.Name.trim();
+  }
+  return undefined;
+};
 
 function normalizeCharacter(character) {
   const get = (obj, ...keys) => {
@@ -68,10 +85,10 @@ function normalizeCharacter(character) {
 
   return {
     id: get(character, "Id", "id") ?? get(character, "PropertyId"),
-    name: get(character, "Name.Content", "Name.content", "name", "Name") ?? "Unknown",
-    element: get(character, "ElementName", "elementName", "element") ?? "Unknown",
-    weapon: get(character, "WeaponTypeName", "weaponTypeName", "weapon") ?? "Unknown",
-    quality: get(character, "QualityName", "qualityName", "Quality", "quality") ?? "Unknown",
+    name: normalizeText(get(character, "Name.Content", "Name.content", "name", "Name", "CharacterName")) ?? "Unknown",
+    element: normalizeText(get(character, "ElementName", "elementName", "element")) ?? "Unknown",
+    weapon: normalizeText(get(character, "WeaponTypeName", "weaponTypeName", "weapon")) ?? "Unknown",
+    quality: normalizeText(get(character, "QualityName", "qualityName", "Quality", "quality")) ?? "Unknown",
     image: normalizeUrl(source) || PLACEHOLDER_IMAGE,
     fallback: normalizeUrl(get(character, "RoleHeadIconLarge", "Card", "RoleHeadIcon", "roleHeadIconLarge", "card", "role_head_icon_large") || ""),
   };
@@ -84,6 +101,14 @@ export default function TierBuilder({ data = [] }) {
   const [qualityFilter, setQualityFilter] = useState("All");
   const [expandedId, setExpandedId] = useState(null);
   const [dragTarget, setDragTarget] = useState(null);
+  const [user, setUser] = useState(null);
+  const [authModalOpen, setAuthModalOpen] = useState(false);
+  const [authMode, setAuthMode] = useState("sign-in");
+  const [authEmail, setAuthEmail] = useState("");
+  const [authPassword, setAuthPassword] = useState("");
+  const [authLoading, setAuthLoading] = useState(false);
+  const [authMessage, setAuthMessage] = useState("");
+  const [saveStatus, setSaveStatus] = useState("");
 
   const characters = useMemo(() => {
     const sourceArr = data.length ? data : charactersData;
@@ -99,17 +124,25 @@ export default function TierBuilder({ data = [] }) {
     const mapped = sourceArr.map((raw) => {
       const n = normalizeCharacter(raw);
       const isPlaceholder = !n.image || n.image === PLACEHOLDER_IMAGE;
-      if (isPlaceholder) {
-        const local = localById.get(String(n.id)) || localByNameKey.get((n.name || "").toLowerCase().replace(/[^a-z0-9 ]/g, "").trim());
-        if (local) {
-          const localImage =
-            local.PreviewRoleCard || local.RolePortrait || local.Card || (local.Skins && local.Skins[0] && (local.Skins[0].PreviewRoleCard || local.Skins[0].previewRoleCard)) || local.RoleHeadIconLarge || local.RoleHeadIcon || "";
-          if (localImage) {
-            n.image = localImage;
-            n.fallback = local.RoleHeadIconLarge || local.Card || local.RoleHeadIcon || n.fallback;
-            n.element = n.element === "Unknown" ? (local.ElementName || n.element) : n.element;
-            n.quality = n.quality === "Unknown" ? (local.QualityName || n.quality) : n.quality;
-          }
+      const local = localById.get(String(n.id)) || localByNameKey.get((n.name || "").toLowerCase().replace(/[^a-z0-9 ]/g, "").trim());
+      if (local) {
+        const localImage =
+          local.PreviewRoleCard || local.RolePortrait || local.Card || (local.Skins && local.Skins[0] && (local.Skins[0].PreviewRoleCard || local.Skins[0].previewRoleCard)) || local.RoleHeadIconLarge || local.RoleHeadIcon || "";
+        if (isPlaceholder && localImage) {
+          n.image = localImage;
+          n.fallback = local.RoleHeadIconLarge || local.Card || local.RoleHeadIcon || n.fallback;
+        }
+        if (n.name === "Unknown") {
+          n.name = normalizeText(local.Name?.Content || local.name || local.Name) || n.name;
+        }
+        if (n.element === "Unknown") {
+          n.element = normalizeText(local.ElementName || local.elementName || local.element) || n.element;
+        }
+        if (n.weapon === "Unknown") {
+          n.weapon = normalizeText(local.WeaponTypeName || local.weaponTypeName || local.weapon) || n.weapon;
+        }
+        if (n.quality === "Unknown") {
+          n.quality = normalizeText(local.QualityName || local.qualityName || local.Quality || local.quality) || n.quality;
         }
       }
       return n;
@@ -147,6 +180,87 @@ export default function TierBuilder({ data = [] }) {
     [characters]
   );
 
+  const loadSavedTierList = async (currentUser) => {
+    if (!supabase || !currentUser?.id) return;
+
+    try {
+      const { data, error } = await supabase
+        .from("tier_lists")
+        .select("assignments")
+        .eq("user_id", currentUser.id)
+        .order("updated_at", { ascending: false })
+        .limit(1)
+        .maybeSingle();
+
+      if (error && error.code !== "PGRST116") {
+        throw error;
+      }
+
+      if (data?.assignments && typeof data.assignments === "object") {
+        setAssignments(data.assignments);
+        setSaveStatus("Loaded your saved tier list.");
+      }
+    } catch (error) {
+      console.warn("Unable to load saved tier list:", error);
+    }
+  };
+
+  const persistTierList = async (currentUser = user) => {
+    if (!supabase) {
+      setSaveStatus("Account saving is unavailable because Supabase is not configured.");
+      return;
+    }
+
+    if (!currentUser?.id) {
+      setAuthModalOpen(true);
+      setAuthMode("sign-in");
+      setAuthMessage("Create an account or sign in to save your tier list.");
+      return;
+    }
+
+    setAuthLoading(true);
+    setSaveStatus("Saving tier list...");
+
+    try {
+      const { data: existingRow, error: selectError } = await supabase
+        .from("tier_lists")
+        .select("id")
+        .eq("user_id", currentUser.id)
+        .limit(1)
+        .maybeSingle();
+
+      if (selectError && selectError.code !== "PGRST116") {
+        throw selectError;
+      }
+
+      const payload = {
+        user_id: currentUser.id,
+        assignments,
+        updated_at: new Date().toISOString(),
+      };
+
+      if (existingRow) {
+        const { error } = await supabase
+          .from("tier_lists")
+          .update({ assignments: payload.assignments, updated_at: payload.updated_at })
+          .eq("id", existingRow.id);
+        if (error) throw error;
+      } else {
+        const { error } = await supabase.from("tier_lists").insert(payload);
+        if (error) throw error;
+      }
+
+      setSaveStatus("Tier list saved to your account.");
+      setAuthMessage("");
+      setAuthModalOpen(false);
+    } catch (error) {
+      console.error("TierBuilder save failed", error);
+      setSaveStatus(error?.message || "Could not save your tier list to your account right now.");
+    } finally {
+      setAuthLoading(false);
+    }
+  };
+
   useEffect(() => {
     const saved = localStorage.getItem("tier-builder-assignments");
     if (saved) {
@@ -161,6 +275,41 @@ export default function TierBuilder({ data = [] }) {
   useEffect(() => {
     localStorage.setItem("tier-builder-assignments", JSON.stringify(assignments));
   }, [assignments]);
+
+  useEffect(() => {
+    if (!supabase) {
+      setSaveStatus("Account saving is unavailable because Supabase is not configured.");
+      return;
+    }
+
+    let active = true;
+
+    const restoreSession = async () => {
+      const { data } = await supabase.auth.getSession();
+      if (!active) return;
+      const currentUser = data.session?.user ?? null;
+      setUser(currentUser);
+      if (currentUser) {
+        await loadSavedTierList(currentUser);
+      }
+    };
+
+    restoreSession();
+
+    const { data: { subscription } } = supabase.auth.onAuthStateChange((_event, session) => {
+      if (!active) return;
+      const currentUser = session?.user ?? null;
+      setUser(currentUser);
+      if (currentUser) {
+        loadSavedTierList(currentUser);
+      }
+    });
+
+    return () => {
+      active = false;
+      subscription.unsubscribe();
+    };
+  }, []);
 
   const visibleCharacters = useMemo(() => {
     const query = search.trim().toLowerCase();
@@ -214,45 +363,68 @@ export default function TierBuilder({ data = [] }) {
     }
   };
 
-  const handleExport = () => {
-    const payload = {
-      assignments,
-      exportedAt: new Date().toISOString(),
-    };
-    const jsonBlob = new Blob([JSON.stringify(payload, null, 2)], {
-      type: "application/json",
-    });
-    const url = URL.createObjectURL(jsonBlob);
-    const link = document.createElement("a");
-    link.href = url;
-    link.download = "tier-builder-assignments.json";
-    link.click();
-    URL.revokeObjectURL(url);
-  };
-
-  const handleCopyJSON = async () => {
-    try {
-      await navigator.clipboard.writeText(JSON.stringify(assignments, null, 2));
-      window.alert("Tier assignments copied to clipboard.");
-    } catch {
-      window.prompt(
-        "Copy your tier assignments JSON:",
-        JSON.stringify(assignments, null, 2)
-      );
+  const handleSaveTierList = () => {
+    if (!user) {
+      setAuthModalOpen(true);
+      setAuthMode("sign-in");
+      setAuthMessage("Create an account or sign in to save your tier list.");
+      return;
     }
+
+    persistTierList(user);
   };
 
-  const handleImport = () => {
-    const text = window.prompt("Paste tier assignments JSON here:");
-    if (!text) return;
+  const handleAuthSubmit = async (event) => {
+    event.preventDefault();
+
+    if (!supabase) {
+      setAuthMessage("Supabase is not configured for account saving.");
+      return;
+    }
+
+    if (!authEmail.trim() || !authPassword) {
+      setAuthMessage("Please enter both an email and a password.");
+      return;
+    }
+
+    setAuthLoading(true);
+    setAuthMessage("");
+
     try {
-      const parsed = JSON.parse(text);
-      if (parsed && typeof parsed === "object") {
-        setAssignments(parsed.assignments ?? parsed);
+      const authResponse =
+        authMode === "sign-up"
+          ? await supabase.auth.signUp({ email: authEmail.trim(), password: authPassword })
+          : await supabase.auth.signInWithPassword({ email: authEmail.trim(), password: authPassword });
+
+      if (authResponse.error) {
+        throw authResponse.error;
+      }
+
+      const nextUser = authResponse.data.user ?? authResponse.data.session?.user ?? null;
+      if (nextUser) {
+        setUser(nextUser);
+        setAuthEmail("");
+        setAuthPassword("");
+        await persistTierList(nextUser);
+      } else {
+        setAuthMessage(
+          authMode === "sign-up"
+            ? "Account created. Please confirm your email if required before saving."
+            : "Signed in successfully."
+        );
       }
     } catch (error) {
-      window.alert("Invalid JSON. Please paste valid tier assignment data.");
+      setAuthMessage(error?.message || "Authentication failed. Please try again.");
+    } finally {
+      setAuthLoading(false);
     }
+  };
+
+  const handleSignOut = async () => {
+    if (!supabase) return;
+    await supabase.auth.signOut();
+    setUser(null);
+    setSaveStatus("Signed out.");
   };
 
   const handleDrop = (event, tier) => {
@@ -321,7 +493,7 @@ export default function TierBuilder({ data = [] }) {
               <h2>{character.name}</h2>
               <span className="status-badge">{character.quality}</span>
             </div>
-            <span className="character-tier-label">{tier || "Unassigned"}</span>
+            {tier ? <span className="character-tier-label">{tier}</span> : null}
           </div>
           <div className="character-meta">
             <span>{character.element}</span>
@@ -363,6 +535,11 @@ export default function TierBuilder({ data = [] }) {
           <button className="tierlist-reset" type="button" onClick={resetAll}>
             Reset Builder
           </button>
+          {user ? (
+            <button className="tierlist-save-button" type="button" onClick={handleSignOut}>
+              Sign Out
+            </button>
+          ) : null}
         </div>
       </header>
 
@@ -407,16 +584,11 @@ export default function TierBuilder({ data = [] }) {
         </div>
 
         <div className="tierlist-export-buttons">
-          <button type="button" onClick={handleExport}>
-            Export JSON
-          </button>
-          <button type="button" onClick={handleCopyJSON}>
-            Copy JSON
-          </button>
-          <button type="button" onClick={handleImport}>
-            Import JSON
+          <button className="tierlist-save-button" type="button" onClick={handleSaveTierList}>
+            {authLoading ? "Saving..." : user ? "Save Tier List" : "Save Tier List"}
           </button>
         </div>
+        {saveStatus ? <p className="tier-save-status">{saveStatus}</p> : null}
       </section>
 
       <section className="unassigned-section">
@@ -466,13 +638,9 @@ export default function TierBuilder({ data = [] }) {
               <span className="tier-count">{tierCharacters[tier]?.length}</span>
             </div>
             <div className="tier-dropzone">
-              {tierCharacters[tier]?.length ? (
-                tierCharacters[tier].map((character, idx) => renderCard(character, tier, idx))
-              ) : (
-                <div className="empty-state">
-                  Drop cards here to assign them to {tier} tier.
-                </div>
-              )}
+              {tierCharacters[tier]?.length
+                ? tierCharacters[tier].map((character, idx) => renderCard(character, tier, idx))
+                : null}
             </div>
           </div>
         ))}
@@ -484,6 +652,59 @@ export default function TierBuilder({ data = [] }) {
           your Wuthering Waves ranking.
         </p>
       </section>
+
+      {authModalOpen ? (
+        <div className="tier-auth-modal-overlay" onClick={() => setAuthModalOpen(false)}>
+          <div className="tier-auth-modal" onClick={(event) => event.stopPropagation()}>
+            <div className="tier-auth-header">
+              <h3>{authMode === "sign-in" ? "Sign in to save" : "Create an account"}</h3>
+              <button type="button" className="tier-auth-close" onClick={() => setAuthModalOpen(false)}>
+                ×
+              </button>
+            </div>
+            <p>
+              {authMode === "sign-in"
+                ? "Sign in with an existing account to save your tier list."
+                : "Create a new account so your tier list is saved securely to your profile."}
+            </p>
+            <form className="tier-auth-form" onSubmit={handleAuthSubmit}>
+              <label>
+                Email
+                <input
+                  type="email"
+                  value={authEmail}
+                  onChange={(event) => setAuthEmail(event.target.value)}
+                  placeholder="you@example.com"
+                  required
+                />
+              </label>
+              <label>
+                Password
+                <input
+                  type="password"
+                  value={authPassword}
+                  onChange={(event) => setAuthPassword(event.target.value)}
+                  placeholder="••••••••"
+                  required
+                />
+              </label>
+              {authMessage ? <p className="tier-auth-message">{authMessage}</p> : null}
+              <div className="tier-auth-actions">
+                <button type="submit" className="tierlist-save-button" disabled={authLoading}>
+                  {authLoading ? "Working..." : authMode === "sign-in" ? "Sign In" : "Create Account"}
+                </button>
+                <button
+                  type="button"
+                  className="tier-auth-switch"
+                  onClick={() => setAuthMode(authMode === "sign-in" ? "sign-up" : "sign-in")}
+                >
+                  {authMode === "sign-in" ? "Need an account?" : "Already have one?"}
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      ) : null}
     </main>
   );
 }
