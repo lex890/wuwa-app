@@ -15,7 +15,6 @@ import { supabase } from '../../api/supabase.js'
 function SideBar() {
   const navigate = useNavigate()
   const [account, setAccount] = useState(null)
-  const [isAccountMenuOpen, setIsAccountMenuOpen] = useState(false)
 
   useEffect(() => {
     let isMounted = true
@@ -67,44 +66,29 @@ function SideBar() {
     await supabase.auth.signOut()
     localStorage.removeItem('wuwa_user')
     setAccount(null)
-    setIsAccountMenuOpen(false)
     navigateWithTransition(navigate, '/home', 'fade')
   }
 
   const handleProfileClick = () => {
-    setIsAccountMenuOpen(false)
     navigateWithTransition(navigate, '/profile', 'fade')
-  }
-
-  const handleProfileKeyDown = (event) => {
-    if (event.key !== 'Enter' && event.key !== ' ') return
-
-    event.preventDefault()
-    handleProfileClick()
   }
 
   return(
     <>
       <aside id="side-bar">
         <Title />
-        <Anchor Image={HomeIcon} text={'Home'} to={"/home"}/>
+        <Anchor Image={HomeIcon} text={'Home'} to={"home"}/>
         <span>DATABASE</span>
         <Anchor Image={CharIcon} text={'Resonators'} to={"characters"}/>
         <Anchor Image={WeaponIcon} text={'Weapons'} to={"weapons"}/>
         <Anchor Image={EchoesIcon} text={'Echoes'} to={"echoes"}/>
         <span>TIER LISTS</span>
-        <Anchor Image={TierListIcon} text={'Tier List'} to={"/tier-list"}/>
-        <Anchor Image={TeamTierListIcon} text={'Tier List Maker'} to={"/tier-builder"}/>
+        <Anchor Image={TierListIcon} text={'Tier List'} to={"tier-list"}/>
+        <Anchor Image={TeamTierListIcon} text={'Tier List Maker'} to={"tier-builder"}/>
         <div className="sidebar-account-wrapper">
           {account ? (
             <div className="sidebar-account">
-              <div
-                className="sidebar-user"
-                role="button"
-                tabIndex={0}
-                onClick={handleProfileClick}
-                onKeyDown={handleProfileKeyDown}
-              >
+              <button type="button" className="sidebar-user" onClick={handleProfileClick}>
                 {account.avatar ? (
                   <img src={account.avatar} alt="" />
                 ) : (
@@ -116,25 +100,16 @@ function SideBar() {
                   <strong>{account.uname}</strong>
                   <button
                     type="button"
-                    className="sidebar-more-button"
-                    aria-label="Open account menu"
-                    aria-expanded={isAccountMenuOpen}
+                    className="logout-text"
                     onClick={(event) => {
                       event.stopPropagation()
-                      setIsAccountMenuOpen((current) => !current)
+                      handleLogout()
                     }}
                   >
-                    <span aria-hidden="true">•••</span>
-                  </button>
-                </div>
-              </div>
-              {isAccountMenuOpen && (
-                <div className="sidebar-account-menu" role="menu">
-                  <button type="button" role="menuitem" onClick={handleLogout}>
                     Logout
                   </button>
                 </div>
-              )}
+              </button>
             </div>
           ) : (
             <NavLink className="login-button" to="/login" onClick={handleLoginClick}>
