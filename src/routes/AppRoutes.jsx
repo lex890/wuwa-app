@@ -38,8 +38,7 @@ export default function AppRoutes() {
       <Route path="forgot-pass" element={<UserAccess />} />
       <Route path="verify-email" element={<UserAccess />} />
       <Route path="reset-password" element={<UserAccess />} />
-      <Route path="profile" element={<Profile />} />
-
+    
       <Route path="*" element={<ErrorPage />} />
     </Route>
 
@@ -75,6 +74,8 @@ export default function AppRoutes() {
         path="tier-builder" 
         element={<TierBuilder />} 
       />
+
+      <Route path="profile" element={<Profile />} />
 
       {/* Public 404 */}
       <Route 
