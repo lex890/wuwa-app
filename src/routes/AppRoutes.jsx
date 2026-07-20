@@ -38,9 +38,13 @@ export default function AppRoutes() {
       <Route path="forgot-pass" element={<UserAccess />} />
       <Route path="verify-email" element={<UserAccess />} />
       <Route path="reset-password" element={<UserAccess />} />
-      <Route path="profile" element={<Profile />} />
 
       <Route path="*" element={<ErrorPage />} />
+    </Route>
+
+    <Route path="profile" element={<MainLayout />}>
+      <Route index element={<Profile />} />
+      <Route path=":profileId" element={<Profile />} />
     </Route>
 
     {/* Public */}

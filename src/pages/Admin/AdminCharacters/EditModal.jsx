@@ -12,7 +12,7 @@ function EditModal({ data, close, editData }) {
   if (!data) ( <div> data not found. . . </div> )
   const { meta, assets } = useModalData(data)
   const [ mode, setMode ] = useState("preview")
-  const { handleSubmit } = useCharacterForm(editData)
+  const { handleSubmit } = useCharacterForm(editData, data)
   return(
     <div onClick={close} className="modal-overlay">
       <div 
