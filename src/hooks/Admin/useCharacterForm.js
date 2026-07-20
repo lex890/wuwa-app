@@ -1,61 +1,33 @@
+function useCharacterForm(saveCharacter, initialCharacter = {}) {
+  const handleSubmit = (event) => {
+    event.preventDefault();
 
-import uploadImage from "@/utils/imageParser";
+    const formData = new FormData(event.currentTarget);
+    const formValues = Object.fromEntries(formData.entries());
 
-export const useCharacterForm = (process) => {
-  const getFormData = (form) => {
-    const formData = new FormData(form);
-
-    return {
-      name: formData.get("name"),
-      elementType: formData.get("element_type"),
-      weaponType: formData.get("weapon_type"),
-      qualityId: Number(formData.get("quality_id")),
-      icon: formData.get("icon"),
-      rolePortrait: formData.get("rolePortrait"),
-      roleHeadIcon: formData.get("roleHeadIcon"),
-      formationCard: formData.get("formationCard"),
-    };
-  };
-
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-
-    const {
-      name,
-      elementType,
-      weaponType,
-      qualityId,
-      icon,
-      rolePortrait,
-      roleHeadIcon,
-      formationCard,
-    } = getFormData(e.currentTarget);
-
-    const iconPath = await uploadImage(icon, "icons");
-    const portraitPath = await uploadImage(rolePortrait, "portraits");
-    const headPath = await uploadImage(roleHeadIcon, "heads");
-    const formationPath = await uploadImage(formationCard, "formations");
-
-    const newCharacter = {
-      name,
-      quality_id: qualityId,
-      weapon_type: weaponType,
-      elemen_type: elementType,
-      icon: iconPath,
-      icons: {
-        FormationRoleCard: formationPath,
-        RoleHeadIconBig: headPath,
-        RolePortrait: portraitPath,
-      },
+    const character = {
+      ...initialCharacter,
+      name: formValues.name ?? initialCharacter.name,
+      elemen_type:
+        formValues.elemen_type ??
+        formValues.element_type ??
+        formValues.element ??
+        initialCharacter.elemen_type,
+      weapon_type:
+        formValues.weapon_type ??
+        formValues.weapon ??
+        initialCharacter.weapon_type,
+      quality_id: Number(
+        formValues.quality_id ??
+        formValues.quality ??
+        initialCharacter.quality_id
+      ),
     };
 
-    await process(newCharacter);
+    saveCharacter(character);
   };
 
-  return {
-    handleSubmit,
-    getFormData,
-  };
-};
+  return { handleSubmit };
+}
 
-export default useCharacterForm
+export default useCharacterForm;

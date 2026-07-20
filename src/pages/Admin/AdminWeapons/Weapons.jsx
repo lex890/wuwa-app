@@ -8,7 +8,8 @@ import Content from './Content'
 
 function Weapons() {
   const { 
-    weapons, 
+    weapons,
+    loadData, 
     loading,
     error 
   } = useGameData()
@@ -18,7 +19,7 @@ function Weapons() {
   console.log(weapons)
 
   return(
-    <WeaponFilterProvider data={weapons}>
+    <WeaponFilterProvider data={weapons} loadData={loadData}>
       <div id="echoes-container">
         <Header/>
         <LineSeparator />

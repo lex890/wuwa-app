@@ -1,0 +1,82 @@
+@use "../../../styles/mixins" as *;
+
+div#echoes-container {
+
+  @include flex(
+    $gap: 1em,
+    $direction: column  
+  );
+
+  .flex-start-row {
+    align-items: flex-start;
+    > span { 
+      white-space: nowrap;
+      padding-top: 0.4em; 
+      font-size: 1em;
+    }
+  }
+
+  #set-filters { 
+    @include flex(
+      $gap: 1em,
+      $direction: row,
+      $wrap: wrap
+    );
+  }
+
+  .filter-button-echo {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 0.5rem;
+    padding: 4px 12px 4px 4px;
+
+    border-radius: 999px;
+    transition: width 0.72s ease;
+    border: none;
+    img { width: 32px; }
+  }
+  .filter-button-echo.active {
+    background-color: var(--main);
+  }
+
+  .filter-label {
+    white-space: nowrap;
+    color: var(--gray-text);  
+    font-size: 1.2em;
+    transition: opacity 0.25s ease, transform 0.25s ease;
+  }
+  .search-section span { 
+    margin-left: 1em; 
+    white-space: nowrap
+  }
+  .search-section { width: 32% }
+  .search-icon { left: 0 }
+
+  #card-container {
+    flex-direction: column;
+
+    .view-card { 
+      flex: 1;
+      width: 100%;
+      position: relative;
+      padding: 8em 6em; 
+      @include flex(
+        $direction: row,
+        $justify: center,
+        $align: center,
+        $wrap: wrap
+      );
+      > span { 
+        position: absolute; 
+        left: 4%;
+        top: 4%;
+        display: flex;
+      }
+      .echo-set-name span {
+        font-size: 3em;
+      }
+    }
+  }
+}
+

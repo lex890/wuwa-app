@@ -1,0 +1,68 @@
+@use "../../../styles/mixins" as *;
+
+div#weapons-container {
+  @include flex(
+    $gap: 1em,
+    $direction: column  
+  );
+  .search-section { max-width: 400px; }
+  .search-icon { left: 0 };
+
+  #card-container {
+    @include flex(
+      $gap: 4em,
+      $direction: row,
+      $justify: center,
+      $wrap: wrap 
+    );
+  }
+}
+
+
+
+.view-card[data-title] {
+  padding: 8em 4em;
+  width: 100%;
+  position: relative;
+  @include flex(
+    $gap: 1em,
+    $direction: row,
+    $justify: center,
+    $wrap: wrap 
+  );
+  span {
+    width: 100px;
+    height: 100px;
+    position: absolute;
+    inset: -2% 4%;
+    @include flex(
+      $direction: row,
+      $gap: 1em,
+      $align: center
+    )
+  }
+  .weapon-logo img { width: 6em }
+  .weapon-name { 
+    font-size: 2em; 
+    letter-spacing: 4px;
+  }
+  .w-card {
+    padding: 1em;
+    flex: 0 1 30%;
+    @include flex(
+      $direction: row,
+      $align: center,
+      $gap: 1em
+    ) ;
+    border: 1px solid rgb(from var(--main) r g b / 40%);
+    border-radius: 12px;
+    div { 
+      @include flex(
+        $gap: 1em,
+        $direction: column,
+        $align: flex-start
+      ) 
+    };
+    img { width: 80px; };
+  }
+}
