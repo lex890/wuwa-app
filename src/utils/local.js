@@ -1,17 +1,24 @@
 // util functions for localStorage caching
 
 export function getCachedData(CACHE_KEY) {
-  const cached = localStorage.getItem(CACHE_KEY);
+  console.log('fetching cache data')
   try {
-    return JSON.parse(cached);
+    const cached = localStorage.getItem(CACHE_KEY);
+    console.log(cached)
+    if (!cached) return null;
+
+    const { timestamp, ...local } = JSON.parse(cached);
+    console.log(`Retrieved data from ${timestamp}`)
+    return local.data;
   } catch {
-    console.log("Failed to parse skipping cache write")
-    return
+    console.log("Failed to parse, skipping cache read");
+    return null;
   }
 }
 
 export function setCachedData(data, CACHE_KEY) {
   try {
+    console.log('this is: ', data)
     console.log("saving data: ", {
       size: Array.isArray(data) ? data.length : "non-array",
       timestamp: Date.now(),
@@ -24,12 +31,15 @@ export function setCachedData(data, CACHE_KEY) {
         data,
       })
     )
-    console.log("write success")
 
   } catch (err) {
     console.warn("write failed: ", err);
   }
   logCacheSize(data)
+}
+
+export function clearLocalStorage() {
+  localStorage.clear
 }
 
 function logCacheSize(data) {

@@ -1,0 +1,64 @@
+@mixin flex(
+  $justify: flex-start,
+  $align: stretch,
+  $direction: row,
+  $gap: 0,
+  $wrap: nowrap
+) {
+  display: flex;
+  justify-content: $justify;
+  align-items: $align;
+  flex-direction: $direction;
+  gap: $gap;
+  flex-wrap: $wrap;
+}
+
+@mixin grid(
+  $columns: repeat(1, 1fr),
+  $gap: 1rem,
+  $rows: auto,
+  $justify: stretch,
+  $align: stretch
+) {
+  display: grid;
+  grid-template-columns: $columns;
+  grid-template-rows: $rows;
+  gap: $gap;
+  justify-items: $justify;
+  align-items: $align;
+}
+
+@mixin grid-space( 
+  $column: "1 / 1",
+  $row: "1 / 1"
+) {
+  grid-column: #{$column};
+  grid-row: #{$row};
+}
+
+@mixin button-base($bg: var(--search-bar)) {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+
+  border: none;
+  padding: 0;
+  background-color: $bg;
+  cursor: pointer;
+}
+
+@mixin icon-button($size: 2rem, $bg: var(--search-bar)) {
+  @include button-base($bg);
+
+  width: $size;
+  aspect-ratio: 1 / 1;
+  border-radius: 50%;
+}
+
+@mixin pill-button($height: 2rem, $padding: 0 1em, $bg: var(--search-bar)) {
+  @include button-base($bg);
+
+  height: $height;
+  padding: $padding;
+  border-radius: calc(#{$height} / 2);
+}

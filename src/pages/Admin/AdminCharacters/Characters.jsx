@@ -1,253 +1,159 @@
 import './Characters.scss'
 
-import Header from '../../../components/Header'
-import List from '../../../components/List'
-import Button from '../../../components/Button'
-import Modal from '../../../components/Modal/Modal'
-import Form from '../../../components/Form'
+import { Header, Button, Search, LineSeparator } from '../../../components/index'
 
-import { useState, useEffect } from "react";
-import deleteRow from '../../../api/delete'
-import updateRow from '../../../api/update'
-import addRow from '../../../api/add'
+import { Direction, Save, Fetch, Add} from '../../../assets/components/index'
 
-const ITEMS_PER_PAGE = 10;
-const EMPTY_FORM = {
-  id: '',
-  name: '',
-  weapon_type: '',
-  quality_id: '',
-  elemen_type: '',
-  icon: ''
-}
-const dbName = "wuwa_characters"
 
-function Characters({ data, reload }) {
-  const [characters, setCharacters] = useState([]);
-  const [deletedIds, setDeletedIds] = useState([]);
-  const [currentPage, setCurrentPage] = useState(1);
-  const [selectedCharacter, setSelectedCharacter] = useState({})
-  const [editedRows, setEditedRows] = useState([])
-  const [addedRows, setAddedRows]= useState([])
+import useCharacterController from '@/hooks/Admin/useCharacterController'
 
-  const [modalState, setModalState] = useState(null)
-  const [message, setMessage] = useState("")
-  const [success, setSuccess] = useState(false)
-  const [searchTerm, setSearchTerm] = useState("")
+import EditModal from './EditModal'
+import AddModal from './AddModal'
 
-  useEffect(() => {
-    // eslint-disable-next-line react-hooks/set-state-in-effect
-    setCharacters(data)
-  }, [data])
+import StatusMsg from './StatusMsg'
 
-  useEffect(() => {
-    // eslint-disable-next-line react-hooks/set-state-in-effect
-    setCurrentPage(1)
-  }, [searchTerm])
 
-  const resetPage = () => {
-    const newLength = characters.length - 1;
-    const maxPage = Math.ceil(newLength / ITEMS_PER_PAGE)
+import ItemRow from './ItemRow'
 
-    if (currentPage > maxPage && maxPage > 0) {
-      setCurrentPage(maxPage)
-    }
-  }
+import { useGameData } from '@/hooks/Public/useGameData'
 
-  const showMessage = (message, succ ,duration = 3000) => {
-    setMessage(message)
-    setSuccess(succ)
-    setTimeout(() => {  
-      setSuccess(false)
-      setMessage("")
-    }, duration)
-  }
+function Characters() {
+  const { 
+    characters, 
+    loadData, 
+    loading,
+    error 
+  } = useGameData()
+  const {
+    filterChar,
+    page,
+    navigate,
+    searchTerm,
+    setSearchTerm,
+    modal,
+    openModal,
+    closeModal,
+    notif,
+    actions
+  } = useCharacterController(characters, loadData)
 
-  const handleReload = (truth) => {
-    reload(truth)
-    resetPage() // recalculate page no.
-    showMessage("Success", true)
-  }
-
-  const handleDelete = (dbName, id) => {
-    setCharacters(prev => prev.filter(char => char.id !== id)) 
-    setDeletedIds(prev => [...prev, id])
-    
-    resetPage()
-  }
-
-  const handleSave = async () => {
-
-    if (deletedIds.length) {
-      await deleteRow(dbName, deletedIds)
-    }
-    if (editedRows.length) {
-      await updateRow(dbName, editedRows)
-    }
-    if (addedRows.length) {
-      await addRow(dbName, addedRows)
-    }
-
-    handleReload(true)
-  }
-
-  const handleCloseEdit = () => {
-    setSelectedCharacter({})
-    setModalState(null)
-  }
-  const handleOpenEdit = (e) => {
-    const targetId = Number(e.target.dataset.id)
-    const targetRow = characters.find(char => char.id === targetId)
-    
-    setSelectedCharacter(targetRow)
-    setModalState('edit')
-  }
-  const handleEditSubmit = async (data) => {
-
-    // edit local state
-    setCharacters(prev =>
-      prev.map(char =>
-        char.id === data.id
-          ? data
-          : char
-      )
-    )
-    // add the id of the edited entry
-    setEditedRows(prev => [
-      ...prev.filter(row => row.id !== data.id),
-      data
-    ])
-
-    setModalState(null)
-  }
-
-  const handleCloseAdd = () => {
-    setModalState(null)
-  }
-  const handleOpenAdd = () => {
-    setModalState('add')
-  }
-  const handleAddSubmit = (data) => {
-    setCharacters(prev => [...prev, data])
-    setAddedRows(prev => [...prev, data])
-
-    setModalState(null)
-  }
-
-  
-
-  const filteredCharacters = characters.filter(char => {
-    const search = searchTerm.toLowerCase();
-    const searchNumber = Number(searchTerm);
-
-    return (
-      (!isNaN(searchNumber) && char.id === searchNumber) ||
-      char.name?.toLowerCase().includes(search) ||
-      char.weapon_type?.toLowerCase().includes(search) ||
-      char.elemen_type?.toLowerCase().includes(search)
-    );
-  });
-  console.log(searchTerm)
-  const paginatedCharacters = filteredCharacters.slice(
-    (currentPage - 1) * ITEMS_PER_PAGE,
-    currentPage * ITEMS_PER_PAGE
-  )
-
-  const totalPages = Math.ceil(filteredCharacters.length / ITEMS_PER_PAGE);
+  if (error) return <ErrorPage />
+  if (loading) return <p>Loading...</p>
 
   return (
     <>
       <Header />
-
+      <LineSeparator />
       <div className="char-list">
         <div className="tools">
-          <div className="search">
-            <input
-              type="text"
-              value={searchTerm}
-              onChange={(e) => setSearchTerm(e.target.value)}
-              placeholder="Search..."
-            />
-          </div>
-          <div>
-            <Button text="Save" onClick={handleSave} />
-            <Button text="Fetch Latest" onClick={() => handleReload(true)} />
-            <Button text="Add New" onClick={handleOpenAdd} />
-          </div>
-        </div>
-        <div className="list-container">
-          <List
-            items={paginatedCharacters}
-            renderItem={(char) => (
-              <li key={char.id} className="character-list">
-                <div>
-                  <span>{char.id}</span>
-                  <span>{char.name}</span>
-                  <p>{char.element_type}</p>
-                  <p>{char.weapon_type}</p>
-
-                  <Button
-                    text="Edit"
-                    onClick={(e) => handleOpenEdit(e)}
-                    dataId={char.id}
-                  />
-                  <Button
-                    text="Delete"
-                    onClick={() => handleDelete(dbName, char.id)}
-                  />
-                </div>
-              </li>
-            )}
+          <Search 
+            search={searchTerm} 
+            setSearch={setSearchTerm}
           />
-        </div>
+          <div className="search-count">
+            Total {filterChar.length}
+          </div>
+          <div className="container">
+            <Button
+              type="button"
+              className="save-button"
+              content={
+                <>
+                  <Save 
+                    size="24" 
+                    stroke="#ffffff"
+                    fill="none" 
+                  /> Save
+                </>
 
+              }
+              onClick={actions.save}
+            />
+            <Button
+              type="button"
+              className="fetch-button"
+              onClick={actions.reload}
+              content={
+                <>
+                  <Fetch 
+                    size="24" 
+                    stroke="#ffffff"
+                    fill="none"
+                  /> Fetch
+                </>
+              }
+              
+            />
+            <Button
+              type="button"
+              className="add-button"
+              onClick={() => openModal("add")}
+              content={
+                <>
+                  <Add 
+                    size="24" 
+                    stroke="#ffffff"
+                    fill="none"
+                  /> Add New
+                </>
+              }
+            />
+
+          </div>
+        </div>
+        
+        <div className="list-container">
+          <ul>
+            { 
+              page.items.map((char) => (
+                <ItemRow
+                  key={char.id} 
+                  item={char}
+                  openModal={openModal}
+                  closeModal={closeModal}
+                />
+              ))
+            }
+          </ul>
+        </div>
 
         <div className="pagination flex-row">
           <Button
-            text="Previous"
-            onClick={() => setCurrentPage(prev => prev - 1)}
-            disabled={currentPage === 1}
+            content={
+              <Direction  color="none" stroke="#949473" />
+            }
+            className={"left-button"}
+            onClick={() => navigate.prev(page.current)}
+            disabled={page.current === 1}
           />
 
           <span>
-            Page {currentPage} of {totalPages || 1}
+            Page {page.current} of {page.total || 1}
           </span>
 
           <Button
-            text="Next"
-            onClick={() => setCurrentPage(prev => prev + 1)}
-            disabled={currentPage === totalPages || totalPages === 0}
+            content={
+              <Direction  color="none" stroke="#949473" direction="right"/>
+            }
+            className={"right-button"}
+            onClick={() => navigate.next(page)}
+            disabled={page.current === page.total || page.total === 0}
           />
         </div>
       </div>
-      <Modal 
-        hidden={modalState}
-        Content={
-          <>
-            { modalState  === 'edit' && (
-              <Form 
-                data={characters}
-                selected={selectedCharacter}
-                close={handleCloseEdit}
-                submit={handleEditSubmit}
-              />
-            )}
-
-            { modalState === 'add' && (
-              <Form
-                data={characters}
-                selected={EMPTY_FORM}
-                close={handleCloseAdd}
-                submit={handleAddSubmit}
-              />
-            )}
-          </>
-            
-        }/>
-      {message && (
-        <p id="status-msg" style={{ color: success ? "green" : "red" }}>
-          {message}
-        </p>
+      <StatusMsg notif={notif} />
+      { modal.type  === 'edit' && (
+        <EditModal
+          editData={actions.update}  
+          close={closeModal} 
+          data={modal.data}
+        />
+      )}
+      { modal.type === 'add' && (
+        <AddModal 
+          close={closeModal} 
+          addData={actions.add}
+        />
       )}
     </>
   );

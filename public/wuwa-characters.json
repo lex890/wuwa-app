@@ -1,0 +1,786 @@
+[
+  {
+    "id": 1402,
+    "created_at": "2026-06-13T10:31:45.374645+00:00",
+    "name": "Yangyang",
+    "weapon_type": "Sword",
+    "quality_id": 4,
+    "elemen_type": "Aero",
+    "icon": "https://api.encore.moe/resource/Data/Game/Aki/UI/UIResources/Common/Image/IconRoleHead150/T_IconRoleHead150_1.webp",
+    "icons": {
+      "RolePortrait": "https://api.encore.moe/resource/Data/Game/Aki/UI/UIResources/Common/Image/PixActivity/T_ActivityRoleYangyang.webp",
+      "RoleHeadIconBig": "https://api.encore.moe/resource/Data/Game/Aki/UI/UIResources/Common/Image/IconRoleHead150/T_IconRoleHead150_1.webp",
+      "FormationRoleCard": "https://api.encore.moe/resource/Data/Game/Aki/UI/UIResources/Common/Image/IconRolePile/T_IconRole_Pile_yangyang_UI.webp"
+    }
+  },
+  {
+    "id": 1202,
+    "created_at": "2026-06-13T10:31:45.374645+00:00",
+    "name": "Chixia",
+    "weapon_type": "Pistols",
+    "quality_id": 4,
+    "elemen_type": "Fusion",
+    "icon": "https://api.encore.moe/resource/Data/Game/Aki/UI/UIResources/Common/Image/IconRoleHead150/T_IconRoleHead150_2.webp",
+    "icons": {
+      "RolePortrait": "https://api.encore.moe/resource/Data/Game/Aki/UI/UIResources/Common/Image/PixActivity/T_ActivityRoleZhixia.webp",
+      "RoleHeadIconBig": "https://api.encore.moe/resource/Data/Game/Aki/UI/UIResources/Common/Image/IconRoleHead150/T_IconRoleHead150_2.webp",
+      "FormationRoleCard": "https://api.encore.moe/resource/Data/Game/Aki/UI/UIResources/Common/Image/IconRolePile/T_IconRole_Pile_maxiaofang_UI.webp"
+    }
+  },
+  {
+    "id": 1503,
+    "created_at": "2026-06-13T10:31:45.374645+00:00",
+    "name": "Verina",
+    "weapon_type": "Rectifier",
+    "quality_id": 5,
+    "elemen_type": "Spectro",
+    "icon": "https://api.encore.moe/resource/Data/Game/Aki/UI/UIResources/Common/Image/IconRoleHead150/T_IconRoleHead150_3.webp",
+    "icons": {
+      "RolePortrait": "https://api.encore.moe/resource/Data/Game/Aki/UI/UIResources/Common/Image/PixActivity/T_ActivityRoleJueyuan.webp",
+      "RoleHeadIconBig": "https://api.encore.moe/resource/Data/Game/Aki/UI/UIResources/Common/Image/IconRoleHead150/T_IconRoleHead150_3.webp",
+      "FormationRoleCard": "https://api.encore.moe/resource/Data/Game/Aki/UI/UIResources/Common/Image/IconRolePile/T_IconRole_Pile_jueyuan_UI.webp"
+    }
+  },
+  {
+    "id": 1501,
+    "created_at": "2026-06-13T10:31:45.374645+00:00",
+    "name": "Rover: Spectro",
+    "weapon_type": "Sword",
+    "quality_id": 5,
+    "elemen_type": "Spectro",
+    "icon": "https://api.encore.moe/resource/Data/Game/Aki/UI/UIResources/Common/Image/IconRoleHead150/T_IconRoleHead150_4.webp",
+    "icons": {
+      "RolePortrait": "https://api.encore.moe/resource/Data/Game/Aki/UI/UIResources/Common/Image/PixActivity/T_ActivityRoleNanzhu.webp",
+      "RoleHeadIconBig": "https://api.encore.moe/resource/Data/Game/Aki/UI/UIResources/Common/Image/IconRoleHead150/T_IconRoleHead150_4.webp",
+      "FormationRoleCard": "https://api.encore.moe/resource/Data/Game/Aki/UI/UIResources/Common/Image/IconRolePile/T_IconRole_Pile_zhujuenan_UI.webp"
+    }
+  },
+  {
+    "id": 1102,
+    "created_at": "2026-06-13T10:31:45.374645+00:00",
+    "name": "Sanhua",
+    "weapon_type": "Sword",
+    "quality_id": 4,
+    "elemen_type": "Glacio",
+    "icon": "https://api.encore.moe/resource/Data/Game/Aki/UI/UIResources/Common/Image/IconRoleHead150/T_IconRoleHead150_7.webp",
+    "icons": {
+      "RolePortrait": "https://api.encore.moe/resource/Data/Game/Aki/UI/UIResources/Common/Image/PixActivity/T_ActivityRoleSanhua.webp",
+      "RoleHeadIconBig": "https://api.encore.moe/resource/Data/Game/Aki/UI/UIResources/Common/Image/IconRoleHead150/T_IconRoleHead150_7.webp",
+      "FormationRoleCard": "https://api.encore.moe/resource/Data/Game/Aki/UI/UIResources/Common/Image/IconRolePile/T_IconRole_Pile_shanhua_UI.webp"
+    }
+  },
+  {
+    "id": 1601,
+    "created_at": "2026-06-13T10:31:45.374645+00:00",
+    "name": "Taoqi",
+    "weapon_type": "Broadblade",
+    "quality_id": 4,
+    "elemen_type": "Havoc",
+    "icon": "https://api.encore.moe/resource/Data/Game/Aki/UI/UIResources/Common/Image/IconRoleHead150/T_IconRoleHead150_9.webp",
+    "icons": {
+      "RolePortrait": "https://api.encore.moe/resource/Data/Game/Aki/UI/UIResources/Common/Image/PixActivity/T_ActivityRoleTaoqi.webp",
+      "RoleHeadIconBig": "https://api.encore.moe/resource/Data/Game/Aki/UI/UIResources/Common/Image/IconRoleHead150/T_IconRoleHead150_9.webp",
+      "FormationRoleCard": "https://api.encore.moe/resource/Data/Game/Aki/UI/UIResources/Common/Image/IconRolePile/T_IconRole_Pile_taohua_UI.webp"
+    }
+  },
+  {
+    "id": 1502,
+    "created_at": "2026-06-13T10:31:45.374645+00:00",
+    "name": "Rover: Spectro",
+    "weapon_type": "Sword",
+    "quality_id": 5,
+    "elemen_type": "Spectro",
+    "icon": "https://api.encore.moe/resource/Data/Game/Aki/UI/UIResources/Common/Image/IconRoleHead150/T_IconRoleHead150_5.webp",
+    "icons": {
+      "RolePortrait": "https://api.encore.moe/resource/Data/Game/Aki/UI/UIResources/Common/Image/PixActivity/T_ActivityRoleNvzhu.webp",
+      "RoleHeadIconBig": "https://api.encore.moe/resource/Data/Game/Aki/UI/UIResources/Common/Image/IconRoleHead150/T_IconRoleHead150_5.webp",
+      "FormationRoleCard": "https://api.encore.moe/resource/Data/Game/Aki/UI/UIResources/Common/Image/IconRolePile/T_IconRole_Pile_zhujue_UI.webp"
+    }
+  },
+  {
+    "id": 1103,
+    "created_at": "2026-06-13T10:31:45.374645+00:00",
+    "name": "Baizhi",
+    "weapon_type": "Rectifier",
+    "quality_id": 4,
+    "elemen_type": "Glacio",
+    "icon": "https://api.encore.moe/resource/Data/Game/Aki/UI/UIResources/Common/Image/IconRoleHead150/T_IconRoleHead150_6.webp",
+    "icons": {
+      "RolePortrait": "https://api.encore.moe/resource/Data/Game/Aki/UI/UIResources/Common/Image/PixActivity/T_ActivityRoleBailian.webp",
+      "RoleHeadIconBig": "https://api.encore.moe/resource/Data/Game/Aki/UI/UIResources/Common/Image/IconRoleHead150/T_IconRoleHead150_6.webp",
+      "FormationRoleCard": "https://api.encore.moe/resource/Data/Game/Aki/UI/UIResources/Common/Image/IconRolePile/T_IconRole_Pile_bailian_UI.webp"
+    }
+  },
+  {
+    "id": 1203,
+    "created_at": "2026-06-13T10:31:45.374645+00:00",
+    "name": "Encore",
+    "weapon_type": "Rectifier",
+    "quality_id": 5,
+    "elemen_type": "Fusion",
+    "icon": "https://api.encore.moe/resource/Data/Game/Aki/UI/UIResources/Common/Image/IconRoleHead150/T_IconRoleHead150_8.webp",
+    "icons": {
+      "RolePortrait": "https://api.encore.moe/resource/Data/Game/Aki/UI/UIResources/Common/Image/PixActivity/T_ActivityRoleAnke.webp",
+      "RoleHeadIconBig": "https://api.encore.moe/resource/Data/Game/Aki/UI/UIResources/Common/Image/IconRoleHead150/T_IconRoleHead150_8.webp",
+      "FormationRoleCard": "https://api.encore.moe/resource/Data/Game/Aki/UI/UIResources/Common/Image/IconRolePile/T_IconRole_Pile_anke_UI.webp"
+    }
+  },
+  {
+    "id": 1602,
+    "created_at": "2026-06-13T10:31:45.374645+00:00",
+    "name": "Danjin",
+    "weapon_type": "Sword",
+    "quality_id": 4,
+    "elemen_type": "Havoc",
+    "icon": "https://api.encore.moe/resource/Data/Game/Aki/UI/UIResources/Common/Image/IconRoleHead150/T_IconRoleHead150_10.webp",
+    "icons": {
+      "RolePortrait": "https://api.encore.moe/resource/Data/Game/Aki/UI/UIResources/Common/Image/PixActivity/T_ActivityRoleDanjin.webp",
+      "RoleHeadIconBig": "https://api.encore.moe/resource/Data/Game/Aki/UI/UIResources/Common/Image/IconRoleHead150/T_IconRoleHead150_10.webp",
+      "FormationRoleCard": "https://api.encore.moe/resource/Data/Game/Aki/UI/UIResources/Common/Image/IconRolePile/T_IconRole_Pile_micai_UI.webp"
+    }
+  },
+  {
+    "id": 1211,
+    "created_at": "2026-06-13T10:31:45.374645+00:00",
+    "name": "Denia",
+    "weapon_type": "Rectifier",
+    "quality_id": 5,
+    "elemen_type": "Fusion",
+    "icon": "https://api.encore.moe/resource/Data/Game/Aki/UI/UIResources/Common/Image/IconRoleHead150/T_IconRoleHead150_64_UI.webp",
+    "icons": {
+      "RolePortrait": "https://api.encore.moe/resource/Data/Game/Aki/UI/UIResources/Common/Image/PixActivity/T_ActivityRoleDaniya.webp",
+      "RoleHeadIconBig": "https://api.encore.moe/resource/Data/Game/Aki/UI/UIResources/Common/Image/IconRoleHead150/T_IconRoleHead150_64_UI.webp",
+      "FormationRoleCard": "https://api.encore.moe/resource/Data/Game/Aki/UI/UIResources/Common/Image/IconRolePile/T_IconRole_Pile_daniya_UI.webp"
+    }
+  },
+  {
+    "id": 1304,
+    "created_at": "2026-06-13T10:31:45.374645+00:00",
+    "name": "Jinhsi",
+    "weapon_type": "Broadblade",
+    "quality_id": 5,
+    "elemen_type": "Spectro",
+    "icon": "https://api.encore.moe/resource/Data/Game/Aki/UI/UIResources/Common/Image/IconRoleHead150/T_IconRoleHead150_24_UI.webp",
+    "icons": {
+      "RolePortrait": "https://api.encore.moe/resource/Data/Game/Aki/UI/UIResources/Common/Image/PixActivity/T_ActivityRoleJinxi.webp",
+      "RoleHeadIconBig": "https://api.encore.moe/resource/Data/Game/Aki/UI/UIResources/Common/Image/IconRoleHead150/T_IconRoleHead150_24_UI.webp",
+      "FormationRoleCard": "https://api.encore.moe/resource/Data/Game/Aki/UI/UIResources/Common/Image/IconRolePile/T_IconRole_Pile_jinxi_UI.webp"
+    }
+  },
+  {
+    "id": 1305,
+    "created_at": "2026-06-13T10:31:45.374645+00:00",
+    "name": "Xiangli Yao",
+    "weapon_type": "Gauntlets",
+    "quality_id": 5,
+    "elemen_type": "Electro",
+    "icon": "https://api.encore.moe/resource/Data/Game/Aki/UI/UIResources/Common/Image/IconRoleHead150/T_IconRoleHead150_25_UI.webp",
+    "icons": {
+      "RolePortrait": "https://api.encore.moe/resource/Data/Game/Aki/UI/UIResources/Common/Image/PixActivity/T_ActivityRoleXiangliyao.webp",
+      "RoleHeadIconBig": "https://api.encore.moe/resource/Data/Game/Aki/UI/UIResources/Common/Image/IconRoleHead150/T_IconRoleHead150_25_UI.webp",
+      "FormationRoleCard": "https://api.encore.moe/resource/Data/Game/Aki/UI/UIResources/Common/Image/IconRolePile/T_IconRole_Pile_xiangliyao_UI.webp"
+    }
+  },
+  {
+    "id": 1205,
+    "created_at": "2026-06-13T10:31:45.374645+00:00",
+    "name": "Changli",
+    "weapon_type": "Sword",
+    "quality_id": 5,
+    "elemen_type": "Fusion",
+    "icon": "https://api.encore.moe/resource/Data/Game/Aki/UI/UIResources/Common/Image/IconRoleHead150/T_IconRoleHead150_26_UI.webp",
+    "icons": {
+      "RolePortrait": "https://api.encore.moe/resource/Data/Game/Aki/UI/UIResources/Common/Image/PixActivity/T_ActivityRoleChangli.webp",
+      "RoleHeadIconBig": "https://api.encore.moe/resource/Data/Game/Aki/UI/UIResources/Common/Image/IconRoleHead150/T_IconRoleHead150_26_UI.webp",
+      "FormationRoleCard": "https://api.encore.moe/resource/Data/Game/Aki/UI/UIResources/Common/Image/IconRolePile/T_IconRole_Pile_changli_UI.webp"
+    }
+  },
+  {
+    "id": 1105,
+    "created_at": "2026-06-13T10:31:45.374645+00:00",
+    "name": "Zhezhi",
+    "weapon_type": "Rectifier",
+    "quality_id": 5,
+    "elemen_type": "Glacio",
+    "icon": "https://api.encore.moe/resource/Data/Game/Aki/UI/UIResources/Common/Image/IconRoleHead150/T_IconRoleHead150_27_UI.webp",
+    "icons": {
+      "RolePortrait": "https://api.encore.moe/resource/Data/Game/Aki/UI/UIResources/Common/Image/PixActivity/T_ActivityRoleZhezhi.webp",
+      "RoleHeadIconBig": "https://api.encore.moe/resource/Data/Game/Aki/UI/UIResources/Common/Image/IconRoleHead150/T_IconRoleHead150_27_UI.webp",
+      "FormationRoleCard": "https://api.encore.moe/resource/Data/Game/Aki/UI/UIResources/Common/Image/IconRolePile/T_IconRole_Pile_zhezhi_UI.webp"
+    }
+  },
+  {
+    "id": 1504,
+    "created_at": "2026-06-13T10:31:45.374645+00:00",
+    "name": "Lumi",
+    "weapon_type": "Broadblade",
+    "quality_id": 4,
+    "elemen_type": "Electro",
+    "icon": "https://api.encore.moe/resource/Data/Game/Aki/UI/UIResources/Common/Image/IconRoleHead150/T_IconRoleHead150_30_UI.webp",
+    "icons": {
+      "RolePortrait": "https://api.encore.moe/resource/Data/Game/Aki/UI/UIResources/Common/Image/PixActivity/T_ActivityRoleDengdeng.webp",
+      "RoleHeadIconBig": "https://api.encore.moe/resource/Data/Game/Aki/UI/UIResources/Common/Image/IconRoleHead150/T_IconRoleHead150_30_UI.webp",
+      "FormationRoleCard": "https://api.encore.moe/resource/Data/Game/Aki/UI/UIResources/Common/Image/IconRolePile/T_IconRole_Pile_dengdeng_UI.webp"
+    }
+  },
+  {
+    "id": 1106,
+    "created_at": "2026-06-13T10:31:45.374645+00:00",
+    "name": "Youhu",
+    "weapon_type": "Gauntlets",
+    "quality_id": 4,
+    "elemen_type": "Glacio",
+    "icon": "https://api.encore.moe/resource/Data/Game/Aki/UI/UIResources/Common/Image/IconRoleHead150/T_IconRoleHead150_31_UI.webp",
+    "icons": {
+      "RolePortrait": "https://api.encore.moe/resource/Data/Game/Aki/UI/UIResources/Common/Image/PixActivity/T_ActivityRoleYouhu.webp",
+      "RoleHeadIconBig": "https://api.encore.moe/resource/Data/Game/Aki/UI/UIResources/Common/Image/IconRoleHead150/T_IconRoleHead150_31_UI.webp",
+      "FormationRoleCard": "https://api.encore.moe/resource/Data/Game/Aki/UI/UIResources/Common/Image/IconRolePile/T_IconRole_Pile_Youhu_UI.webp"
+    }
+  },
+  {
+    "id": 1505,
+    "created_at": "2026-06-13T10:31:45.374645+00:00",
+    "name": "Shorekeeper",
+    "weapon_type": "Rectifier",
+    "quality_id": 5,
+    "elemen_type": "Spectro",
+    "icon": "https://api.encore.moe/resource/Data/Game/Aki/UI/UIResources/Common/Image/IconRoleHead150/T_IconRoleHead150_28_UI.webp",
+    "icons": {
+      "RolePortrait": "https://api.encore.moe/resource/Data/Game/Aki/UI/UIResources/Common/Image/PixActivity/T_ActivityRoleShouanren.webp",
+      "RoleHeadIconBig": "https://api.encore.moe/resource/Data/Game/Aki/UI/UIResources/Common/Image/IconRoleHead150/T_IconRoleHead150_28_UI.webp",
+      "FormationRoleCard": "https://api.encore.moe/resource/Data/Game/Aki/UI/UIResources/Common/Image/IconRolePile/T_IconRole_Pile_Shouanren_UI.webp"
+    }
+  },
+  {
+    "id": 1606,
+    "created_at": "2026-06-13T10:31:45.374645+00:00",
+    "name": "Roccia",
+    "weapon_type": "Gauntlets",
+    "quality_id": 5,
+    "elemen_type": "Havoc",
+    "icon": "https://api.encore.moe/resource/Data/Game/Aki/UI/UIResources/Common/Image/IconRoleHead150/T_IconRoleHead150_33_UI.webp",
+    "icons": {
+      "RolePortrait": "https://api.encore.moe/resource/Data/Game/Aki/UI/UIResources/Common/Image/PixActivity/T_ActivityRoleLuokeke.webp",
+      "RoleHeadIconBig": "https://api.encore.moe/resource/Data/Game/Aki/UI/UIResources/Common/Image/IconRoleHead150/T_IconRoleHead150_33_UI.webp",
+      "FormationRoleCard": "https://api.encore.moe/resource/Data/Game/Aki/UI/UIResources/Common/Image/IconRolePile/T_IconRole_Pile_luokeke_UI.webp"
+    }
+  },
+  {
+    "id": 1107,
+    "created_at": "2026-06-13T10:31:45.374645+00:00",
+    "name": "Carlotta",
+    "weapon_type": "Pistols",
+    "quality_id": 5,
+    "elemen_type": "Glacio",
+    "icon": "https://api.encore.moe/resource/Data/Game/Aki/UI/UIResources/Common/Image/IconRoleHead150/T_IconRoleHead150_32_UI.webp",
+    "icons": {
+      "RolePortrait": "https://api.encore.moe/resource/Data/Game/Aki/UI/UIResources/Common/Image/PixActivity/T_ActivityRoleKelaita.webp",
+      "RoleHeadIconBig": "https://api.encore.moe/resource/Data/Game/Aki/UI/UIResources/Common/Image/IconRoleHead150/T_IconRoleHead150_32_UI.webp",
+      "FormationRoleCard": "https://api.encore.moe/resource/Data/Game/Aki/UI/UIResources/Common/Image/IconRolePile/T_IconRole_Pile_kelaita_UI.webp"
+    }
+  },
+  {
+    "id": 1206,
+    "created_at": "2026-06-13T10:31:45.374645+00:00",
+    "name": "Brant",
+    "weapon_type": "Sword",
+    "quality_id": 5,
+    "elemen_type": "Fusion",
+    "icon": "https://api.encore.moe/resource/Data/Game/Aki/UI/UIResources/Common/Image/IconRoleHead150/T_IconRoleHead150_44_UI.webp",
+    "icons": {
+      "RolePortrait": "https://api.encore.moe/resource/Data/Game/Aki/UI/UIResources/Common/Image/PixActivity/T_ActivityRoleBulante.webp",
+      "RoleHeadIconBig": "https://api.encore.moe/resource/Data/Game/Aki/UI/UIResources/Common/Image/IconRoleHead150/T_IconRoleHead150_44_UI.webp",
+      "FormationRoleCard": "https://api.encore.moe/resource/Data/Game/Aki/UI/UIResources/Common/Image/IconRolePile/T_IconRole_Pile_Bulante_UI.webp"
+    }
+  },
+  {
+    "id": 1403,
+    "created_at": "2026-06-13T10:31:45.374645+00:00",
+    "name": "Aalto",
+    "weapon_type": "Pistols",
+    "quality_id": 4,
+    "elemen_type": "Aero",
+    "icon": "https://api.encore.moe/resource/Data/Game/Aki/UI/UIResources/Common/Image/IconRoleHead150/T_IconRoleHead150_12.webp",
+    "icons": {
+      "RolePortrait": "https://api.encore.moe/resource/Data/Game/Aki/UI/UIResources/Common/Image/PixActivity/T_ActivityRoleQiushui.webp",
+      "RoleHeadIconBig": "https://api.encore.moe/resource/Data/Game/Aki/UI/UIResources/Common/Image/IconRoleHead150/T_IconRoleHead150_12.webp",
+      "FormationRoleCard": "https://api.encore.moe/resource/Data/Game/Aki/UI/UIResources/Common/Image/IconRolePile/T_IconRole_Pile_qiushui_UI.webp"
+    }
+  },
+  {
+    "id": 1404,
+    "created_at": "2026-06-13T10:31:45.374645+00:00",
+    "name": "Jiyan",
+    "weapon_type": "Broadblade",
+    "quality_id": 5,
+    "elemen_type": "Aero",
+    "icon": "https://api.encore.moe/resource/Data/Game/Aki/UI/UIResources/Common/Image/IconRoleHead150/T_IconRoleHead150_11.webp",
+    "icons": {
+      "RolePortrait": "https://api.encore.moe/resource/Data/Game/Aki/UI/UIResources/Common/Image/PixActivity/T_ActivityRoleJiyan1.webp",
+      "RoleHeadIconBig": "https://api.encore.moe/resource/Data/Game/Aki/UI/UIResources/Common/Image/IconRoleHead150/T_IconRoleHead150_11.webp",
+      "FormationRoleCard": "https://api.encore.moe/resource/Data/Game/Aki/UI/UIResources/Common/Image/IconRolePile/T_IconRole_Pile_jiyan_UI.webp"
+    }
+  },
+  {
+    "id": 1204,
+    "created_at": "2026-06-13T10:31:45.374645+00:00",
+    "name": "Mortefi",
+    "weapon_type": "Pistols",
+    "quality_id": 4,
+    "elemen_type": "Fusion",
+    "icon": "https://api.encore.moe/resource/Data/Game/Aki/UI/UIResources/Common/Image/IconRoleHead150/T_IconRoleHead150_13.webp",
+    "icons": {
+      "RolePortrait": "https://api.encore.moe/resource/Data/Game/Aki/UI/UIResources/Common/Image/PixActivity/T_ActivityRoleMofeite.webp",
+      "RoleHeadIconBig": "https://api.encore.moe/resource/Data/Game/Aki/UI/UIResources/Common/Image/IconRoleHead150/T_IconRoleHead150_13.webp",
+      "FormationRoleCard": "https://api.encore.moe/resource/Data/Game/Aki/UI/UIResources/Common/Image/IconRolePile/T_IconRole_Pile_baer_UI.webp"
+    }
+  },
+  {
+    "id": 1603,
+    "created_at": "2026-06-13T10:31:45.374645+00:00",
+    "name": "Camellya",
+    "weapon_type": "Sword",
+    "quality_id": 5,
+    "elemen_type": "Havoc",
+    "icon": "https://api.encore.moe/resource/Data/Game/Aki/UI/UIResources/Common/Image/IconRoleHead150/T_IconRoleHead150_29_UI.webp",
+    "icons": {
+      "RolePortrait": "https://api.encore.moe/resource/Data/Game/Aki/UI/UIResources/Common/Image/PixActivity/T_ActivityRoleChun.webp",
+      "RoleHeadIconBig": "https://api.encore.moe/resource/Data/Game/Aki/UI/UIResources/Common/Image/IconRoleHead150/T_IconRoleHead150_29_UI.webp",
+      "FormationRoleCard": "https://api.encore.moe/resource/Data/Game/Aki/UI/UIResources/Common/Image/IconRolePile/T_IconRole_Pile_chun_UI.webp"
+    }
+  },
+  {
+    "id": 1301,
+    "created_at": "2026-06-13T10:31:45.374645+00:00",
+    "name": "Calcharo",
+    "weapon_type": "Broadblade",
+    "quality_id": 5,
+    "elemen_type": "Electro",
+    "icon": "https://api.encore.moe/resource/Data/Game/Aki/UI/UIResources/Common/Image/IconRoleHead150/T_IconRoleHead150_18.webp",
+    "icons": {
+      "RolePortrait": "https://api.encore.moe/resource/Data/Game/Aki/UI/UIResources/Common/Image/PixActivity/T_ActivityRoleKakaluo.webp",
+      "RoleHeadIconBig": "https://api.encore.moe/resource/Data/Game/Aki/UI/UIResources/Common/Image/IconRoleHead150/T_IconRoleHead150_18.webp",
+      "FormationRoleCard": "https://api.encore.moe/resource/Data/Game/Aki/UI/UIResources/Common/Image/IconRolePile/T_IconRole_Pile_kakaluo_UI.webp"
+    }
+  },
+  {
+    "id": 1302,
+    "created_at": "2026-06-13T10:31:45.374645+00:00",
+    "name": "Yinlin",
+    "weapon_type": "Rectifier",
+    "quality_id": 5,
+    "elemen_type": "Electro",
+    "icon": "https://api.encore.moe/resource/Data/Game/Aki/UI/UIResources/Common/Image/IconRoleHead150/T_IconRoleHead150_17.webp",
+    "icons": {
+      "RolePortrait": "https://api.encore.moe/resource/Data/Game/Aki/UI/UIResources/Common/Image/PixActivity/T_ActivityRoleYinlin.webp",
+      "RoleHeadIconBig": "https://api.encore.moe/resource/Data/Game/Aki/UI/UIResources/Common/Image/IconRoleHead150/T_IconRoleHead150_17.webp",
+      "FormationRoleCard": "https://api.encore.moe/resource/Data/Game/Aki/UI/UIResources/Common/Image/IconRolePile/T_IconRole_Pile_yinlin_UI.webp"
+    }
+  },
+  {
+    "id": 1104,
+    "created_at": "2026-06-13T10:31:45.374645+00:00",
+    "name": "Lingyang",
+    "weapon_type": "Gauntlets",
+    "quality_id": 5,
+    "elemen_type": "Glacio",
+    "icon": "https://api.encore.moe/resource/Data/Game/Aki/UI/UIResources/Common/Image/IconRoleHead150/T_IconRoleHead150_14.webp",
+    "icons": {
+      "RolePortrait": "https://api.encore.moe/resource/Data/Game/Aki/UI/UIResources/Common/Image/PixActivity/T_ActivityRoleLingyang.webp",
+      "RoleHeadIconBig": "https://api.encore.moe/resource/Data/Game/Aki/UI/UIResources/Common/Image/IconRoleHead150/T_IconRoleHead150_14.webp",
+      "FormationRoleCard": "https://api.encore.moe/resource/Data/Game/Aki/UI/UIResources/Common/Image/IconRolePile/T_IconRole_Pile_lingyang_UI.webp"
+    }
+  },
+  {
+    "id": 1303,
+    "created_at": "2026-06-13T10:31:45.374645+00:00",
+    "name": "Yuanwu",
+    "weapon_type": "Gauntlets",
+    "quality_id": 4,
+    "elemen_type": "Electro",
+    "icon": "https://api.encore.moe/resource/Data/Game/Aki/UI/UIResources/Common/Image/IconRoleHead150/T_IconRoleHead150_15.webp",
+    "icons": {
+      "RolePortrait": "https://api.encore.moe/resource/Data/Game/Aki/UI/UIResources/Common/Image/PixActivity/T_ActivityRoleYuanwu.webp",
+      "RoleHeadIconBig": "https://api.encore.moe/resource/Data/Game/Aki/UI/UIResources/Common/Image/IconRoleHead150/T_IconRoleHead150_15.webp",
+      "FormationRoleCard": "https://api.encore.moe/resource/Data/Game/Aki/UI/UIResources/Common/Image/IconRolePile/T_IconRole_Pile_yuanwu_UI.webp"
+    }
+  },
+  {
+    "id": 1604,
+    "created_at": "2026-06-13T10:31:45.374645+00:00",
+    "name": "Rover: Havoc",
+    "weapon_type": "Sword",
+    "quality_id": 5,
+    "elemen_type": "Havoc",
+    "icon": "https://api.encore.moe/resource/Data/Game/Aki/UI/UIResources/Common/Image/IconRoleHead150/T_IconRoleHead150_5.webp",
+    "icons": {
+      "RolePortrait": "https://api.encore.moe/resource/Data/Game/Aki/UI/UIResources/Common/Image/PixActivity/T_ActivityRoleNvzhu.webp",
+      "RoleHeadIconBig": "https://api.encore.moe/resource/Data/Game/Aki/UI/UIResources/Common/Image/IconRoleHead150/T_IconRoleHead150_5.webp",
+      "FormationRoleCard": "https://api.encore.moe/resource/Data/Game/Aki/UI/UIResources/Common/Image/IconRolePile/T_IconRole_Pile_zhujue_UI.webp"
+    }
+  },
+  {
+    "id": 1506,
+    "created_at": "2026-06-13T10:31:45.374645+00:00",
+    "name": "Phoebe",
+    "weapon_type": "Rectifier",
+    "quality_id": 5,
+    "elemen_type": "Spectro",
+    "icon": "https://api.encore.moe/resource/Data/Game/Aki/UI/UIResources/Common/Image/IconRoleHead150/T_IconRoleHead150_45_UI.webp",
+    "icons": {
+      "RolePortrait": "https://api.encore.moe/resource/Data/Game/Aki/UI/UIResources/Common/Image/PixActivity/T_ActivityRoleFeibi.webp",
+      "RoleHeadIconBig": "https://api.encore.moe/resource/Data/Game/Aki/UI/UIResources/Common/Image/IconRoleHead150/T_IconRoleHead150_45_UI.webp",
+      "FormationRoleCard": "https://api.encore.moe/resource/Data/Game/Aki/UI/UIResources/Common/Image/IconRolePile/T_IconRole_Pile_Feibi_UI.webp"
+    }
+  },
+  {
+    "id": 1406,
+    "created_at": "2026-06-13T10:31:45.374645+00:00",
+    "name": "Rover: Aero",
+    "weapon_type": "Sword",
+    "quality_id": 5,
+    "elemen_type": "Aero",
+    "icon": "https://api.encore.moe/resource/Data/Game/Aki/UI/UIResources/Common/Image/IconRoleHead150/T_IconRoleHead150_4.webp",
+    "icons": {
+      "RolePortrait": "https://api.encore.moe/resource/Data/Game/Aki/UI/UIResources/Common/Image/PixActivity/T_ActivityRoleNanzhu.webp",
+      "RoleHeadIconBig": "https://api.encore.moe/resource/Data/Game/Aki/UI/UIResources/Common/Image/IconRoleHead150/T_IconRoleHead150_4.webp",
+      "FormationRoleCard": "https://api.encore.moe/resource/Data/Game/Aki/UI/UIResources/Common/Image/IconRolePile/T_IconRole_Pile_zhujuenan_UI.webp"
+    }
+  },
+  {
+    "id": 1607,
+    "created_at": "2026-06-13T10:31:45.374645+00:00",
+    "name": "Cantarella",
+    "weapon_type": "Rectifier",
+    "quality_id": 5,
+    "elemen_type": "Havoc",
+    "icon": "https://api.encore.moe/resource/Data/Game/Aki/UI/UIResources/Common/Image/IconRoleHead150/T_IconRoleHead150_34_UI.webp",
+    "icons": {
+      "RolePortrait": "https://api.encore.moe/resource/Data/Game/Aki/UI/UIResources/Common/Image/PixActivity/T_ActivityRoleKanteleila.webp",
+      "RoleHeadIconBig": "https://api.encore.moe/resource/Data/Game/Aki/UI/UIResources/Common/Image/IconRoleHead150/T_IconRoleHead150_34_UI.webp",
+      "FormationRoleCard": "https://api.encore.moe/resource/Data/Game/Aki/UI/UIResources/Common/Image/IconRolePile/T_IconRole_Pile_kanteleila_UI.webp"
+    }
+  },
+  {
+    "id": 1605,
+    "created_at": "2026-06-13T10:31:45.374645+00:00",
+    "name": "Rover: Havoc",
+    "weapon_type": "Sword",
+    "quality_id": 5,
+    "elemen_type": "Havoc",
+    "icon": "https://api.encore.moe/resource/Data/Game/Aki/UI/UIResources/Common/Image/IconRoleHead150/T_IconRoleHead150_4.webp",
+    "icons": {
+      "RolePortrait": "https://api.encore.moe/resource/Data/Game/Aki/UI/UIResources/Common/Image/PixActivity/T_ActivityRoleNanzhu.webp",
+      "RoleHeadIconBig": "https://api.encore.moe/resource/Data/Game/Aki/UI/UIResources/Common/Image/IconRoleHead150/T_IconRoleHead150_4.webp",
+      "FormationRoleCard": "https://api.encore.moe/resource/Data/Game/Aki/UI/UIResources/Common/Image/IconRolePile/T_IconRole_Pile_zhujuenan_UI.webp"
+    }
+  },
+  {
+    "id": 1405,
+    "created_at": "2026-06-13T10:31:45.374645+00:00",
+    "name": "Jianxin",
+    "weapon_type": "Gauntlets",
+    "quality_id": 5,
+    "elemen_type": "Aero",
+    "icon": "https://api.encore.moe/resource/Data/Game/Aki/UI/UIResources/Common/Image/IconRoleHead150/T_IconRoleHead150_23_UI.webp",
+    "icons": {
+      "RolePortrait": "https://api.encore.moe/resource/Data/Game/Aki/UI/UIResources/Common/Image/PixActivity/T_ActivityRoleJianxin.webp",
+      "RoleHeadIconBig": "https://api.encore.moe/resource/Data/Game/Aki/UI/UIResources/Common/Image/IconRoleHead150/T_IconRoleHead150_23_UI.webp",
+      "FormationRoleCard": "https://api.encore.moe/resource/Data/Game/Aki/UI/UIResources/Common/Image/IconRolePile/T_IconRole_Pile_jiexin_UI.webp"
+    }
+  },
+  {
+    "id": 1407,
+    "created_at": "2026-06-13T10:31:45.374645+00:00",
+    "name": "Ciaccona",
+    "weapon_type": "Pistols",
+    "quality_id": 5,
+    "elemen_type": "Aero",
+    "icon": "https://api.encore.moe/resource/Data/Game/Aki/UI/UIResources/Common/Image/IconRoleHead150/T_IconRoleHead150_37_UI.webp",
+    "icons": {
+      "RolePortrait": "https://api.encore.moe/resource/Data/Game/Aki/UI/UIResources/Common/Image/PixActivity/T_ActivityRoleXiakong.webp",
+      "RoleHeadIconBig": "https://api.encore.moe/resource/Data/Game/Aki/UI/UIResources/Common/Image/IconRoleHead150/T_IconRoleHead150_37_UI.webp",
+      "FormationRoleCard": "https://api.encore.moe/resource/Data/Game/Aki/UI/UIResources/Common/Image/IconRolePile/T_IconRole_Pile_xiakong_UI.webp"
+    }
+  },
+  {
+    "id": 1507,
+    "created_at": "2026-06-13T10:31:45.374645+00:00",
+    "name": "Zani",
+    "weapon_type": "Gauntlets",
+    "quality_id": 5,
+    "elemen_type": "Spectro",
+    "icon": "https://api.encore.moe/resource/Data/Game/Aki/UI/UIResources/Common/Image/IconRoleHead150/T_IconRoleHead150_38_UI.webp",
+    "icons": {
+      "RolePortrait": "https://api.encore.moe/resource/Data/Game/Aki/UI/UIResources/Common/Image/PixActivity/T_ActivityRoleZanni.webp",
+      "RoleHeadIconBig": "https://api.encore.moe/resource/Data/Game/Aki/UI/UIResources/Common/Image/IconRoleHead150/T_IconRoleHead150_38_UI.webp",
+      "FormationRoleCard": "https://api.encore.moe/resource/Data/Game/Aki/UI/UIResources/Common/Image/IconRolePile/T_IconRole_Pile_zanni_UI.webp"
+    }
+  },
+  {
+    "id": 1306,
+    "created_at": "2026-06-13T10:31:45.374645+00:00",
+    "name": "Augusta",
+    "weapon_type": "Broadblade",
+    "quality_id": 5,
+    "elemen_type": "Electro",
+    "icon": "https://api.encore.moe/resource/Data/Game/Aki/UI/UIResources/Common/Image/IconRoleHead150/T_IconRoleHead150_51_UI.webp",
+    "icons": {
+      "RolePortrait": "https://api.encore.moe/resource/Data/Game/Aki/UI/UIResources/Common/Image/PixActivity/T_ActivityRoleAogusita.webp",
+      "RoleHeadIconBig": "https://api.encore.moe/resource/Data/Game/Aki/UI/UIResources/Common/Image/IconRoleHead150/T_IconRoleHead150_51_UI.webp",
+      "FormationRoleCard": "https://api.encore.moe/resource/Data/Game/Aki/UI/UIResources/Common/Image/IconRolePile/T_IconRole_Pile_aogusita_UI.webp"
+    }
+  },
+  {
+    "id": 1408,
+    "created_at": "2026-06-13T10:31:45.374645+00:00",
+    "name": "Rover: Aero",
+    "weapon_type": "Sword",
+    "quality_id": 5,
+    "elemen_type": "Aero",
+    "icon": "https://api.encore.moe/resource/Data/Game/Aki/UI/UIResources/Common/Image/IconRoleHead150/T_IconRoleHead150_5.webp",
+    "icons": {
+      "RolePortrait": "https://api.encore.moe/resource/Data/Game/Aki/UI/UIResources/Common/Image/PixActivity/T_ActivityRoleNvzhu.webp",
+      "RoleHeadIconBig": "https://api.encore.moe/resource/Data/Game/Aki/UI/UIResources/Common/Image/IconRoleHead150/T_IconRoleHead150_5.webp",
+      "FormationRoleCard": "https://api.encore.moe/resource/Data/Game/Aki/UI/UIResources/Common/Image/IconRolePile/T_IconRole_Pile_zhujue_UI.webp"
+    }
+  },
+  {
+    "id": 1207,
+    "created_at": "2026-06-13T10:31:45.374645+00:00",
+    "name": "Lupa",
+    "weapon_type": "Broadblade",
+    "quality_id": 5,
+    "elemen_type": "Fusion",
+    "icon": "https://api.encore.moe/resource/Data/Game/Aki/UI/UIResources/Common/Image/IconRoleHead150/T_IconRoleHead150_46_UI.webp",
+    "icons": {
+      "RolePortrait": "https://api.encore.moe/resource/Data/Game/Aki/UI/UIResources/Common/Image/PixActivity/T_ActivityRoleLupa.webp",
+      "RoleHeadIconBig": "https://api.encore.moe/resource/Data/Game/Aki/UI/UIResources/Common/Image/IconRoleHead150/T_IconRoleHead150_46_UI.webp",
+      "FormationRoleCard": "https://api.encore.moe/resource/Data/Game/Aki/UI/UIResources/Common/Image/IconRolePile/T_IconRole_Pile_lupa_UI.webp"
+    }
+  },
+  {
+    "id": 1608,
+    "created_at": "2026-06-13T10:31:45.374645+00:00",
+    "name": "Phrolova",
+    "weapon_type": "Rectifier",
+    "quality_id": 5,
+    "elemen_type": "Havoc",
+    "icon": "https://api.encore.moe/resource/Data/Game/Aki/UI/UIResources/Common/Image/IconRoleHead150/T_IconRoleHead150_41_UI.webp",
+    "icons": {
+      "RolePortrait": "https://api.encore.moe/resource/Data/Game/Aki/UI/UIResources/Common/Image/PixActivity/T_ActivityRoleFuluoluo.webp",
+      "RoleHeadIconBig": "https://api.encore.moe/resource/Data/Game/Aki/UI/UIResources/Common/Image/IconRoleHead150/T_IconRoleHead150_41_UI.webp",
+      "FormationRoleCard": "https://api.encore.moe/resource/Data/Game/Aki/UI/UIResources/Common/Image/IconRolePile/T_IconRole_Pile_fuluoluo_UI.webp"
+    }
+  },
+  {
+    "id": 1209,
+    "created_at": "2026-06-13T10:31:45.374645+00:00",
+    "name": "Mornye",
+    "weapon_type": "Broadblade",
+    "quality_id": 5,
+    "elemen_type": "Fusion",
+    "icon": "https://api.encore.moe/resource/Data/Game/Aki/UI/UIResources/Common/Image/IconRoleHead150/T_IconRoleHead150_61_UI.webp",
+    "icons": {
+      "RolePortrait": "https://api.encore.moe/resource/Data/Game/Aki/UI/UIResources/Common/Image/PixActivity/T_ActivityRoleMoning.webp",
+      "RoleHeadIconBig": "https://api.encore.moe/resource/Data/Game/Aki/UI/UIResources/Common/Image/IconRoleHead150/T_IconRoleHead150_61_UI.webp",
+      "FormationRoleCard": "https://api.encore.moe/resource/Data/Game/Aki/UI/UIResources/Common/Image/IconRolePile/T_IconRole_Pile_Moning_UI.webp"
+    }
+  },
+  {
+    "id": 1510,
+    "created_at": "2026-06-13T10:31:45.374645+00:00",
+    "name": "Luuk Herssen",
+    "weapon_type": "Gauntlets",
+    "quality_id": 5,
+    "elemen_type": "Spectro",
+    "icon": "https://api.encore.moe/resource/Data/Game/Aki/UI/UIResources/Common/Image/IconRoleHead150/T_IconRoleHead150_54_UI.webp",
+    "icons": {
+      "RolePortrait": "https://api.encore.moe/resource/Data/Game/Aki/UI/UIResources/Common/Image/PixActivity/T_ActivityRoleLuhesi.webp",
+      "RoleHeadIconBig": "https://api.encore.moe/resource/Data/Game/Aki/UI/UIResources/Common/Image/IconRoleHead150/T_IconRoleHead150_54_UI.webp",
+      "FormationRoleCard": "https://api.encore.moe/resource/Data/Game/Aki/UI/UIResources/Common/Image/IconRolePile/T_IconRole_Pile_Luhesi_UI.webp"
+    }
+  },
+  {
+    "id": 1210,
+    "created_at": "2026-06-13T10:31:45.374645+00:00",
+    "name": "Aemeath",
+    "weapon_type": "Sword",
+    "quality_id": 5,
+    "elemen_type": "Fusion",
+    "icon": "https://api.encore.moe/resource/Data/Game/Aki/UI/UIResources/Common/Image/IconRoleHead150/T_IconRoleHead150_53_UI.webp",
+    "icons": {
+      "RolePortrait": "https://api.encore.moe/resource/Data/Game/Aki/UI/UIResources/Common/Image/PixActivity/T_ActivityRoleAimisi.webp",
+      "RoleHeadIconBig": "https://api.encore.moe/resource/Data/Game/Aki/UI/UIResources/Common/Image/IconRoleHead150/T_IconRoleHead150_53_UI.webp",
+      "FormationRoleCard": "https://api.encore.moe/resource/Data/Game/Aki/UI/UIResources/Common/Image/IconRolePile/T_IconRole_Pile_Aimisi_UI.webp"
+    }
+  },
+  {
+    "id": 1412,
+    "created_at": "2026-06-13T10:31:45.374645+00:00",
+    "name": "Sigrika",
+    "weapon_type": "Gauntlets",
+    "quality_id": 5,
+    "elemen_type": "Aero",
+    "icon": "https://api.encore.moe/resource/Data/Game/Aki/UI/UIResources/Common/Image/IconRoleHead150/T_IconRoleHead150_65_UI.webp",
+    "icons": {
+      "RolePortrait": "https://api.encore.moe/resource/Data/Game/Aki/UI/UIResources/Common/Image/PixActivity/T_ActivityRoleXigelika.webp",
+      "RoleHeadIconBig": "https://api.encore.moe/resource/Data/Game/Aki/UI/UIResources/Common/Image/IconRoleHead150/T_IconRoleHead150_65_UI.webp",
+      "FormationRoleCard": "https://api.encore.moe/resource/Data/Game/Aki/UI/UIResources/Common/Image/IconRolePile/T_IconRole_Pile_xigelika_UI.webp"
+    }
+  },
+  {
+    "id": 1409,
+    "created_at": "2026-06-13T10:31:45.374645+00:00",
+    "name": "Cartethyia",
+    "weapon_type": "Sword",
+    "quality_id": 5,
+    "elemen_type": "Aero",
+    "icon": "https://api.encore.moe/resource/Data/Game/Aki/UI/UIResources/Common/Image/IconRoleHead150/T_IconRoleHead150_40_UI.webp",
+    "icons": {
+      "RolePortrait": "https://api.encore.moe/resource/Data/Game/Aki/UI/UIResources/Common/Image/PixActivity/T_ActivityRoleKatixiya.webp",
+      "RoleHeadIconBig": "https://api.encore.moe/resource/Data/Game/Aki/UI/UIResources/Common/Image/IconRoleHead150/T_IconRoleHead150_40_UI.webp",
+      "FormationRoleCard": "https://api.encore.moe/resource/Data/Game/Aki/UI/UIResources/Common/Image/IconRolePile/T_IconRole_Pile_katixiya_UI.webp"
+    }
+  },
+  {
+    "id": 1410,
+    "created_at": "2026-06-13T10:31:45.374645+00:00",
+    "name": "Iuno",
+    "weapon_type": "Gauntlets",
+    "quality_id": 5,
+    "elemen_type": "Aero",
+    "icon": "https://api.encore.moe/resource/Data/Game/Aki/UI/UIResources/Common/Image/IconRoleHead150/T_IconRoleHead150_48_UI.webp",
+    "icons": {
+      "RolePortrait": "https://api.encore.moe/resource/Data/Game/Aki/UI/UIResources/Common/Image/PixActivity/T_ActivityRoleYounuo.webp",
+      "RoleHeadIconBig": "https://api.encore.moe/resource/Data/Game/Aki/UI/UIResources/Common/Image/IconRoleHead150/T_IconRoleHead150_48_UI.webp",
+      "FormationRoleCard": "https://api.encore.moe/resource/Data/Game/Aki/UI/UIResources/Common/Image/IconRolePile/T_IconRole_Pile_younuo_UI.webp"
+    }
+  },
+  {
+    "id": 1307,
+    "created_at": "2026-06-13T10:31:45.374645+00:00",
+    "name": "Buling",
+    "weapon_type": "Rectifier",
+    "quality_id": 4,
+    "elemen_type": "Electro",
+    "icon": "https://api.encore.moe/resource/Data/Game/Aki/UI/UIResources/Common/Image/IconRoleHead150/T_IconRoleHead150_58_UI.webp",
+    "icons": {
+      "RolePortrait": "https://api.encore.moe/resource/Data/Game/Aki/UI/UIResources/Common/Image/PixActivity/T_ActivityRoleBuling.webp",
+      "RoleHeadIconBig": "https://api.encore.moe/resource/Data/Game/Aki/UI/UIResources/Common/Image/IconRoleHead150/T_IconRoleHead150_58_UI.webp",
+      "FormationRoleCard": "https://api.encore.moe/resource/Data/Game/Aki/UI/UIResources/Common/Image/IconRolePile/T_IconRole_Pile_Buling_UI.webp"
+    }
+  },
+  {
+    "id": 1208,
+    "created_at": "2026-06-13T10:31:45.374645+00:00",
+    "name": "Galbrena",
+    "weapon_type": "Pistols",
+    "quality_id": 5,
+    "elemen_type": "Fusion",
+    "icon": "https://api.encore.moe/resource/Data/Game/Aki/UI/UIResources/Common/Image/IconRoleHead150/T_IconRoleHead150_55_UI.webp",
+    "icons": {
+      "RolePortrait": "https://api.encore.moe/resource/Data/Game/Aki/UI/UIResources/Common/Image/PixActivity/T_ActivityRolejiabeilina.webp",
+      "RoleHeadIconBig": "https://api.encore.moe/resource/Data/Game/Aki/UI/UIResources/Common/Image/IconRoleHead150/T_IconRoleHead150_55_UI.webp",
+      "FormationRoleCard": "https://api.encore.moe/resource/Data/Game/Aki/UI/UIResources/Common/Image/IconRolePile/T_IconRole_Pile_jiabeilina_UI.webp"
+    }
+  },
+  {
+    "id": 1508,
+    "created_at": "2026-06-13T10:31:45.374645+00:00",
+    "name": "Chisa",
+    "weapon_type": "Broadblade",
+    "quality_id": 5,
+    "elemen_type": "Havoc",
+    "icon": "https://api.encore.moe/resource/Data/Game/Aki/UI/UIResources/Common/Image/IconRoleHead150/T_IconRoleHead150_57_UI.webp",
+    "icons": {
+      "RolePortrait": "https://api.encore.moe/resource/Data/Game/Aki/UI/UIResources/Common/Image/PixActivity/T_ActivityRoleQianxiao.webp",
+      "RoleHeadIconBig": "https://api.encore.moe/resource/Data/Game/Aki/UI/UIResources/Common/Image/IconRoleHead150/T_IconRoleHead150_57_UI.webp",
+      "FormationRoleCard": "https://api.encore.moe/resource/Data/Game/Aki/UI/UIResources/Common/Image/IconRolePile/T_IconRole_Pile_Qianxiao_UI.webp"
+    }
+  },
+  {
+    "id": 1411,
+    "created_at": "2026-06-13T10:31:45.374645+00:00",
+    "name": "Qiuyuan",
+    "weapon_type": "Sword",
+    "quality_id": 5,
+    "elemen_type": "Aero",
+    "icon": "https://api.encore.moe/resource/Data/Game/Aki/UI/UIResources/Common/Image/IconRoleHead150/T_IconRoleHead150_56_UI.webp",
+    "icons": {
+      "RolePortrait": "https://api.encore.moe/resource/Data/Game/Aki/UI/UIResources/Common/Image/PixActivity/T_ActivityRoleQiuyuan.webp",
+      "RoleHeadIconBig": "https://api.encore.moe/resource/Data/Game/Aki/UI/UIResources/Common/Image/IconRoleHead150/T_IconRoleHead150_56_UI.webp",
+      "FormationRoleCard": "https://api.encore.moe/resource/Data/Game/Aki/UI/UIResources/Common/Image/IconRolePile/T_IconRole_Pile_Qiuyuan_UI.webp"
+    }
+  },
+  {
+    "id": 1509,
+    "created_at": "2026-06-13T10:31:45.374645+00:00",
+    "name": "Lynae",
+    "weapon_type": "Pistols",
+    "quality_id": 5,
+    "elemen_type": "Spectro",
+    "icon": "https://api.encore.moe/resource/Data/Game/Aki/UI/UIResources/Common/Image/IconRoleHead150/T_IconRoleHead150_60_UI.webp",
+    "icons": {
+      "RolePortrait": "https://api.encore.moe/resource/Data/Game/Aki/UI/UIResources/Common/Image/PixActivity/T_ActivityRoleLinnai.webp",
+      "RoleHeadIconBig": "https://api.encore.moe/resource/Data/Game/Aki/UI/UIResources/Common/Image/IconRoleHead150/T_IconRoleHead150_60_UI.webp",
+      "FormationRoleCard": "https://api.encore.moe/resource/Data/Game/Aki/UI/UIResources/Common/Image/IconRolePile/T_IconRole_Pile_Linnai_UI.webp"
+    }
+  },
+  {
+    "id": 1308,
+    "created_at": "2026-06-13T10:31:45.374645+00:00",
+    "name": "Rebecca",
+    "weapon_type": "Pistols",
+    "quality_id": 5,
+    "elemen_type": "Electro",
+    "icon": "https://api.encore.moe/resource/Data/Game/Aki/UI/UIResources/Common/Image/IconRoleHead150/T_IconRoleHead150_69_UI.webp",
+    "icons": {
+      "RolePortrait": "https://api.encore.moe/resource/Data/Game/Aki/UI/UIResources/Common/Image/PixActivity/T_ActivityRoleLibeika.webp",
+      "RoleHeadIconBig": "https://api.encore.moe/resource/Data/Game/Aki/UI/UIResources/Common/Image/IconRoleHead150/T_IconRoleHead150_69_UI.webp",
+      "FormationRoleCard": "https://api.encore.moe/resource/Data/Game/Aki/UI/UIResources/Common/Image/IconRolePile/T_IconRole_Pile_LiBeiKa_UI.webp"
+    }
+  },
+  {
+    "id": 1109,
+    "created_at": "2026-06-13T10:31:45.374645+00:00",
+    "name": "Lucilla",
+    "weapon_type": "Rectifier",
+    "quality_id": 5,
+    "elemen_type": "Glacio",
+    "icon": "https://api.encore.moe/resource/Data/Game/Aki/UI/UIResources/Common/Image/IconRoleHead150/T_IconRoleHead150_66_UI.webp",
+    "icons": {
+      "RolePortrait": "https://api.encore.moe/resource/Data/Game/Aki/UI/UIResources/Common/Image/PixActivity/T_ActivityRoleLuosela.webp",
+      "RoleHeadIconBig": "https://api.encore.moe/resource/Data/Game/Aki/UI/UIResources/Common/Image/IconRoleHead150/T_IconRoleHead150_66_UI.webp",
+      "FormationRoleCard": "https://api.encore.moe/resource/Data/Game/Aki/UI/UIResources/Common/Image/IconRolePile/T_IconRole_Pile_luosela_UI.webp"
+    }
+  },
+  {
+    "id": 1511,
+    "created_at": "2026-06-13T10:31:45.374645+00:00",
+    "name": "Lucy",
+    "weapon_type": "Pistols",
+    "quality_id": 5,
+    "elemen_type": "Spectro",
+    "icon": "https://api.encore.moe/resource/Data/Game/Aki/UI/UIResources/Common/Image/IconRoleHead150/T_IconRoleHead150_68_UI.webp",
+    "icons": {
+      "RolePortrait": "https://api.encore.moe/resource/Data/Game/Aki/UI/UIResources/Common/Image/PixActivity/T_ActivityRoleLuxi.webp",
+      "RoleHeadIconBig": "https://api.encore.moe/resource/Data/Game/Aki/UI/UIResources/Common/Image/IconRoleHead150/T_IconRoleHead150_68_UI.webp",
+      "FormationRoleCard": "https://api.encore.moe/resource/Data/Game/Aki/UI/UIResources/Common/Image/IconRolePile/T_IconRole_Pile_luxi_UI.webp"
+    }
+  },
+  {
+    "id": 1108,
+    "created_at": "2026-06-13T10:31:45.374645+00:00",
+    "name": "Hiyuki",
+    "weapon_type": "Sword",
+    "quality_id": 5,
+    "elemen_type": "Glacio",
+    "icon": "https://api.encore.moe/resource/Data/Game/Aki/UI/UIResources/Common/Image/IconRoleHead150/T_IconRoleHead150_67_UI.webp",
+    "icons": {
+      "RolePortrait": "https://api.encore.moe/resource/Data/Game/Aki/UI/UIResources/Common/Image/PixActivity/T_ActivityRoleFeixue.webp",
+      "RoleHeadIconBig": "https://api.encore.moe/resource/Data/Game/Aki/UI/UIResources/Common/Image/IconRoleHead150/T_IconRoleHead150_67_UI.webp",
+      "FormationRoleCard": "https://api.encore.moe/resource/Data/Game/Aki/UI/UIResources/Common/Image/IconRolePile/T_IconRole_Pile_FeiXue_UI.webp"
+    }
+  }
+]

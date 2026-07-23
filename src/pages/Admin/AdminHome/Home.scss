@@ -7,6 +7,7 @@ div.header-container {
   }
   > span > a {
     text-decoration: auto;
+    color: var(--main);
   }
   
 }
@@ -51,6 +52,7 @@ div.card-group {
       border-radius: 8px;
       transition: transform 120ms;
       text-decoration: none;
+      background-color: color-mix(in oklab, white 5.5%, transparent);
 
       >div.card-icon {
         grid-column: 1 / 3;

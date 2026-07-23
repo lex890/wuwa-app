@@ -1,49 +1,121 @@
-nav#side-bar {
+aside#side-bar {
   > a.nav-item, a.title {
-  font-size: 1em;
-  display: flex;
-  align-items: center;
-  justify-content: flex-start;
-  text-decoration: none;
-  height: 3%;
-  width: auto;
-  padding: 0.8em 1.8em;
-  gap: 0.8em;
-  transition: transform 120ms;
-
-  div.icon-container {
+    font-size: 1em;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    text-decoration: none;
+    height: 3%;
     width: auto;
-    height: 100%;
+    padding: 0.8em 1.8em;
+    gap: 0.8em;
+    transition: transform 120ms;
 
-    > svg {
-      height: auto;
+    div.icon-container {
+      width: auto;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      > svg {
+        height: auto;
+        width: 100%;
+        aspect-ratio: 1 / 1;
+        path {
+          fill: var(--main);
+        }
+      }
+    }
+
+    > span {
+      font-size: 1em;
+      font-weight: 600;
+      padding: 0;
+      color: var(--text);
+    }
+
+  }
+
+  > a.title {
+    --sonoro-text-x: 66px;
+    --sonoro-text-y: -60px;
+    --sonoro-logo-crop: 10%;
+    --sonoro-logo-scale: 1.1;
+    --sonoro-logo-x: 0;
+    --sonoro-logo-y: -6px;
+    --sonoro-glow-size: 58%;
+    --sonoro-glow-rgb: 205, 203, 176;
+    --sonoro-glow-opacity: 0.45;
+    --sonoro-glow-hover-opacity: 0.85;
+    --sonoro-glow-hover-scale: 1.25;
+
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 0.25em;
+    height: auto;
+    width: 100%;
+    box-sizing: border-box;
+    margin-bottom: 0em;
+    padding: 1em 0.6em 0;
+    font-size: 2em;
+    letter-spacing: 0.1em;
+    text-align: center;
+    margin-top: 1em;
+    position: relative;
+
+    > .sonoro-logo {
+      width: 8em;
+      height: 8em;
+      display: block;
+      clip-path: inset(var(--sonoro-logo-crop));
+      transform: translate(var(--sonoro-logo-x), var(--sonoro-logo-y)) scale(var(--sonoro-logo-scale));
+      position: relative;
+    }
+
+    > .sonoro-logo div,
+    > .sonoro-logo svg {
+      display: block;
       width: 100%;
-      aspect-ratio: 1 / 1;
+      height: 100%;
+    }
+
+    > .sonoro-logo::before {
+      content: "";
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      z-index: -1;
+      width: var(--sonoro-glow-size);
+      height: var(--sonoro-glow-size);
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(var(--sonoro-glow-rgb), var(--sonoro-glow-hover-opacity)) 0%, rgba(var(--sonoro-glow-rgb), 0) 72%);
+      transform: translate(-50%, -50%);
+      pointer-events: none;
+      transition: opacity 220ms ease, transform 220ms ease;
+      opacity: calc(var(--sonoro-glow-opacity) / var(--sonoro-glow-hover-opacity));
+    }
+
+    > .sonoro-logo:hover::before {
+      opacity: 1;
+      transform: translate(-50%, -50%) scale(var(--sonoro-glow-hover-scale));
+    }
+
+    > span {
+      //position: absolute;
+      //left: 50%;
+      //top: 50%;
+      z-index: 1;
+      transform: translate(
+        calc(-50% + var(--sonoro-text-x)),
+        calc(-50% + var(--sonoro-text-y))
+      );
     }
   }
-  > span {
-    font-size: 1em;
-    font-weight: 400;
-    color: --text;
-    padding: 0;
+
+  > a.nav-item:hover {
+    cursor: pointer;
+  }
+  > a.nav-item:not(:first-of-type):hover {
+    transform: translateX(0.6em);
   }
 }
-
-> a.title {
-  display: flex;
-  gap: 5px;
-  height: 3%;
-  margin-bottom: 50px;
-  padding: 1.0em 0.6em 0;
-  font-size: 2.5em;
-  letter-spacing: 0.1em;
-}
-
-> a.nav-item:hover {
-  cursor: pointer;
-}
-> a.nav-item:not(:first-of-type):hover {
-  transform: translateX(0.6em);
-}
-}
-

@@ -1,14 +1,34 @@
 import './Weapons.scss'
+import { useGameData } from '@/hooks/Public/useGameData'
+import ErrorPage from '@/assets/components/ErrorPage'
+import { Header, LineSeparator } from '../../../components/index'
+import { WeaponFilterProvider } from './WeaponsFilterProvider'
+import Tools from './Tools'
+import Content from './Content'
 
-function Weapons({ data }) {
-  console.log('num of data: ', data.length)
+function Weapons() {
+  const { 
+    weapons,
+    loadData, 
+    loading,
+    error 
+  } = useGameData()
+
+  if (error) return <ErrorPage />
+  if (loading) return <p>Loading...</p>
+  console.log(weapons)
+
   return(
-    <>      
-      <div className="header-container">
-        <h1>Weapons Admin Page</h1>
-      </div>
-    </>
+    <WeaponFilterProvider data={weapons} loadData={loadData}>
+      <div id="echoes-container">
+        <Header/>
+        <LineSeparator />
+        <Tools />
+        <Content />
+      </div>  
+    </WeaponFilterProvider>
   )
 }
+
 
 export default Weapons

@@ -1,11 +1,12 @@
-import ReactIcon from '../../../assets/svg/react.svg'
+import AnimatedLogo from '../../AnimatedLogo/AnimatedLogo.jsx'
+import { NavLink } from "react-router-dom";
 
-function Title() {
+function Title({ to = "/", cName = "title" }) {
   return(
-    <a href="/" className="title">
-      <img src={ReactIcon} alt="" />
+    <NavLink to={to} className={cName}>
+      <AnimatedLogo className="sonoro-logo" />
       <span>Sonoro</span>
-    </a>
+    </NavLink>
   )
 }
 

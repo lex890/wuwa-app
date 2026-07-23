@@ -1,0 +1,62 @@
+@use "../../../styles/mixins" as *;
+
+div#echoes-container {
+  input#characterSearch > .search-icon {
+    left: 0;
+  }
+  div#tools {
+    @include flex(
+      $direction: row,
+      $gap: 8px
+    );
+    .search-section span { color: var(--gray-text) }
+    .circle-button {
+      padding: 0 1em;
+      box-sizing: border-box;
+      border: none;
+      border-radius: 32px;
+      background: var(--search-bar);
+      color: #fff;
+      font-size: 14px;
+      @include flex(
+        $align: center,
+        $justify: center,
+        $gap: 8px
+      );
+      img { object-fit: contain; }
+    }
+    .circle-button:hover {
+      cursor: pointer;
+    }
+  }
+  #echo-list {
+    @include flex(
+      $wrap: wrap,
+      $direction: row,
+      $gap: 8px
+    );
+    padding-top: 4em;
+    padding-left: 25px;
+  }
+  .card {
+    position: relative;
+    aspect-ratio: 1 / 1;
+    transform: skew(0);
+    width: 50px;
+  }
+  .card:hover {
+    transform: scale(1.2);
+  }
+  .card img { 
+    width: 10em;
+  }
+  .card span {
+    position: absolute;
+    right: 4%;
+    bottom: 4%;
+    color: white;
+    font-weight: 700;
+  }
+  #status-msg { top: 1% }
+}
+

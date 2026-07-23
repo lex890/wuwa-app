@@ -1,31 +1,35 @@
 import { Link, useLocation } from "react-router-dom";
 
 function Header() {
-  const location = useLocation();
+  const location = useLocation()
 
   const words = location.pathname
     .split("/")
-    .filter(Boolean);
-
-  const capitalize = (str) =>
-    str.charAt(0).toUpperCase() + str.slice(1);
-
+    .filter(Boolean)
+    .filter(word => word !== "home" && word !== "admin")
+    .map(word => decodeURIComponent(word));
+  
   return (
     <div className="header-container">
-      <span>{capitalize(words[0])}</span>
+      <span>
+        <Link
+          to="/"
+          style={{
+            textDecoration: "none",
+            color: "var(--main)",
+          }}
+        >
+          Home
+        </Link>
 
-      {words.slice(1).map((word, index) => {
-        const path = "/" + words.slice(0, index + 2).join("/");
-
-        return (
-          <span key={path}>
-            {" / "}
-            <Link to={path}>
-              {word.charAt(0).toUpperCase() + word.slice(1)}
-            </Link>
-          </span>
-        );
-      })}
+        {words.length > 0 &&
+          words.map((word, index) => (
+              <span key={index}>
+                {" / "}
+                {word.charAt(0).toUpperCase() + word.slice(1)}
+              </span>
+            ))}
+      </span>
     </div>
   );
 }

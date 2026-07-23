@@ -5,7 +5,7 @@ function Modal({ hidden, Content }) {
     <>
       <div className={`modal-overlay ${hidden ? '' : 'hide'}`}>
 
-        <div className="modal-popup">
+        <div className="modal-popup view-card" style={{"--accent-color": "var(--main)"}}>
           { Content }
         </div>
 

@@ -1,40 +1,47 @@
-:root {
-  --text: #9ca3af;
-  --text-h: #f3f4f6;
-  --bg: linear-gradient(2deg,rgba(0, 0, 0, 1) 0%, rgba(43, 43, 43, 1) 39%, rgba(43, 43, 43, 1) 64%, rgba(28, 27, 27, 1) 76%, rgba(0, 0, 0, 1) 93%);
-  --border: #2e303a;
-  --code-bg: #1f2028;
-  --accent: #c084fc;
-  --accent-bg: rgba(192, 132, 252, 0.15);
-  --accent-border: rgba(192, 132, 252, 0.5);
-  --social-bg: rgba(47, 48, 58, 0.5);
-  --shadow:
-    rgba(0, 0, 0, 0.4) 0 10px 15px -3px, rgba(0, 0, 0, 0.25) 0 4px 6px -2px;
-  background: #000000;
-  background: linear-gradient(2deg,rgba(0, 0, 0, 1) 0%, rgba(43, 43, 43, 1) 39%, rgba(43, 43, 43, 1) 64%, rgba(28, 27, 27, 1) 76%, rgba(0, 0, 0, 1) 93%);
-  
+@use "./styles/mixins" as *;
 
-  --sans: 'EnglishFont', 'JapaneseFont', 'Noto Sans', 'Apple SD Gothic Neo', "Open Sans", "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+:root {
+  // colors
+  --main: #CDCBB0;
+  --text: #EBEAE0;
+  --sub: #c9c9c9;
+  --accent: #AFAC83;
+  --gray-text: #848484;
+  --search-bar: rgba(56, 55, 55, 0.32);
+  --card-bg: rgba(34, 34, 34, 0.32);
+  --bg: linear-gradient(2deg,rgb(69, 56, 3) 0%, rgb(43, 43, 43) 39%, rgb(43, 43, 43) 64%, rgb(28, 27, 27) 76%, rgb(0, 0, 0) 93%);
+  --card-background: #232323;
+  --card-border: #AFAC83;
+  --thin: #B6B6B62E;
+
+  // fonts
+  --mFont: 'EnglishFont', 'JapaneseFont', 'Noto Sans', 'Apple SD Gothic Neo', "Open Sans", "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
   --heading: 'EnglishFont', 'JapaneseFont', 'Noto Sans', 'Apple SD Gothic Neo', "Open Sans", "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
   --mono: ui-monospace, Consolas, monospace;
+  // spacing
+  --spacing: 1rem;
 
-  font: 18px/145% var(--sans);
-  letter-spacing: -0.02rem;
   color-scheme: light dark;
-  color: var(--text);
   background: var(--bg);
   font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-
-  @media (max-width: 1024px) {
-    font-size: 16px;
-  }
 }
+
+html, body, #root {
+  height: 100%;
+  overflow: hidden;
+}
+
+* {
+  box-sizing: border-box;
+}
+
 
 body {
   margin: 0;
+  font-family: var(--mFont);
   background-image: url('./assets/webp/T_BgUiCommonNew01_UI.webp');
   background-size: cover;
   background-position: center;
@@ -43,12 +50,6 @@ body {
 #root {
   width: 100%;
   max-width: 100%;
-  text-align: center;
-  border-inline: 1px solid var(--border);
   min-height: 100svh;
-  display: flex;
-  flex-direction: column;
-  box-sizing: border-box;
-
+  @include flex();
 }
-

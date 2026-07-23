@@ -1,59 +1,121 @@
 import { supabase } from "./supabase";
 import { getCachedData, setCachedData } from "../utils/local";
 
-async function readData(forceRefresh = false) {
-  console.log("forceRefresh:", forceRefresh)
-  try {
-    if (!forceRefresh) {
-      const localChar = getCachedData("wuwa-character")
-      const localWeapon = getCachedData("wuwa-weapon")
-      const localEcho = getCachedData("wuwa-echo")
+const CACHE_KEY = "wuwa-data";
 
-      if (localChar && localWeapon && localEcho) {
-        return {
-          characters: localChar.data,
-          weapons: localWeapon.data,
-          echoes: localEcho.data,
-        }
+function reshapeData(data = {}) {
+  return {
+    characters: data.characters ?? [],
+    weapons: data.weapons ?? [],
+    echoes: data.echoes ?? [],
+  };
+}
+
+// ----------------------
+// Generic DB fetch
+// ----------------------
+async function fetchTable(tableName) {
+  console.log(`Fetching DB: ${tableName}`);
+
+  const { data, error } = await supabase
+    .from(tableName)
+    .select("*");
+
+  if (error) throw error;
+
+  return data ?? [];
+}
+
+// ----------------------
+// Generic JSON fetch
+// ----------------------
+async function fetchJSON(url) {
+    const response = await fetch(url);
+
+    console.log(url);
+    console.log(response.status);
+    console.log(response.headers.get("content-type"));
+
+    const text = await response.text();
+    console.log(text.slice(0, 200));
+
+    return JSON.parse(text);
+}
+
+// ----------------------
+// Controller: Load from DB
+// ----------------------
+async function fetchDatabaseData() {
+  console.log("fetching in DB")
+  const [characters, weapons, echoes] = await Promise.all([
+    fetchTable("wuwa_characters"),
+    fetchTable("wuwa_weapons"),
+    fetchTable("wuwa_echoes"),
+  ]);
+  const data = reshapeData({
+    characters,
+    weapons,
+    echoes,
+  });
+
+  setCachedData(data, CACHE_KEY);
+
+  return data;
+}
+
+// ----------------------
+// Controller: Load from JSON
+// ----------------------
+async function fetchJSONData() {
+  const [characters, weapons, echoes] = await Promise.all([
+    fetchJSON("/public/wuwa-characters.json"),
+    fetchJSON("/public/wuwa-weapons.json"),
+    fetchJSON("/public/wuwa-echoes.json"),
+  ]);
+  console.log(characters)
+  console.log(weapons)
+  console.log(echoes)
+  const data = reshapeData({
+    characters,
+    weapons,
+    echoes,
+  });
+  console.log("data: ")
+  console.log(data)
+  setCachedData(data, CACHE_KEY);
+
+  return data;
+}
+
+// ----------------------
+// Public API
+// ----------------------
+async function readData({ source = "auto" } = {}) {
+  switch (source) {
+    case "cache":
+      return reshapeData(getCachedData(CACHE_KEY));
+
+    case "json":
+      return await fetchJSONData();
+
+    case "db":
+      return await fetchDatabaseData();
+
+    case "auto":
+    default: {
+      const cache = getCachedData(CACHE_KEY);
+
+      if (cache) {
+        return reshapeData(cache);
       }
-    }
-    // I am fetching in the db
-    const [
-      { data: characters, error: cError },
-      { data: weapons, error: wError },
-      { data: echoes, error: eError },
-    ] = await Promise.all([
-      supabase.from("wuwa_characters").select("*"),
-      supabase.from("wuwa_weapons").select("*"),
-      supabase.from("wuwa_echoes").select("*"),
-    ]);
-    console.log(characters)
-    if (!cError && characters?.length) {
-      setCachedData(characters, "wuwa-character");
-    }
 
-    if (!wError && weapons?.length) {
-      setCachedData(weapons, "wuwa-weapon");
-    }
-
-    if (!eError && echoes?.length) {
-      setCachedData(echoes, "wuwa-echo");
-    }
-
-    return {
-      characters: characters || [],
-      weapons: weapons || [],
-      echoes: echoes || [],
-    };
-  } catch (error) {
-    console.error(error);
-
-    return {
-      characters: [],
-      weapons: [],
-      echoes: [],
+      try {
+        return await fetchJSONData();
+      } catch {
+        return await fetchDatabaseData();
+      }
     }
   }
 }
 
-export default readData
+export default readData;

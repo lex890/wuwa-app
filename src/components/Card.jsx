@@ -1,8 +1,11 @@
-import { Link } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 
 function Card({ Icon, name, amount, to="" }) {
   return (
-    <Link to={to} className="cards">
+    <NavLink 
+      to={to} 
+      className="cards"
+    >
       <div className="card-icon">
         <Icon />
       </div>
@@ -14,7 +17,7 @@ function Card({ Icon, name, amount, to="" }) {
       <div className="card-amount">
         <span>{amount}</span>
       </div>
-    </Link>
+    </NavLink>
   );
 }
 
