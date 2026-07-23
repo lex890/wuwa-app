@@ -1,14 +1,13 @@
 import { createContext } from "react";
-
-import useEchoFilter from "@/hooks/Public/useEchoFilter";
+import useEchoController from "@/hooks/Admin/useEchoController";
 
 export const EchoFilterContext = createContext(null);
 
-export function EchoFilterProvider({ children, data }) {
-  const filters = useEchoFilter(data)
-  console.log(filters)
+export function EchoFilterProvider({ children, data, loadData }) {
+  const echoController = useEchoController(data, loadData)
+  console.log(echoController)
   return(
-    <EchoFilterContext.Provider value={filters}>
+    <EchoFilterContext.Provider value={echoController}>
       {children}
     </EchoFilterContext.Provider>
   )

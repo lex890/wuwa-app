@@ -3,8 +3,8 @@ import useEchoType from "@/hooks/Public/useEchoType"
 import Section from "./Section"
 
 function Content() {
-  const { echo, filteredEchoes } = useEcho()
-  const setGroups = useEchoType(echo, filteredEchoes)
+  const { echoSet, filteredEchoes } = useEcho()
+  const setGroups = useEchoType(echoSet, filteredEchoes)
   console.log(setGroups)
   return(
     <div id="card-container">

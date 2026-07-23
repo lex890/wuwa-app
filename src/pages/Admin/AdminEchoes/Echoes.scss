@@ -4,7 +4,6 @@ div#echoes-container {
   input#characterSearch > .search-icon {
     left: 0;
   }
-
   div#tools {
     @include flex(
       $direction: row,
@@ -58,5 +57,6 @@ div#echoes-container {
     color: white;
     font-weight: 700;
   }
+  #status-msg { top: 1% }
 }
 

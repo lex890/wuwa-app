@@ -1,22 +1,24 @@
 import { useState, useMemo } from "react";
 
-function useEchoFilter(echoes) {
-  const [echo, setEcho] = useState([])
-  const [search, setSearch] = useState("")
+function useEchoFilter(echo) {
+  const [ search, setSearch ] = useState("")
+  const [ echoSet, setEchoSet ] = useState([])
   
-  const toggle = (setter) => (value) => {
-    setter((prev) =>
-      prev.includes(value)
-        ? prev.filter((item) => item !== value)
-        : [...prev, value]
+  const toggleEchoSet = (newItem) => {
+    setEchoSet(prev =>
+      prev.includes(newItem)
+        ? prev.filter(item => item !== newItem)
+        : [...prev, newItem]
     )
   }
 
   const filteredEchoes = useMemo(() => {
-    const stringSearch = search.toLowerCase();
-
-    return echoes.filter((echoItem) => {
-      
+    const stringSearch = 
+      search.toLowerCase();
+    const selected = 
+      echoSet.map((set) => set.toLowerCase());
+    console.log(selected.length)
+    return echo.filter((echoItem) => {
       const matchesSearch =
         echoItem.id?.toString().includes(stringSearch) ||
         echoItem.name?.toLowerCase().includes(stringSearch) ||
@@ -24,9 +26,6 @@ function useEchoFilter(echoes) {
         echoItem.sets?.some((set) =>
           set.name?.toLowerCase().includes(stringSearch)
         )
-
-      const selected = echo.map((name) => name.toLowerCase());
-
       const matchesEchoType =
         selected.length === 0 ||
         echoItem.sets?.some((set) =>
@@ -38,19 +37,14 @@ function useEchoFilter(echoes) {
       )
     })
 
-  }, [echoes, echo, search])
+  }, [echo,echoSet,search])
 
   return {
     filteredEchoes,
-    itemCount: filteredEchoes.length,
-
+    echoSet,
+    toggleEchoSet,
     search,
     setSearch,
-
-    echo,
-    setEcho,
-
-    toggleEcho: toggle(setEcho)
   }
 }
 

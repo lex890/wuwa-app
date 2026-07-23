@@ -9,12 +9,12 @@ import Search from './Search'
 
 
 function Echoes() {
-  const { echoes, loading } = useGameData();
+  const { echoes, loadData, loading } = useGameData();
 
   if (loading) return <p>Loading...</p>;
   console.log(echoes)
   return (
-    <EchoFilterProvider data={echoes}>
+    <EchoFilterProvider data={echoes} loadData={loadData}>
       <div id="echoes-container">
         <Header />
         <Filter />
