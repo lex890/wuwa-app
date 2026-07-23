@@ -2,29 +2,32 @@ import { echoSets } from "@/constant/echoSets";
 import { useEcho } from "@/hooks/Public/useEcho";
 
 function Filter() {
-  const { echo, toggleEcho } = useEcho()
+  const { 
+    echoSet, 
+    toggleEchoSet 
+  } = useEcho()
 
   return (
     <section id="filter-section">
       <div className="flex-start-row">
         <span>Echo Sets</span>
-        <Icons echo={echo} toggleEcho={toggleEcho} />
+        <Icons echoSet={echoSet} toggle={toggleEchoSet} />
       </div>
     </section>
   );
 }
 export default Filter
 
-const Icons = ({ echo, toggleEcho }) => {
+const Icons = ({ echoSet, toggle }) => {
   return(
     <div id="set-filters">
       {echoSets.map((set) => (
         <button
           key={set.id}
           className={`filter-button-echo ${
-            echo.includes(set.name) ? "active" : ""
+            echoSet.includes(set.name) ? "active" : ""
           }`}
-          onClick={() => toggleEcho(set.name)}
+          onClick={() => toggle(set.name)}
         >
           <img src={set.icon} alt={set.name} />
           <span className="filter-label">{set.name}</span>

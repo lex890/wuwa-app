@@ -3,8 +3,12 @@ import SearchIcon from "@/assets/components/SearchIcon"
 
 function Search() {
 
-  const { search, setSearch, itemCount } = useEcho()
-
+  const { 
+    search, 
+    setSearch, 
+    filteredEchoes 
+  } = useEcho()
+  
   return(
     <div className="search-section">
       <SearchIcon width={"20px"} height={"20px"}/>
@@ -15,7 +19,7 @@ function Search() {
         value={search}
         onChange={(e) => setSearch(e.target.value)}
       />
-      <span>Total: {itemCount}</span>
+      <span>Total: {filteredEchoes.length}</span>
     </div>
   ) 
 }

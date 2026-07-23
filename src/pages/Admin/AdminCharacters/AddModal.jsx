@@ -1,7 +1,5 @@
 import AddForm from "./AddForm"
 
-
-
 function AddModal({ close, addData }) {
 
   return(

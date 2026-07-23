@@ -5,10 +5,13 @@ import { Header, LineSeparator } from '../../../components/index'
 import { EchoFilterProvider } from './EchoFilterProvider'
 import Tools from './Tools'
 import Content from './Content'
+import Modals from './Modals'
+import StatusMsg from './StatusMsg'
 
 function Echoes() {
   const { 
-    echoes, 
+    echoes,
+    loadData, 
     loading,
     error 
   } = useGameData()
@@ -18,13 +21,15 @@ function Echoes() {
   console.log(echoes)
 
   return(
-    <EchoFilterProvider data={echoes}>
+    <EchoFilterProvider data={echoes} loadData={loadData}>
       <div id="echoes-container">
         <Header/>
         <LineSeparator />
         <Tools />
         <Content />
-      </div>  
+        <StatusMsg/>
+      </div>
+      <Modals />  
     </EchoFilterProvider>
   )
 }
