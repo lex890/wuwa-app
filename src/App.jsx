@@ -1,6 +1,5 @@
 import { BrowserRouter } from "react-router-dom"
-import AppRoutes from "./routes/appRoutes";
-
+import { AppRoutes } from "./routes/AppRoutes";
 import './App.scss'
 
 export default function App() {

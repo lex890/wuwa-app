@@ -26,7 +26,7 @@ import {
   MainLayout
 } from "../layout/"
 
-export default function AppRoutes() {
+export function AppRoutes() {
   return (
   <Routes>
     {/* AuthLayout */}
